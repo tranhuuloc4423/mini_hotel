@@ -4,8 +4,13 @@ export default {
     theme: {
         colors: {
             silver: '#ccc',
+            white: '#fff',
+            black: '#000'
         },
-        extend: {},
+        backgroundColor: {
+            transparent: 'transparent'
+        },
+        extend: {}
     },
-    plugins: [],
+    plugins: []
 }

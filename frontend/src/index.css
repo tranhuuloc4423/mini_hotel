@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+    html {
+        font-family: 'Roboto', sans-serif;
+    }
+}
+
 @layer components {
     .nav-item {
         @apply flex gap-4 items-center py-3 rounded-lg cursor-pointer hover:bg-[#3a3b3c] text-silver text-[18px] font-medium transition-all;

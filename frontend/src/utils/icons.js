@@ -5,6 +5,7 @@ import { FaHouseUser } from 'react-icons/fa'
 import { TbReportMoney, TbLogout2 } from 'react-icons/tb'
 import { RiServiceLine } from 'react-icons/ri'
 import { GrInfo } from 'react-icons/gr'
+import { RiGoogleFill, RiFacebookFill, RiGithubFill } from 'react-icons/ri'
 
 export default {
     FiHome,
@@ -15,5 +16,8 @@ export default {
     RiServiceLine,
     GrInfo,
     TbLogout2,
-    MdOutlineLightMode
+    MdOutlineLightMode,
+    RiGoogleFill,
+    RiFacebookFill,
+    RiGithubFill
 }
