@@ -1,6 +1,6 @@
 import Logo from './Logo'
 import Navbar from './Navbar'
-import icons from '../assets/icons/icons'
+import icons from '../utils/icons'
 
 const { TbLogout2, MdOutlineLightMode } = icons
 const VerticalBar = () => {

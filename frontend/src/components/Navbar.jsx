@@ -1,4 +1,4 @@
-import icons from '../assets/icons/icons'
+import icons from '../utils/icons'
 
 const { FiHome, MdOutlineAccountCircle, HiOutlineUserGroup, FaHouseUser, TbReportMoney, RiServiceLine, GrInfo } = icons
 
