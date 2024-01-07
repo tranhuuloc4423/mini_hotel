@@ -1,12 +1,13 @@
 export default {
-    PUBLIC: '/*',
-    HOME: '/',
-    LOGIN: '/login',
-    REGISTER: '/register',
-    ACCOUNT: '/account',
+    APP: 'app',
+    HOME: 'home',
+    LOGIN: 'login',
+    REGISTER: 'register',
+    ACCOUNT: 'account',
     CUSTOMER: 'customer',
     ROOM: 'room',
     PRICE: 'price',
     SERVICE: 'service',
-    STATUS: 'status'
+    STATUS: 'status',
+    REPORT: 'report'
 }

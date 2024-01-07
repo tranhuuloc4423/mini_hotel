@@ -1,11 +1,13 @@
 import Logo from './Logo'
 import Navbar from './Navbar'
 import icons from '../utils/icons'
+import { useState } from 'react'
 
 const { TbLogout2, MdOutlineLightMode } = icons
 const VerticalBar = () => {
+    const [mode, setMode] = useState(true)
     return (
-        <div className="bg-[#242526] h-screen fixed z-10 w-[250px] py-[10px] px-[14px] flex flex-col justify-between">
+        <div className="bg-[#242526] h-screen select-none fixed z-10 w-[250px] py-[10px] px-[14px] flex flex-col justify-between">
             <Logo />
             <Navbar />
 
@@ -21,7 +23,13 @@ const VerticalBar = () => {
                         <MdOutlineLightMode size={22} />
                     </div>
                     Light mode
-                    <div>button</div>
+                    <div className="w-[44px] h-[24px] bg-[#fff] rounded-full relative" onClick={() => setMode(!mode)}>
+                        <span
+                            className={`w-[20px] h-[20px] transition-all bg-[#000] top-[2px] absolute rounded-full ${
+                                mode ? 'left-1' : 'left-5'
+                            }`}
+                        ></span>
+                    </div>
                 </div>
             </div>
         </div>
