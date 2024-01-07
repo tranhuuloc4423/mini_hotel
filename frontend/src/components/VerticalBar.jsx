@@ -10,7 +10,6 @@ const VerticalBar = () => {
         <div className="bg-[#242526] h-screen select-none fixed z-10 w-[250px] py-[10px] px-[14px] flex flex-col justify-between">
             <Logo />
             <Navbar />
-
             <div>
                 <div className="nav-item">
                     <div className="px-2">
@@ -32,6 +31,7 @@ const VerticalBar = () => {
                     </div>
                 </div>
             </div>
+            <div className="absolute w-8 h-8 bg-[#3a3b3c] right-[-16px] rounded-full"></div>
         </div>
     )
 }

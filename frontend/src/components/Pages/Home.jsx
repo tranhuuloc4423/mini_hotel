@@ -6,7 +6,9 @@ const Home = () => {
         <div>
             <div className="flex">
                 <VerticalBar />
-                <Outlet className="" />
+                <div className="ml-[300px]">
+                    <Outlet />
+                </div>
             </div>
         </div>
     )

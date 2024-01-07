@@ -1,6 +1,7 @@
 export default {
     APP: 'app',
     HOME: 'home',
+    DASHBOARD: 'dashboard',
     LOGIN: 'login',
     REGISTER: 'register',
     ACCOUNT: 'account',

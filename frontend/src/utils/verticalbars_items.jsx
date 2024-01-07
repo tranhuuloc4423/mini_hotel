@@ -1,12 +1,12 @@
 import icons from './icons'
 import paths from './paths'
 const { FiHome, MdOutlineAccountCircle, HiOutlineUserGroup, FaHouseUser, TbReportMoney, RiServiceLine, GrInfo } = icons
-const { HOME, LOGIN, REGISTER, ACCOUNT, CUSTOMER, ROOM, PRICE, SERVICE, STATUS } = paths
+const { HOME, LOGIN, DASHBOARD, ACCOUNT, CUSTOMER, ROOM, PRICE, SERVICE, STATUS } = paths
 export default [
     {
         name: 'Dashboard',
         icon: <FiHome />,
-        link: HOME
+        link: DASHBOARD
     },
     {
         name: 'Account',
