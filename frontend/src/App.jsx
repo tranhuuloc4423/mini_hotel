@@ -1,14 +1,27 @@
 import './index.css'
 import { Routes, Route } from 'react-router-dom'
 import paths from './utils/paths'
-import { Account, Customer, Dashboard, Home, Login, Price, Report, Room, Service, Status } from './components/Pages/'
+import {
+    Account,
+    Customer,
+    Dashboard,
+    Home,
+    Login,
+    Price,
+    Report,
+    Room,
+    Service,
+    Signup,
+    Status
+} from './components/Pages/'
 
-const { HOME, LOGIN, DASHBOARD, ACCOUNT, CUSTOMER, ROOM, PRICE, SERVICE, STATUS, REPORT } = paths
+const { HOME, LOGIN, SIGNUP, DASHBOARD, ACCOUNT, CUSTOMER, ROOM, PRICE, SERVICE, STATUS, REPORT } = paths
 
 function App() {
     return (
         <Routes>
             <Route path={LOGIN} element={<Login />} />
+            <Route path={SIGNUP} element={<Signup />} />
             <Route path={HOME} element={<Home />}>
                 <Route path={DASHBOARD} element={<Dashboard />} />
                 <Route path={ACCOUNT} element={<Account />} />

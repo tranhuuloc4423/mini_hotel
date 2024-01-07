@@ -1,6 +1,8 @@
 export { default as Home } from './Home'
 export { default as Dashboard } from './Dashboard'
 export { default as Login } from './Login'
+export { default as Register } from './Register'
+export { default as Signup } from './Signup'
 export { default as Account } from './Account'
 export { default as Customer } from './Customer'
 export { default as Room } from './Room'

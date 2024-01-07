@@ -3,7 +3,7 @@ export default {
     HOME: 'home',
     DASHBOARD: 'dashboard',
     LOGIN: 'login',
-    REGISTER: 'register',
+    SIGNUP: 'signup',
     ACCOUNT: 'account',
     CUSTOMER: 'customer',
     ROOM: 'room',

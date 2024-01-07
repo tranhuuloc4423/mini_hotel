@@ -6,6 +6,7 @@ import { TbReportMoney, TbLogout2 } from 'react-icons/tb'
 import { RiServiceLine } from 'react-icons/ri'
 import { GrInfo } from 'react-icons/gr'
 import { RiGoogleFill, RiFacebookFill, RiGithubFill } from 'react-icons/ri'
+import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
 
 export default {
     FiHome,
@@ -19,5 +20,7 @@ export default {
     MdOutlineLightMode,
     RiGoogleFill,
     RiFacebookFill,
-    RiGithubFill
+    RiGithubFill,
+    IoIosArrowBack,
+    IoIosArrowForward
 }
