@@ -10,5 +10,7 @@ export default {
     PRICE: 'price',
     SERVICE: 'service',
     STATUS: 'status',
-    REPORT: 'report'
+    REPORT: 'report',
+    CALCULATE: 'calculate',
+    INDEX: 'index'
 }

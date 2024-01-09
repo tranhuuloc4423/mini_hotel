@@ -1,7 +1,17 @@
 import icons from './icons'
 import paths from './paths'
-const { FiHome, MdOutlineAccountCircle, HiOutlineUserGroup, FaHouseUser, TbReportMoney, RiServiceLine, GrInfo } = icons
-const { HOME, LOGIN, DASHBOARD, ACCOUNT, CUSTOMER, ROOM, PRICE, SERVICE, STATUS } = paths
+const {
+    FiHome,
+    MdOutlineAccountCircle,
+    HiOutlineUserGroup,
+    FaHouseUser,
+    TbReportMoney,
+    RiServiceLine,
+    GrInfo,
+    RiWaterFlashLine,
+    LuCalculator
+} = icons
+const { HOME, LOGIN, DASHBOARD, ACCOUNT, CUSTOMER, ROOM, PRICE, SERVICE, STATUS, CALCULATE, INDEX } = paths
 export default [
     {
         name: 'Dashboard',
@@ -19,14 +29,19 @@ export default [
         link: CUSTOMER
     },
     {
+        name: 'Calculate',
+        icon: <LuCalculator />,
+        link: CALCULATE
+    },
+    {
+        name: 'Index',
+        icon: <RiWaterFlashLine />,
+        link: INDEX
+    },
+    {
         name: 'Room',
         icon: <FaHouseUser />,
         link: ROOM
-    },
-    {
-        name: 'Price',
-        icon: <TbReportMoney />,
-        link: PRICE
     },
     {
         name: 'Service',
