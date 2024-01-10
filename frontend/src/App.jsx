@@ -3,11 +3,12 @@ import { Routes, Route } from 'react-router-dom'
 import paths from './utils/paths'
 import {
     Account,
+    Calculate,
     Customer,
     Dashboard,
     Home,
+    IndexEW,
     Login,
-    Price,
     Report,
     Room,
     Service,
@@ -15,7 +16,7 @@ import {
     Status
 } from './components/Pages/'
 
-const { HOME, LOGIN, SIGNUP, DASHBOARD, ACCOUNT, CUSTOMER, ROOM, PRICE, SERVICE, STATUS, REPORT } = paths
+const { HOME, LOGIN, SIGNUP, DASHBOARD, ACCOUNT, CUSTOMER, ROOM, SERVICE, STATUS, REPORT, INDEX, CALCULATE } = paths
 
 function App() {
     return (
@@ -27,7 +28,8 @@ function App() {
                 <Route path={ACCOUNT} element={<Account />} />
                 <Route path={CUSTOMER} element={<Customer />} />
                 <Route path={ROOM} element={<Room />} />
-                <Route path={PRICE} element={<Price />} />
+                <Route path={INDEX} element={<IndexEW />} />
+                <Route path={CALCULATE} element={<Calculate />} />
                 <Route path={SERVICE} element={<Service />} />
                 <Route path={STATUS} element={<Status />} />
                 <Route path={REPORT} element={<Report />} />

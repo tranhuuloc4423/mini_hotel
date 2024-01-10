@@ -7,7 +7,7 @@ const { TbLogout2, MdOutlineLightMode } = icons
 const VerticalBar = () => {
     const [mode, setMode] = useState(true)
     return (
-        <div className="bg-[#242526] h-screen select-none fixed z-10 w-[250px] py-[10px] px-[14px] flex flex-col justify-between">
+        <div className="bg-[#242526] h-screen select-none relative z-10 w-[15%] py-[10px] px-[14px] flex flex-col justify-between">
             <Logo />
             <Navbar />
             <div>

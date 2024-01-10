@@ -5,13 +5,12 @@ const {
     MdOutlineAccountCircle,
     HiOutlineUserGroup,
     FaHouseUser,
-    TbReportMoney,
     RiServiceLine,
     GrInfo,
     RiWaterFlashLine,
     LuCalculator
 } = icons
-const { HOME, LOGIN, DASHBOARD, ACCOUNT, CUSTOMER, ROOM, PRICE, SERVICE, STATUS, CALCULATE, INDEX } = paths
+const { DASHBOARD, ACCOUNT, CUSTOMER, ROOM, SERVICE, STATUS, CALCULATE, INDEX } = paths
 export default [
     {
         name: 'Dashboard',
