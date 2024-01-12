@@ -23,6 +23,11 @@ export default [
         link: ACCOUNT
     },
     {
+        name: 'Room',
+        icon: <FaHouseUser />,
+        link: ROOM
+    },
+    {
         name: 'Customer',
         icon: <HiOutlineUserGroup />,
         link: CUSTOMER
@@ -37,11 +42,7 @@ export default [
         icon: <RiWaterFlashLine />,
         link: INDEX
     },
-    {
-        name: 'Room',
-        icon: <FaHouseUser />,
-        link: ROOM
-    },
+
     {
         name: 'Service',
         icon: <RiServiceLine />,

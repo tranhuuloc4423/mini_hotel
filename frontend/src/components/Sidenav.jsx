@@ -4,12 +4,14 @@ import icons from '../utils/icons'
 import { useState } from 'react'
 
 const { TbLogout2, MdOutlineLightMode } = icons
-const VerticalBar = () => {
+const Sidenav = () => {
     const [mode, setMode] = useState(true)
     return (
         <div className="bg-[#242526] h-screen select-none relative z-10 w-[15%] py-[10px] px-[14px] flex flex-col justify-between">
-            <Logo />
-            <Navbar />
+            <div>
+                <Logo />
+                <Navbar />
+            </div>
             <div>
                 <div className="nav-item">
                     <div className="px-2">
@@ -36,4 +38,4 @@ const VerticalBar = () => {
     )
 }
 
-export default VerticalBar
+export default Sidenav

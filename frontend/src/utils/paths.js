@@ -2,7 +2,7 @@ export default {
     APP: 'app',
     HOME: 'home',
     DASHBOARD: 'dashboard',
-    LOGIN: 'login',
+    SIGNIN: 'signin',
     SIGNUP: 'signup',
     ACCOUNT: 'account',
     CUSTOMER: 'customer',

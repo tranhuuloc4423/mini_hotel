@@ -1,38 +1,58 @@
 import { useState } from 'react'
+import Box from '../Box'
 import Table from '../Table'
 import Chart from '../Chart'
+import { MDBTabs, MDBTabsItem, MDBTabsLink, MDBTabsContent, MDBTabsPane } from 'mdb-react-ui-kit'
 const Dashboard = () => {
-    const [tabActive, setTabActive] = useState(0)
+    const [tabActive, setTabActive] = useState('tab1')
+
+    const handleClick = (value) => {
+        if (value === tabActive) {
+            return
+        }
+
+        setTabActive(value)
+    }
     return (
         <div className="grid grid-cols-2 grid-rows-2 w-full gap-10">
-            <Table title={'Room state'}>
-                <div className="flex mb-2">
-                    <span
-                        onClick={() => setTabActive(0)}
-                        className={`px-4 py-3 select-none text-xl hover:bg-gray-200 cursor-pointer ${
-                            tabActive == 0 ? 'bg-gray-200 border-b-4 border-gray-800' : 'bg-transparent'
-                        }`}
-                    >
-                        available
-                    </span>
-                    <span
-                        onClick={() => setTabActive(1)}
-                        className={`px-4 py-3 select-none text-xl hover:bg-gray-200 cursor-pointer ${
-                            tabActive == 1 ? 'bg-gray-200 border-b-4 border-gray-800' : 'bg-transparent'
-                        }`}
-                    >
-                        renting
-                    </span>
-                </div>
-                <div>{tabActive == 0 ? <>Available list</> : <>renting list</>}</div>
-            </Table>
-            <Table title={'Revenue'}>
+            <Box title={'Room state'}>
+                <>
+                    <MDBTabs className="mb-3">
+                        <MDBTabsItem className="p-0">
+                            <MDBTabsLink onClick={() => handleClick('tab1')} active={tabActive === 'tab1'}>
+                                Tab 1
+                            </MDBTabsLink>
+                        </MDBTabsItem>
+                        <MDBTabsItem>
+                            <MDBTabsLink onClick={() => handleClick('tab2')} active={tabActive === 'tab2'}>
+                                Tab 2
+                            </MDBTabsLink>
+                        </MDBTabsItem>
+                        <MDBTabsItem>
+                            <MDBTabsLink onClick={() => handleClick('tab3')} active={tabActive === 'tab3'}>
+                                Tab 3
+                            </MDBTabsLink>
+                        </MDBTabsItem>
+                    </MDBTabs>
+
+                    <MDBTabsContent>
+                        <MDBTabsPane open={tabActive === 'tab1'}>Tab 1 content</MDBTabsPane>
+                        <MDBTabsPane open={tabActive === 'tab2'}>Tab 2 content</MDBTabsPane>
+                        <MDBTabsPane open={tabActive === 'tab3'}>Tab 3 content</MDBTabsPane>
+                    </MDBTabsContent>
+                </>
+            </Box>
+            <Box title={'Revenue'}>
                 <div className="w-[95%] mx-auto">
                     <Chart />
                 </div>
-            </Table>
-            <Table title={'List of available rooms'} />
-            <Table title={'Customer list lacks money'} />
+            </Box>
+            <Box title={'List of available rooms'}>
+                <Table />
+            </Box>
+            <Box title={'Customer list lacks money'}>
+                <Table />
+            </Box>
         </div>
     )
 }
