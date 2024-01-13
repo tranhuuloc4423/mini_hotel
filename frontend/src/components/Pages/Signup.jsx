@@ -1,6 +1,3 @@
-import Input from '../Input'
-import Register from './Register'
-import Select from '../Select'
 import { useState } from 'react'
 import { MDBInput, MDBCol, MDBRow, MDBCheckbox, MDBBtn, MDBIcon } from 'mdb-react-ui-kit'
 

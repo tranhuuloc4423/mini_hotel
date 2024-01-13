@@ -1,15 +1,24 @@
+import { useState } from 'react'
 import navbar from '../utils/verticalbars_items'
 import { Link } from 'react-router-dom'
 
 const Navbar = () => {
+    const [tabActive, setTabActive] = useState(0)
     return (
-        <div className="flex flex-col gap-4">
-            {navbar.map((item, index) => (
-                <Link className="nav-item" key={index} to={item?.link}>
-                    <div className="px-2">{item?.icon}</div>
-                    {item?.name}
-                </Link>
-            ))}
+        <div className="flex flex-col gap-2">
+            {navbar.map((item, index) =>
+                tabActive == index ? (
+                    <Link className="nav-item-active" key={index} to={item?.link} onClick={() => setTabActive(index)}>
+                        <div>{item?.icon}</div>
+                        {item?.name}
+                    </Link>
+                ) : (
+                    <Link className="nav-item" key={index} to={item?.link} onClick={() => setTabActive(index)}>
+                        <div>{item?.icon}</div>
+                        {item?.name}
+                    </Link>
+                )
+            )}
         </div>
     )
 }

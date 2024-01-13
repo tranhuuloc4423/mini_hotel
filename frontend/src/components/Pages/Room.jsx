@@ -17,9 +17,9 @@ import { useState } from 'react'
 const Room = () => {
     const [searchValue, setSearchValue] = useState('')
     return (
-        <div className="flex flex-col gap-4 h-full">
-            <div className="w-full bg-white rounded-md shadow-sm p-3 flex justify-between">
-                <div className="flex items-center gap-2">
+        <div className="main-container">
+            <div className="main-header">
+                <div className="flex-center-y gap-2">
                     <MDBInput
                         value={searchValue}
                         onChange={(e) => setSearchValue(e.target.value)}
@@ -28,16 +28,16 @@ const Room = () => {
                         type="text"
                     />
 
-                    <MDBDropdown group className="shadow-0">
-                        <MDBDropdownToggle color="light">Filter</MDBDropdownToggle>
+                    <MDBDropdown>
+                        <MDBDropdownToggle color="secondary">Filter</MDBDropdownToggle>
                         <MDBDropdownMenu>
-                            <MDBDropdownItem link>Action</MDBDropdownItem>
-                            <MDBDropdownItem link>Another action</MDBDropdownItem>
-                            <MDBDropdownItem link>Something else here</MDBDropdownItem>
+                            <MDBDropdownItem link>Menu item</MDBDropdownItem>
+                            <MDBDropdownItem link>Menu item</MDBDropdownItem>
+                            <MDBDropdownItem link>Menu item</MDBDropdownItem>
                         </MDBDropdownMenu>
                     </MDBDropdown>
                 </div>
-                <div>
+                <div className="flex-center-y gap-1">
                     <MDBBtn className="me-1" color="success">
                         Create
                     </MDBBtn>
@@ -47,18 +47,23 @@ const Room = () => {
                     <MDBBtn color="info">Edit</MDBBtn>
                 </div>
             </div>
-            <div className="h-full bg-white rounded-md shadow-sm p-3 mb-4 flex flex-wrap">
+            <div className="main-body flex flex-wrap">
                 <div className="h-fit">
                     <MDBCard border="info" background="white" shadow="0">
                         <MDBCardHeader background="transparent" border="info">
-                            Header
+                            Room name / room id
                         </MDBCardHeader>
                         <MDBCardBody className="text-info">
                             <MDBCardTitle>info card title</MDBCardTitle>
+                            <MDBCardText>Price: 4444</MDBCardText>
+                            <MDBCardText>capacity: 4</MDBCardText>
                             <MDBCardText>content</MDBCardText>
                         </MDBCardBody>
-                        <MDBCardFooter background="transparent" border="info">
-                            Footer
+                        <MDBCardFooter background="transparent" border="info" className="grid grid-cols-2 gap-2">
+                            <MDBBtn color="success">View</MDBBtn>
+                            <MDBBtn color="info">Add Customer</MDBBtn>
+                            <MDBBtn color="danger">Delete</MDBBtn>
+                            <MDBBtn color="warning">Edit</MDBBtn>
                         </MDBCardFooter>
                     </MDBCard>
                 </div>

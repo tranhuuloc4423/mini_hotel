@@ -14,43 +14,43 @@ const { DASHBOARD, ACCOUNT, CUSTOMER, ROOM, SERVICE, STATUS, CALCULATE, INDEX } 
 export default [
     {
         name: 'Dashboard',
-        icon: <FiHome />,
+        icon: <FiHome size={20} />,
         link: DASHBOARD
     },
     {
         name: 'Account',
-        icon: <MdOutlineAccountCircle />,
+        icon: <MdOutlineAccountCircle size={20} />,
         link: ACCOUNT
     },
     {
         name: 'Room',
-        icon: <FaHouseUser />,
+        icon: <FaHouseUser size={20} />,
         link: ROOM
     },
     {
         name: 'Customer',
-        icon: <HiOutlineUserGroup />,
+        icon: <HiOutlineUserGroup size={20} />,
         link: CUSTOMER
     },
     {
         name: 'Calculate',
-        icon: <LuCalculator />,
+        icon: <LuCalculator size={20} />,
         link: CALCULATE
     },
     {
         name: 'Index',
-        icon: <RiWaterFlashLine />,
+        icon: <RiWaterFlashLine size={20} />,
         link: INDEX
     },
 
     {
         name: 'Service',
-        icon: <RiServiceLine />,
+        icon: <RiServiceLine size={20} />,
         link: SERVICE
     },
     {
         name: 'Status',
-        icon: <GrInfo />,
+        icon: <GrInfo size={20} />,
         link: STATUS
     }
 ]

@@ -13,10 +13,7 @@ const Signin = () => {
 
     useEffect(() => {}, [])
     return (
-        <div
-            ref={mainRef}
-            className="absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] flex items-center border"
-        >
+        <div ref={mainRef} className="absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%]  border">
             <form ref={formRef} className="w-[400px] px-[60px]">
                 <MDBTypography variant="h2" className="text-center mb-4">
                     Sign in

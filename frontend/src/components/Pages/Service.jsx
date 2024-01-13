@@ -1,13 +1,22 @@
-import { MDBBtn, MDBInput, MDBDropdown, MDBDropdownMenu, MDBDropdownToggle, MDBDropdownItem } from 'mdb-react-ui-kit'
+import {
+    MDBBtn,
+    MDBInput,
+    MDBDropdown,
+    MDBDropdownMenu,
+    MDBDropdownToggle,
+    MDBDropdownItem,
+    MDBTable,
+    MDBTableHead,
+    MDBTableBody
+} from 'mdb-react-ui-kit'
 import { useState } from 'react'
-import Table from '../Table'
 
 const Service = () => {
     const [searchValue, setSearchValue] = useState('')
     return (
-        <div className="flex flex-col gap-4 h-full">
-            <div className="w-full bg-white rounded-md shadow-sm p-3 flex justify-between">
-                <div className="flex items-center gap-2">
+        <div className="main-container">
+            <div className="main-header">
+                <div className="flex-center-y gap-2">
                     <MDBInput
                         value={searchValue}
                         onChange={(e) => setSearchValue(e.target.value)}
@@ -35,8 +44,49 @@ const Service = () => {
                     <MDBBtn color="info">Edit</MDBBtn>
                 </div>
             </div>
-            <div className="h-full bg-white rounded-md shadow-sm p-3 mb-4">
-                <Table />
+            <div className="main-body">
+                <MDBTable align="middle">
+                    <MDBTableHead>
+                        <tr className="table-primary">
+                            <th scope="col">Name</th>
+                            <th scope="col">Type</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">In use</th>
+                        </tr>
+                    </MDBTableHead>
+                    <MDBTableBody>
+                        <tr>
+                            <td>
+                                <p className="fw-normal mb-1">Software engineer</p>
+                            </td>
+                            <td>type</td>
+                            <td>Price</td>
+                            <td>
+                                <MDBBtn className="me-1" color="info">
+                                    edit
+                                </MDBBtn>
+                                <MDBBtn className="me-1" color="danger">
+                                    delete
+                                </MDBBtn>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p className="fw-normal mb-1">Software engineer</p>
+                            </td>
+                            <td>type</td>
+                            <td>Price</td>
+                            <td>
+                                <MDBBtn className="me-1" color="info">
+                                    edit
+                                </MDBBtn>
+                                <MDBBtn className="me-1" color="danger">
+                                    delete
+                                </MDBBtn>
+                            </td>
+                        </tr>
+                    </MDBTableBody>
+                </MDBTable>
             </div>
         </div>
     )
