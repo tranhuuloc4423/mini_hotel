@@ -8,12 +8,17 @@ const Navbar = () => {
         <div className="flex flex-col gap-2">
             {navbar.map((item, index) =>
                 tabActive == index ? (
-                    <Link className="nav-item-active" key={index} to={item?.link} onClick={() => setTabActive(index)}>
+                    <Link
+                        className="sidenav-item-active"
+                        key={index}
+                        to={item?.link}
+                        onClick={() => setTabActive(index)}
+                    >
                         <div>{item?.icon}</div>
                         {item?.name}
                     </Link>
                 ) : (
-                    <Link className="nav-item" key={index} to={item?.link} onClick={() => setTabActive(index)}>
+                    <Link className="sidenav-item" key={index} to={item?.link} onClick={() => setTabActive(index)}>
                         <div>{item?.icon}</div>
                         {item?.name}
                     </Link>

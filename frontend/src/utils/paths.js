@@ -4,7 +4,6 @@ export default {
     DASHBOARD: 'dashboard',
     SIGNIN: 'signin',
     SIGNUP: 'signup',
-    ACCOUNT: 'account',
     CUSTOMER: 'customer',
     ROOM: 'room',
     PRICE: 'price',
