@@ -3,13 +3,17 @@ import Navbar from './Navbar'
 import icons from '../utils/icons'
 import { useState } from 'react'
 
+const { IoIosArrowBack } = icons
+
 const { TbLogout2, MdOutlineLightMode } = icons
-const VerticalBar = () => {
+const Sidenav = () => {
     const [mode, setMode] = useState(true)
     return (
-        <div className="bg-[#242526] h-screen select-none fixed z-10 w-[250px] py-[10px] px-[14px] flex flex-col justify-between">
-            <Logo />
-            <Navbar />
+        <div className="bg-[#242526] h-screen select-none relative z-10 w-[15%] py-[10px] flex flex-col justify-between">
+            <div>
+                <Logo />
+                <Navbar />
+            </div>
             <div>
                 <div className="nav-item">
                     <div className="px-2">
@@ -31,9 +35,11 @@ const VerticalBar = () => {
                     </div>
                 </div>
             </div>
-            <div className="absolute w-8 h-8 bg-[#3a3b3c] right-[-16px] rounded-full"></div>
+            <div className="absolute w-8 h-8 bg-[#3a3b3c] right-[-16px] rounded-full flex-center">
+                <IoIosArrowBack size={20} color="white" className="cursor-pointer" />
+            </div>
         </div>
     )
 }
 
-export default VerticalBar
+export default Sidenav

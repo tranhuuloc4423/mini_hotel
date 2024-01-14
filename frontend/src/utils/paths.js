@@ -2,7 +2,7 @@ export default {
     APP: 'app',
     HOME: 'home',
     DASHBOARD: 'dashboard',
-    LOGIN: 'login',
+    SIGNIN: 'signin',
     SIGNUP: 'signup',
     ACCOUNT: 'account',
     CUSTOMER: 'customer',
@@ -10,5 +10,7 @@ export default {
     PRICE: 'price',
     SERVICE: 'service',
     STATUS: 'status',
-    REPORT: 'report'
+    REPORT: 'report',
+    CALCULATE: 'calculate',
+    INDEX: 'index'
 }
