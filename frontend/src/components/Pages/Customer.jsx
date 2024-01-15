@@ -10,10 +10,12 @@ import {
     MDBTableBody
 } from 'mdb-react-ui-kit'
 import { useState } from 'react'
+import FormAddCustomer from '../FormAddCustomer'
 
 const Customer = () => {
     const [searchValue, setSearchValue] = useState('')
-
+    const [openModal, setOpenModal] = useState(false)
+    const toggleOpen = () => setOpenModal(!openModal)
     return (
         <div className="main-container">
             <div className="main-header">
@@ -36,13 +38,9 @@ const Customer = () => {
                     </MDBDropdown>
                 </div>
                 <div>
-                    <MDBBtn className="me-1" color="success">
+                    <MDBBtn className="me-1" color="success" onClick={toggleOpen}>
                         Create
                     </MDBBtn>
-                    <MDBBtn className="me-1" color="danger">
-                        Delete
-                    </MDBBtn>
-                    <MDBBtn color="info">Edit</MDBBtn>
                 </div>
             </div>
             <div className="main-body">
@@ -89,6 +87,7 @@ const Customer = () => {
                     </MDBTableBody>
                 </MDBTable>
             </div>
+            <FormAddCustomer openModal={openModal} setOpenModal={setOpenModal} />
         </div>
     )
 }

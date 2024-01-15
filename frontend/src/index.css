@@ -37,4 +37,7 @@
     .flex-center {
         @apply flex items-center justify-center;
     }
+    .form-check {
+        display: flex;
+    }
 }
