@@ -2,12 +2,13 @@ import { FiHome } from 'react-icons/fi'
 import { MdOutlineAccountCircle, MdOutlineLightMode, MdOutlineDateRange } from 'react-icons/md'
 import { HiOutlineUserGroup } from 'react-icons/hi'
 import { FaHouseUser } from 'react-icons/fa'
-import { TbReportMoney, TbLogout2 } from 'react-icons/tb'
+import { TbReportMoney, TbLogout2, TbReport } from 'react-icons/tb'
 import { RiServiceLine } from 'react-icons/ri'
 import { GrInfo } from 'react-icons/gr'
 import { RiGoogleFill, RiFacebookFill, RiGithubFill, RiWaterFlashLine } from 'react-icons/ri'
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
 import { LuCalculator } from 'react-icons/lu'
+import { IoAddCircleOutline } from 'react-icons/io5'
 
 export default {
     FiHome,
@@ -26,5 +27,7 @@ export default {
     IoIosArrowForward,
     LuCalculator,
     RiWaterFlashLine,
-    MdOutlineDateRange
+    MdOutlineDateRange,
+    IoAddCircleOutline,
+    TbReport
 }

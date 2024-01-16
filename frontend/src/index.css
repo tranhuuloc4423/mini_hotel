@@ -9,11 +9,11 @@
 }
 
 @layer components {
-    .nav-item {
+    .sidenav-item {
         @apply flex items-center py-3 px-6 gap-6 cursor-pointer hover:bg-[#3a3b3c] hover:text-[#54b4d3] hover:border-r-4 hover:border-[#54b4d3] text-white font-medium transition-all;
     }
-    .nav-item-active {
-        @apply nav-item bg-[#3a3b3c] text-[#54b4d3] border-r-4 border-[#54b4d3];
+    .sidenav-item-active {
+        @apply sidenav-item bg-[#3a3b3c] text-[#54b4d3] border-r-4 border-[#54b4d3];
     }
     .btn-select {
         @apply cursor-default relative w-full rounded-md border border-gray-300 bg-white pl-3 pr-10 py-2 text-left  transition ease-in-out duration-150;
@@ -36,5 +36,8 @@
     }
     .flex-center {
         @apply flex items-center justify-center;
+    }
+    .form-check {
+        display: flex;
     }
 }

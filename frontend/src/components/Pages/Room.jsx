@@ -13,7 +13,9 @@ import {
     MDBCardFooter
 } from 'mdb-react-ui-kit'
 import { useState } from 'react'
+import icons from '../../utils/icons'
 
+const { IoAddCircleOutline } = icons
 const Room = () => {
     const [searchValue, setSearchValue] = useState('')
     return (
@@ -39,7 +41,10 @@ const Room = () => {
                 </div>
                 <div className="flex-center-y gap-1">
                     <MDBBtn className="me-1" color="success">
-                        Create
+                        <div className="flex-center-y gap-1">
+                            <IoAddCircleOutline size={20} />
+                            Create
+                        </div>
                     </MDBBtn>
                     <MDBBtn className="me-1" color="danger">
                         Delete

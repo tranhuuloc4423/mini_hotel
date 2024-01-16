@@ -15,13 +15,13 @@ const Sidenav = () => {
                 <Navbar />
             </div>
             <div>
-                <div className="nav-item">
+                <div className="sidenav-item">
                     <div className="px-2">
                         <TbLogout2 size={22} />
                     </div>
                     Logout
                 </div>
-                <div className="nav-item bg-[#3a3b3c]">
+                <div className="sidenav-item bg-[#3a3b3c]">
                     <div className="px-2">
                         <MdOutlineLightMode size={22} />
                     </div>

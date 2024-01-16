@@ -4,69 +4,18 @@ import {
     MDBDropdownMenu,
     MDBDropdownToggle,
     MDBDropdownItem,
-    MDBInput,
     MDBTable,
     MDBTableHead,
     MDBTableBody
 } from 'mdb-react-ui-kit'
-import { useEffect, useRef, useState } from 'react'
-import { DayPicker } from 'react-day-picker'
-import 'react-day-picker/dist/style.css'
-import icons from '../../utils/icons'
-
-const { MdOutlineDateRange } = icons
+import DatePicker from '../DatePicker'
 
 const Calculate = () => {
-    const [selected, setSelected] = useState()
-    const datepickerRef = useRef(null)
-    const calendarRef = useRef(null)
-    const [activeDatepicker, setActiveDatepicker] = useState(false)
-
-    const handleIconClick = () => {
-        setActiveDatepicker(!activeDatepicker)
-        console.log(datepickerRef.current)
-    }
-    const handleOutsideClick = (event) => {
-        if (
-            datepickerRef.current &&
-            !datepickerRef.current.contains(event.target) &&
-            !calendarRef.current.contains(event.target)
-        ) {
-            setActiveDatepicker(false)
-        }
-    }
-
-    useEffect(() => {
-        document.addEventListener('click', handleOutsideClick)
-        return () => {
-            document.removeEventListener('click', handleOutsideClick)
-        }
-    }, [])
     return (
         <div className="main-container">
             <div className="main-header">
                 <div className="flex-center-y gap-2">
-                    <div className="">
-                        <MDBInput label="Date picker" id="form1" type="text" className="relative">
-                            <div ref={datepickerRef} onClick={handleIconClick}>
-                                <MdOutlineDateRange
-                                    className="absolute top-1/2 translate-y-[-50%] right-2 cursor-pointer"
-                                    size={24}
-                                />
-                            </div>
-                            {activeDatepicker && (
-                                <div ref={calendarRef}>
-                                    <DayPicker
-                                        mode="single"
-                                        selected={selected}
-                                        onSelect={setSelected}
-                                        onClick={handleOutsideClick}
-                                        className="absolute left-0 mx-0 bg-white shadow-md rounded-md p-2"
-                                    />
-                                </div>
-                            )}
-                        </MDBInput>
-                    </div>
+                    <DatePicker />
                     <div className="flex-center-y gap-2">
                         <span>state</span>
                         <MDBDropdown>
