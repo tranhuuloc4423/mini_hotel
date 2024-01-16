@@ -6,7 +6,8 @@ import 'react-day-picker/dist/style.css'
 
 const { MdOutlineDateRange } = icons
 
-const DatePicker = () => {
+const DatePicker = ({ label }) => {
+    const [inputValue, setInputValue] = useState('')
     const datepickerRef = useRef(null)
     const calendarRef = useRef(null)
     const [activeDatepicker, setActiveDatepicker] = useState(false)
@@ -32,8 +33,18 @@ const DatePicker = () => {
             document.removeEventListener('click', handleOutsideClick)
         }
     }, [])
+    useEffect(() => {
+        setInputValue(selected)
+    }, [selected])
     return (
-        <MDBInput label="Date picker" id="form1" type="text" className="relative">
+        <MDBInput
+            label={label}
+            id="form1"
+            type="text"
+            className="relative"
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+        >
             <div ref={datepickerRef} onClick={handleIconClick}>
                 <MdOutlineDateRange className="absolute top-1/2 translate-y-[-50%] right-2 cursor-pointer" size={24} />
             </div>
@@ -44,7 +55,7 @@ const DatePicker = () => {
                         selected={selected}
                         onSelect={setSelected}
                         onClick={handleOutsideClick}
-                        className="absolute left-0 mx-0 bg-white shadow-md rounded-md p-2"
+                        className="absolute left-0 mx-0 bg-white shadow-md rounded-md p-2 z-50"
                     />
                 </div>
             )}
