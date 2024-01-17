@@ -1,13 +1,30 @@
 const mongoose = require('mongoose');
 
 const roomSchema = new mongoose.Schema({
-  roomNumber: {
+  roomName: {
     type: String,
     required: true,
     unique: true
   },
+  roomId: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  cardTitle: {
+    type: String,
+    required: true
+  },
+  price: {
+    type: Number,
+    required: true
+  },
   capacity: {
     type: Number,
+    required: true
+  },
+  content: {
+    type: String,
     required: true
   },
   isOccupied: {
