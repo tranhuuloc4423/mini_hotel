@@ -1,5 +1,4 @@
 import {
-    MDBBtn,
     MDBDropdown,
     MDBDropdownMenu,
     MDBDropdownToggle,
@@ -16,7 +15,10 @@ import {
 } from 'mdb-react-ui-kit'
 import DatePicker from '../DatePicker'
 import { useState } from 'react'
+import icons from '../../utils/icons'
+import Button from '../Button'
 
+const { TbInfoSquare, BsSave } = icons
 const IndexEW = () => {
     const [basicActive, setBasicActive] = useState('tab1')
 
@@ -24,7 +26,6 @@ const IndexEW = () => {
         if (value === basicActive) {
             return
         }
-
         setBasicActive(value)
     }
     return (
@@ -34,7 +35,7 @@ const IndexEW = () => {
                     <MDBTabs className="flex-nowrap gap-2">
                         <MDBTabsItem>
                             <MDBTabsLink onClick={() => handleBasicClick('tab1')} active={basicActive === 'tab1'}>
-                                Paid list
+                                Water Index
                             </MDBTabsLink>
                         </MDBTabsItem>
                         <MDBTabsItem>
@@ -43,11 +44,11 @@ const IndexEW = () => {
                                 active={basicActive === 'tab2'}
                                 className="px-6 py-3 m-0"
                             >
-                                Paid list
+                                Electricity index
                             </MDBTabsLink>
                         </MDBTabsItem>
                     </MDBTabs>
-                    <DatePicker />
+                    <DatePicker label={'Date'} />
                     <div className="flex-center-y gap-2">
                         <span>state</span>
                         <MDBDropdown>
@@ -72,10 +73,8 @@ const IndexEW = () => {
                     </div>
                 </div>
                 <div className="flex-center-y gap-2">
-                    <MDBBtn color="info">View</MDBBtn>
-                    <MDBBtn className="me-1" color="success">
-                        Save
-                    </MDBBtn>
+                    <Button color={'info'} text={'View'} icon={<TbInfoSquare size={20} />} />
+                    <Button color={'success'} text={'Save'} icon={<BsSave size={20} />} />
                 </div>
             </div>
             <div className="main-body">
@@ -84,10 +83,10 @@ const IndexEW = () => {
                         <MDBTable align="middle">
                             <MDBTableHead>
                                 <tr className="table-primary">
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Title</th>
-                                    <th scope="col">Status</th>
-                                    <th scope="col">Position</th>
+                                    <th scope="col">{"Name's room"}</th>
+                                    <th scope="col">Old number</th>
+                                    <th scope="col">New number</th>
+                                    <th scope="col">Total</th>
                                 </tr>
                             </MDBTableHead>
                             <MDBTableBody>
@@ -97,17 +96,12 @@ const IndexEW = () => {
                                         <p className="text-muted mb-0">IT department</p>
                                     </td>
                                     <td>
-                                        <MDBInput label="Number input" id="typeNumber" type="number" />
+                                        <MDBInput label="Old number" id="typeNumber" type="number" />
                                     </td>
                                     <td>
-                                        {' '}
-                                        <MDBInput label="Number input" id="typeNumber" type="number" />
+                                        <MDBInput label="New number" id="typeNumber" type="number" />
                                     </td>
-                                    <td>
-                                        <MDBBtn color="link" rounded size="sm">
-                                            Edit
-                                        </MDBBtn>
-                                    </td>
+                                    <td>total</td>
                                 </tr>
                                 <tr>
                                     <td>
@@ -115,17 +109,12 @@ const IndexEW = () => {
                                         <p className="text-muted mb-0">Finance</p>
                                     </td>
                                     <td>
-                                        <MDBInput label="Number input" id="typeNumber" type="number" />
+                                        <MDBInput label="Old number" id="typeNumber" type="number" />
                                     </td>
                                     <td>
-                                        {' '}
-                                        <MDBInput label="Number input" id="typeNumber" type="number" />
+                                        <MDBInput label="New number" id="typeNumber" type="number" />
                                     </td>
-                                    <td>
-                                        <MDBBtn color="link" rounded size="sm">
-                                            Edit
-                                        </MDBBtn>
-                                    </td>
+                                    <td>total</td>
                                 </tr>
                                 <tr>
                                     <td>
@@ -133,24 +122,69 @@ const IndexEW = () => {
                                         <p className="text-muted mb-0">UI/UX</p>
                                     </td>
                                     <td>
-                                        <MDBInput label="Number input" id="typeNumber" type="number" size="md" />
+                                        <MDBInput label="Old number" id="typeNumber" type="number" />
                                     </td>
                                     <td>
-                                        {' '}
-                                        <MDBInput label="Number input" id="typeNumber" type="number" />
+                                        <MDBInput label="New number" id="typeNumber" type="number" />
                                     </td>
-                                    <td>
-                                        <MDBBtn color="link" rounded size="sm">
-                                            Edit
-                                        </MDBBtn>
-                                    </td>
+                                    <td>total</td>
                                 </tr>
                             </MDBTableBody>
                         </MDBTable>
                     </MDBTabsPane>
-                    <MDBTabsPane open={basicActive === 'tab2'}>lack money list</MDBTabsPane>
-                    <MDBTabsPane open={basicActive === 'tab3'}>Revenue</MDBTabsPane>
-                    <MDBTabsPane open={basicActive === 'tab4'}>bill list</MDBTabsPane>
+                    <MDBTabsPane open={basicActive === 'tab2'}>
+                        <MDBTable align="middle">
+                            <MDBTableHead>
+                                <tr className="table-primary">
+                                    <th scope="col">{"Name's room"}</th>
+                                    <th scope="col">Old number</th>
+                                    <th scope="col">New number</th>
+                                    <th scope="col">Total</th>
+                                </tr>
+                            </MDBTableHead>
+                            <MDBTableBody>
+                                <tr>
+                                    <td>
+                                        <p className="fw-normal mb-1">Software engineer</p>
+                                        <p className="text-muted mb-0">IT department</p>
+                                    </td>
+                                    <td>
+                                        <MDBInput label="Old number" id="typeNumber" type="number" />
+                                    </td>
+                                    <td>
+                                        <MDBInput label="New number" id="typeNumber" type="number" />
+                                    </td>
+                                    <td>total</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p className="fw-normal mb-1">Consultant</p>
+                                        <p className="text-muted mb-0">Finance</p>
+                                    </td>
+                                    <td>
+                                        <MDBInput label="Old number" id="typeNumber" type="number" />
+                                    </td>
+                                    <td>
+                                        <MDBInput label="New number" id="typeNumber" type="number" />
+                                    </td>
+                                    <td>total</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p className="fw-normal mb-1">Designer</p>
+                                        <p className="text-muted mb-0">UI/UX</p>
+                                    </td>
+                                    <td>
+                                        <MDBInput label="Old number" id="typeNumber" type="number" />
+                                    </td>
+                                    <td>
+                                        <MDBInput label="New number" id="typeNumber" type="number" />
+                                    </td>
+                                    <td>total</td>
+                                </tr>
+                            </MDBTableBody>
+                        </MDBTable>
+                    </MDBTabsPane>
                 </MDBTabsContent>
             </div>
         </div>

@@ -1,5 +1,4 @@
 import {
-    MDBBtn,
     MDBInput,
     MDBDropdown,
     MDBDropdownMenu,
@@ -11,6 +10,10 @@ import {
 } from 'mdb-react-ui-kit'
 import { useState } from 'react'
 import FormAddCustomer from '../FormAddCustomer'
+import icons from '../../utils/icons'
+import Button from '../Button'
+
+const { FiPlusSquare, FiEdit, CgRemoveR } = icons
 
 const Customer = () => {
     const [searchValue, setSearchValue] = useState('')
@@ -31,17 +34,13 @@ const Customer = () => {
                     <MDBDropdown group className="shadow-0">
                         <MDBDropdownToggle color="light">Filter</MDBDropdownToggle>
                         <MDBDropdownMenu>
-                            <MDBDropdownItem link>Action</MDBDropdownItem>
-                            <MDBDropdownItem link>Another action</MDBDropdownItem>
-                            <MDBDropdownItem link>Something else here</MDBDropdownItem>
+                            <MDBDropdownItem link>Type</MDBDropdownItem>
+                            <MDBDropdownItem link>Price</MDBDropdownItem>
+                            <MDBDropdownItem link>In use</MDBDropdownItem>
                         </MDBDropdownMenu>
                     </MDBDropdown>
                 </div>
-                <div>
-                    <MDBBtn className="me-1" color="success" onClick={toggleOpen}>
-                        Create
-                    </MDBBtn>
-                </div>
+                <Button color={'success'} text={'create'} icon={<FiPlusSquare size={20} />} onClick={toggleOpen} />
             </div>
             <div className="main-body">
                 <MDBTable align="middle">
@@ -51,6 +50,7 @@ const Customer = () => {
                             <th scope="col">Type</th>
                             <th scope="col">Price</th>
                             <th scope="col">In use</th>
+                            <th scope="col">Modify</th>
                         </tr>
                     </MDBTableHead>
                     <MDBTableBody>
@@ -60,28 +60,10 @@ const Customer = () => {
                             </td>
                             <td>type</td>
                             <td>Price</td>
+                            <td>In use</td>
                             <td>
-                                <MDBBtn className="me-1" color="info">
-                                    edit
-                                </MDBBtn>
-                                <MDBBtn className="me-1" color="danger">
-                                    delete
-                                </MDBBtn>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <p className="fw-normal mb-1">Software engineer</p>
-                            </td>
-                            <td>type</td>
-                            <td>Price</td>
-                            <td>
-                                <MDBBtn className="me-1" color="info">
-                                    edit
-                                </MDBBtn>
-                                <MDBBtn className="me-1" color="danger">
-                                    delete
-                                </MDBBtn>
+                                <Button color={'info'} text={'edit'} icon={<FiEdit size={20} />} />
+                                <Button color={'danger'} text={'delete'} icon={<CgRemoveR size={20} />} />
                             </td>
                         </tr>
                     </MDBTableBody>

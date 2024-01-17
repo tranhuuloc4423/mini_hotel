@@ -14,7 +14,7 @@ import Button from './Button'
 
 const { BsSave } = icons
 
-const FormAddRoom = ({ openModal, setOpenModal }) => {
+const FormAddService = ({ openModal, setOpenModal }) => {
     const toggleOpen = () => setOpenModal(!openModal)
 
     return (
@@ -22,14 +22,15 @@ const FormAddRoom = ({ openModal, setOpenModal }) => {
             <MDBModalDialog size="xl">
                 <MDBModalContent>
                     <MDBModalHeader>
-                        <MDBModalTitle className="text-2xl">Add Room</MDBModalTitle>
+                        <MDBModalTitle className="text-2xl">Add Service</MDBModalTitle>
                         <MDBBtn className="btn-close" color="none" onClick={toggleOpen}></MDBBtn>
                     </MDBModalHeader>
                     <MDBModalBody className="p-4">
                         <div className="border-2 border-black_1 p-4 flex flex-col gap-3">
                             <MDBInput label="Name" id="form1" type="text" />
                             <MDBInput label="Price" id="form1" type="text" />
-                            <MDBInput label="Area" id="form1" type="text" />
+                            <MDBInput label="Type" id="form1" type="text" />
+                            <MDBInput label="Unit" id="form1" type="text" />
                         </div>
                     </MDBModalBody>
 
@@ -42,4 +43,4 @@ const FormAddRoom = ({ openModal, setOpenModal }) => {
     )
 }
 
-export default FormAddRoom
+export default FormAddService

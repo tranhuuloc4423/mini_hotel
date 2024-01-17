@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 import icons from '../utils/icons'
 import { DayPicker } from 'react-day-picker'
 import 'react-day-picker/dist/style.css'
+import { format } from 'date-fns'
 
 const { MdOutlineDateRange } = icons
 
@@ -34,7 +35,9 @@ const DatePicker = ({ label }) => {
         }
     }, [])
     useEffect(() => {
-        setInputValue(selected)
+        if (selected) {
+            setInputValue(format(selected, 'dd/MM/yyyy'))
+        }
     }, [selected])
     return (
         <MDBInput
