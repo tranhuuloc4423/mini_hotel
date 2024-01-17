@@ -14,10 +14,13 @@ import {
 } from 'mdb-react-ui-kit'
 import { useState } from 'react'
 import icons from '../../utils/icons'
+import FormAddRoom from '../FormAddRoom'
 
 const { IoAddCircleOutline } = icons
 const Room = () => {
     const [searchValue, setSearchValue] = useState('')
+    const [openModal, setOpenModal] = useState(false)
+    const toggleOpen = () => setOpenModal(!openModal)
     return (
         <div className="main-container">
             <div className="main-header">
@@ -39,18 +42,12 @@ const Room = () => {
                         </MDBDropdownMenu>
                     </MDBDropdown>
                 </div>
-                <div className="flex-center-y gap-1">
-                    <MDBBtn className="me-1" color="success">
-                        <div className="flex-center-y gap-1">
-                            <IoAddCircleOutline size={20} />
-                            Create
-                        </div>
-                    </MDBBtn>
-                    <MDBBtn className="me-1" color="danger">
-                        Delete
-                    </MDBBtn>
-                    <MDBBtn color="info">Edit</MDBBtn>
-                </div>
+                <MDBBtn className="me-1" color="success" onClick={toggleOpen}>
+                    <div className="flex-center-y gap-1">
+                        <IoAddCircleOutline size={20} />
+                        Create
+                    </div>
+                </MDBBtn>
             </div>
             <div className="main-body flex flex-wrap">
                 <div className="h-fit">
@@ -73,6 +70,7 @@ const Room = () => {
                     </MDBCard>
                 </div>
             </div>
+            <FormAddRoom openModal={openModal} setOpenModal={setOpenModal} />
         </div>
     )
 }
