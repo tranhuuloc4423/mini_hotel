@@ -29,7 +29,9 @@ const FormAddRoom = ({ openModal, setOpenModal }) => {
                         <div className="border-2 border-black_1 p-4 flex flex-col gap-3">
                             <MDBInput label="Name" id="form1" type="text" />
                             <MDBInput label="Price" id="form1" type="text" />
-                            <MDBInput label="Area" id="form1" type="text" />
+                            <MDBInput label="Capacity" id="form1" type="text" />
+                            <MDBInput label="Type" id="form1" type="text" />
+                            <MDBInput label="Is Occupied" placeholder="False" id="form1" type="text" readonly />
                         </div>
                     </MDBModalBody>
 

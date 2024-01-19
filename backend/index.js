@@ -1,27 +1,25 @@
-require("dotenv").config();
-const express = require("express");
-const mongoose = require("mongoose");
+const express = require('express')
+const mongoose = require('mongoose')
+const cors = require('cors')
+const dotenv = require('dotenv')
 
-const app = express();
-const PORT = process.env.PORT || 3000;
-const MONGODB_URI = process.env.MONGODB_URI;
+dotenv.config()
+const app = express()
+const PORT = process.env.PORT || 3000
+const MONGODB_URI = process.env.MONGODB_URI
 
-const apiRoutes = require('./routes/index');
+const apiRoutes = require('./routes/index')
+const customerRoute = require('./routes/customer')
 
-app.use('/api', apiRoutes);
+app.use(cors())
+app.use(express.json())
+app.use('/api', apiRoutes)
+app.use('/customer', customerRoute)
+
+mongoose.connect(MONGODB_URI, () => {
+    console.log('CONNECTED TO MONGODB')
+})
 
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
-
-mongoose.connect(MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
-
-mongoose.connect(process.env.MONGODB_URI, {
-  useNewUrlParser: true, 
-  useUnifiedTopology: true
+    console.log(`Server is running on port ${PORT}`)
 })
-.then(() => console.log("Database connected!"))
-.catch(err => console.log("Database connection error:", err));
