@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
 
-router.get('/customers', (req, res) => {
+router.get('/room', (req, res) => {
   // Xử lý logic để lấy danh sách khách hàng từ cơ sở dữ liệu
   // ...
   // Gửi danh sách khách hàng dưới dạng JSON về client
-  res.json(customers);
+  res.json();
 });
 
 router.post('/customers', (req, res) => {

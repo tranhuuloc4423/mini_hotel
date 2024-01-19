@@ -11,20 +11,12 @@ const roomSchema = new mongoose.Schema({
     required: true,
     unique: true
   },
-  cardTitle: {
-    type: String,
-    required: true
-  },
   price: {
     type: Number,
     required: true
   },
   capacity: {
     type: Number,
-    required: true
-  },
-  content: {
-    type: String,
     required: true
   },
   isOccupied: {
