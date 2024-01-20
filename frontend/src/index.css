@@ -40,4 +40,7 @@
     .form-check {
         display: flex;
     }
+    .btn-icon {
+        @apply flex-center-y justify-center gap-1;
+    }
 }

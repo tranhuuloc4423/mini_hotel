@@ -1,5 +1,4 @@
 import {
-    MDBBtn,
     MDBInput,
     MDBDropdown,
     MDBDropdownMenu,
@@ -15,8 +14,9 @@ import {
 import { useState } from 'react'
 import icons from '../../utils/icons'
 import FormAddRoom from '../FormAddRoom'
+import Button from '../Button'
 
-const { IoAddCircleOutline } = icons
+const { FiPlusSquare, TbInfoSquare, FiEdit, CgRemoveR } = icons
 const Room = () => {
     const [searchValue, setSearchValue] = useState('')
     const [openModal, setOpenModal] = useState(false)
@@ -42,30 +42,23 @@ const Room = () => {
                         </MDBDropdownMenu>
                     </MDBDropdown>
                 </div>
-                <MDBBtn className="me-1" color="success" onClick={toggleOpen}>
-                    <div className="flex-center-y gap-1">
-                        <IoAddCircleOutline size={20} />
-                        Create
-                    </div>
-                </MDBBtn>
+                <Button color={'success'} text={'create'} icon={<FiPlusSquare size={20} />} onClick={toggleOpen} />
             </div>
             <div className="main-body flex flex-wrap">
                 <div className="h-fit">
-                    <MDBCard border="info" background="white" shadow="0">
-                        <MDBCardHeader background="transparent" border="info">
-                            Room name / room id
-                        </MDBCardHeader>
-                        <MDBCardBody className="text-info">
+                    <MDBCard>
+                        <MDBCardHeader>Room name / room id</MDBCardHeader>
+                        <MDBCardBody>
                             <MDBCardTitle>info card title</MDBCardTitle>
                             <MDBCardText>Price: 4444</MDBCardText>
                             <MDBCardText>capacity: 4</MDBCardText>
                             <MDBCardText>content</MDBCardText>
                         </MDBCardBody>
-                        <MDBCardFooter background="transparent" border="info" className="grid grid-cols-2 gap-2">
-                            <MDBBtn color="success">View</MDBBtn>
-                            <MDBBtn color="info">Add Customer</MDBBtn>
-                            <MDBBtn color="danger">Delete</MDBBtn>
-                            <MDBBtn color="warning">Edit</MDBBtn>
+                        <MDBCardFooter className="grid grid-cols-2 gap-2">
+                            <Button color={'success'} text={'view'} icon={<TbInfoSquare size={20} />} />
+                            <Button color={'info'} text={'Add customer'} icon={<FiPlusSquare size={20} />} />
+                            <Button color={'danger'} text={'delete'} icon={<CgRemoveR size={20} />} />
+                            <Button color={'warning'} text={'edit'} icon={<FiEdit size={20} />} />
                         </MDBCardFooter>
                     </MDBCard>
                 </div>

@@ -17,6 +17,10 @@ import {
     MDBCheckbox
 } from 'mdb-react-ui-kit'
 import DatePicker from './DatePicker'
+import icons from '../utils/icons'
+import Button from './Button'
+
+const { BsSave, FiPlusSquare, CgRemoveR, IoIosArrowBack, IoIosArrowForward } = icons
 
 const FormAddCustomer = ({ openModal, setOpenModal }) => {
     const [step, setStep] = useState(1)
@@ -24,19 +28,43 @@ const FormAddCustomer = ({ openModal, setOpenModal }) => {
 
     const getNavigationButtons = () => {
         if (step === 1) {
-            return <MDBBtn onClick={() => setStep(2)}>Next step</MDBBtn>
+            return (
+                <Button
+                    color={'info'}
+                    text={'next'}
+                    icon={<IoIosArrowForward size={20} />}
+                    onClick={() => setStep(2)}
+                    end
+                />
+            )
         } else if (step === 2) {
             return (
                 <>
-                    <MDBBtn onClick={() => setStep(1)}>Previous step</MDBBtn>
-                    <MDBBtn onClick={() => setStep(3)}>Next step</MDBBtn>
+                    <Button
+                        color={'info'}
+                        text={'previous'}
+                        icon={<IoIosArrowBack size={20} />}
+                        onClick={() => setStep(1)}
+                    />
+                    <Button
+                        color={'info'}
+                        text={'next'}
+                        icon={<IoIosArrowForward size={20} />}
+                        onClick={() => setStep(3)}
+                        end
+                    />
                 </>
             )
         } else {
             return (
                 <>
-                    <MDBBtn onClick={() => setStep(2)}>Previous step</MDBBtn>
-                    <MDBBtn>Save changes</MDBBtn>
+                    <Button
+                        color={'info'}
+                        text={'previous'}
+                        icon={<IoIosArrowBack size={20} />}
+                        onClick={() => setStep(2)}
+                    />
+                    <Button color={'info'} text={'save'} icon={<BsSave size={20} />} />
                 </>
             )
         }
@@ -172,7 +200,11 @@ const FormAddCustomer = ({ openModal, setOpenModal }) => {
                                             <th scope="col">ID Card</th>
                                             <th scope="col">Phone number</th>
                                             <th scope="col">
-                                                <MDBBtn color="success">Add</MDBBtn>
+                                                <Button
+                                                    color={'success'}
+                                                    text={'add'}
+                                                    icon={<FiPlusSquare size={20} />}
+                                                />
                                             </th>
                                         </tr>
                                     </MDBTableHead>
@@ -209,7 +241,11 @@ const FormAddCustomer = ({ openModal, setOpenModal }) => {
                                                 <MDBInput label="Phone number" id="form1" type="text" />
                                             </td>
                                             <td>
-                                                <MDBBtn color="danger">Delete</MDBBtn>
+                                                <Button
+                                                    color={'danger'}
+                                                    text={'delete'}
+                                                    icon={<CgRemoveR size={20} />}
+                                                />
                                             </td>
                                         </tr>
                                     </MDBTableBody>

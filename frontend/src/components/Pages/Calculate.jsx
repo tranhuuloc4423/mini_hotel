@@ -1,5 +1,4 @@
 import {
-    MDBBtn,
     MDBDropdown,
     MDBDropdownMenu,
     MDBDropdownToggle,
@@ -9,13 +8,17 @@ import {
     MDBTableBody
 } from 'mdb-react-ui-kit'
 import DatePicker from '../DatePicker'
+import icons from '../../utils/icons'
+import Button from '../Button'
+
+const { LuCalculator, TbInfoSquare, FaPrint, CgRemoveR } = icons
 
 const Calculate = () => {
     return (
         <div className="main-container">
             <div className="main-header">
                 <div className="flex-center-y gap-2">
-                    <DatePicker />
+                    <DatePicker label={'Date'} />
                     <div className="flex-center-y gap-2">
                         <span>state</span>
                         <MDBDropdown>
@@ -51,10 +54,8 @@ const Calculate = () => {
                     </div>
                 </div>
                 <div className="flex-center-y gap-2">
-                    <MDBBtn className="me-1" color="success">
-                        Calculate
-                    </MDBBtn>
-                    <MDBBtn color="info">View</MDBBtn>
+                    <Button color={'success'} text={'calculate'} icon={<LuCalculator size={20} />} />
+                    <Button color={'info'} text={'view'} icon={<TbInfoSquare size={20} />} />
                 </div>
             </div>
             <div className="main-body">
@@ -75,14 +76,8 @@ const Calculate = () => {
                             <td>444</td>
                             <td>444</td>
                             <td>
-                                <div>
-                                    <MDBBtn className="me-1" color="info">
-                                        print
-                                    </MDBBtn>
-                                    <MDBBtn className="me-1" color="danger">
-                                        delete
-                                    </MDBBtn>
-                                </div>
+                                <Button color={'info'} text={'print'} icon={<FaPrint size={20} />} />
+                                <Button color={'danger'} text={'delete'} icon={<CgRemoveR size={20} />} />
                             </td>
                         </tr>
                     </MDBTableBody>
