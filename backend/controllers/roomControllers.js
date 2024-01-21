@@ -25,10 +25,37 @@ const roomControllers = {
       res.status(500).json(error);
     }
   },
+  // getRoomById: async (req, res) => {
+  //   try {
+  //     const roomId = mongoose.Types.ObjectId(req.params.roomId);
+  //     const room = await Room.findById(roomId);
+  //     res.status(200).json(room);
+  //   } catch (error) {
+  //     res.status(500).json(error);
+  //   }
+  // },
+  // updateRoomById: async (req, res) => {
+  //   try {
+  //     const roomId = mongoose.Types.ObjectId(req.params.roomId);
+  //     const room = await Room.findByIdAndUpdate(roomId, req.body, { new: true });
+  //     res.status(200).json(room);
+  //   } catch (error) {
+  //     res.status(500).json(error);
+  //   }
+  // },
+  // deleteRoomById: async (req, res) => {
+  //   try {
+  //     const roomId = mongoose.Types.ObjectId(req.params.roomId);
+  //     const room = await Room.findByIdAndDelete(roomId);
+  //     res.status(200).json(room);
+  //   } catch (error) {
+  //     res.status(500).json(error);
+  //   }
+  // }
   getRoomById: async (req, res) => {
     try {
-      const roomId = mongoose.Types.ObjectId(req.params.id);
-      const room = await Room.findById(roomId);
+      const roomId = parseInt(req.params.id); 
+      const room = await Room.findOne({ roomId: roomId }); 
       res.status(200).json(room);
     } catch (error) {
       res.status(500).json(error);
@@ -36,22 +63,23 @@ const roomControllers = {
   },
   updateRoomById: async (req, res) => {
     try {
-      const roomId = mongoose.Types.ObjectId(req.params.id);
-      const room = await Room.findByIdAndUpdate(roomId, req.body, { new: true });
+      const roomId = parseInt(req.params.id);
+      const room = await Room.findOneAndUpdate({ roomId: roomId }, req.body, { new: true });
       res.status(200).json(room);
     } catch (error) {
       res.status(500).json(error);
     }
   },
+  
   deleteRoomById: async (req, res) => {
     try {
-      const roomId = mongoose.Types.ObjectId(req.params.id);
-      const room = await Room.findByIdAndDelete(roomId);
+      const roomId = parseInt(req.params.id);
+      const room = await Room.findOneAndDelete({ roomId: roomId });
       res.status(200).json(room);
     } catch (error) {
       res.status(500).json(error);
     }
-  }
+  },  
 };
 
 module.exports = roomControllers;
