@@ -1,70 +1,106 @@
+import { MDBInput, MDBCol, MDBRow, MDBCheckbox, MDBBtn, MDBIcon, MDBTypography } from 'mdb-react-ui-kit'
 import { useState } from 'react'
-import { MDBInput, MDBCol, MDBRow, MDBCheckbox, MDBBtn, MDBIcon } from 'mdb-react-ui-kit'
+import { Link } from 'react-router-dom'
 
 const Signup = () => {
-    const roles = [
-        {
-            id: '1',
-            label: 'Landlord',
-            value: 'landlord'
-        },
-        {
-            id: '2',
-            label: 'Customer',
-            value: 'customer'
-        }
-    ]
+    const [username, setUsername] = useState('')
+    const [fullname, setFullname] = useState('')
+    const [email, setEmail] = useState('')
+    const [phone, setPhone] = useState('')
+    const [address, setAddress] = useState('')
+    const [password, setPassword] = useState('')
+    const [passwordConfirm, setPasswordConfirm] = useState('')
 
-    const temp = roles.find((role) => role.value)
-
-    const [currentExtension, setCurrentExtension] = useState(temp)
+    const handleSignup = (e) => {
+        e.preventDefault()
+    }
     return (
-        <form className="w-[380px] absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%]">
-            <MDBRow className="mb-4">
-                <MDBCol>
-                    <MDBInput id="form3Example1" label="First name" />
-                </MDBCol>
-                <MDBCol>
-                    <MDBInput id="form3Example2" label="Last name" />
-                </MDBCol>
-            </MDBRow>
-            <MDBInput className="mb-4" type="email" id="form3Example3" label="Email address" />
-            <MDBInput className="mb-4" type="password" id="form3Example4" label="Password" />
+        <div
+            className={`w-screen h-screen bg-center bg-cover relative bg-[url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/142996/sections-3.jpg')]`}
+        >
+            <form
+                className="w-[480px] absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] bg-white p-10 shadow-md rounded-md"
+                onSubmit={handleSignup}
+            >
+                <MDBTypography variant="h2" className="text-center mb-4">
+                    Sign up
+                </MDBTypography>
+                <MDBRow className="mb-4">
+                    <MDBCol>
+                        <MDBInput
+                            type="text"
+                            label="Full name"
+                            value={fullname}
+                            onChange={(e) => setFullname(e.target.value)}
+                        />
+                    </MDBCol>
+                    <MDBCol>
+                        <MDBInput
+                            type="text"
+                            label="Username"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                        />
+                    </MDBCol>
+                </MDBRow>
 
-            <MDBCheckbox
-                wrapperClass="d-flex justify-content-center mb-4"
-                id="form3Example5"
-                label="Subscribe to our newsletter"
-                defaultChecked
-            />
+                <MDBInput
+                    className="mb-4"
+                    type="email"
+                    label="Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                />
+                <MDBInput
+                    className="mb-4"
+                    type="text"
+                    label="Phone number"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                />
+                <MDBInput
+                    className="mb-4"
+                    type="text"
+                    label="Address"
+                    value={address}
+                    onChange={(e) => setAddress(e.target.value)}
+                />
+                <MDBInput
+                    className="mb-4"
+                    type="password"
+                    label="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                />
+                <MDBInput
+                    className="mb-4"
+                    type="password"
+                    label="Password cofirm"
+                    value={passwordConfirm}
+                    onChange={(e) => setPasswordConfirm(e.target.value)}
+                />
 
-            <MDBBtn type="submit" className="mb-4" block>
-                Sign in
-            </MDBBtn>
+                <MDBCheckbox
+                    wrapperClass="d-flex justify-content-center mb-4"
+                    id="form3Example5"
+                    label="Do something"
+                    defaultChecked
+                />
 
-            <div className="text-center">
-                <p>
-                    Not a member? <a href="#!">Register</a>
-                </p>
-                <p>or sign up with:</p>
-
-                <MDBBtn floating color="secondary" className="mx-1">
-                    <MDBIcon fab icon="facebook-f" />
+                <MDBBtn className="mb-4" block>
+                    Sign up
                 </MDBBtn>
 
-                <MDBBtn floating color="secondary" className="mx-1">
-                    <MDBIcon fab icon="google" />
-                </MDBBtn>
-
-                <MDBBtn floating color="secondary" className="mx-1">
-                    <MDBIcon fab icon="twitter" />
-                </MDBBtn>
-
-                <MDBBtn floating color="secondary" className="mx-1">
-                    <MDBIcon fab icon="github" />
-                </MDBBtn>
-            </div>
-        </form>
+                <div className="text-center">
+                    <p>
+                        Already have an account?
+                        <Link to={'/signin'} className="ml-1">
+                            Sign in
+                        </Link>
+                    </p>
+                </div>
+            </form>
+        </div>
     )
 }
 

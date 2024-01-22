@@ -12,6 +12,8 @@ import {
     Service,
     Signup
 } from './components/Pages/'
+import { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
 
 const { HOME, SIGNIN, SIGNUP, DASHBOARD, CUSTOMER, ROOM, SERVICE, STATUS, REPORT, INDEX, CALCULATE } = paths
 
