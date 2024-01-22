@@ -1,13 +1,13 @@
 const mongoose = require('mongoose');
 
 const roomSchema = new mongoose.Schema({
+    roomId: {
+      type: Number,
+      unique: true
+    },
     roomName: {
       type: String,
       required: true,
-      unique: true
-    },
-    roomId: {
-      type: Number,
       unique: true
     },
     price: {
@@ -25,7 +25,7 @@ const roomSchema = new mongoose.Schema({
     occupants: [{
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User'
-    }],
+    }]
   },
   { timestamps: true }
 );
