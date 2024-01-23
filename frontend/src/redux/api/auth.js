@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from '../../axios'
 import {
     loginFailed,
     loginStart,
@@ -7,14 +7,18 @@ import {
     registerStart,
     registerSuccess
 } from '../slices/authSlice'
+import { toast } from 'react-toastify'
 
 export const loginUser = async (user, dispatch, navigate) => {
     dispatch(loginStart())
     try {
-        const res = await axios.post('', user)
+        const res = await axios.post('/auth/login', user)
         dispatch(loginSuccess(res.data))
-        navigate('/')
+        dispatch(loginSuccess(user))
+        toast.success('Login Success!')
+        navigate('/home')
     } catch (error) {
+        toast.error('Login Failed!')
         dispatch(loginFailed())
     }
 }
@@ -22,10 +26,12 @@ export const loginUser = async (user, dispatch, navigate) => {
 export const registerUser = async (user, dispatch, navigate) => {
     dispatch(registerStart())
     try {
-        await axios.post('', user)
+        await axios.post('/auth/register', user)
         dispatch(registerSuccess())
+        toast.success('Register Success!')
         navigate('/login')
     } catch (error) {
+        toast.error('Register Failed!')
         dispatch(registerFailed())
     }
 }

@@ -12,14 +12,14 @@ const customerRoute = require('./routes/customer')
 const roomRoute = require('./routes/room')
 const amenityRoute = require('./routes/amenity')
 
-const loginRoute = require('./routes/login')
+const authRoute = require('./routes/auth')
 
 app.use(cors())
 app.use(express.json())
 app.use('/customer', customerRoute)
 app.use('/room', roomRoute)
 app.use('/amenity', amenityRoute)
-app.use('/signin', loginRoute)
+app.use('/auth', authRoute)
 
 mongoose.connect(MONGODB_URI, () => {
     console.log('CONNECTED TO MONGODB')

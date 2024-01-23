@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 const appSlice = createSlice({
     name: 'app',
     initialState: {
-        firstLoad: false
+        firstLoad: true
     },
     reducers: {
         setFirstLoad: (state, action) => {

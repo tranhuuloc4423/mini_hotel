@@ -7,6 +7,7 @@ module.exports = {
         'plugin:react/jsx-runtime',
         'plugin:react-hooks/recommended'
     ],
+    ignorePatterns: ['.env'],
     ignorePatterns: ['dist', '.eslintrc.cjs'],
     parserOptions: { ecmaVersion: 'latest', sourceType: 'module' },
     settings: { react: { version: '18.2' } },
@@ -21,6 +22,7 @@ module.exports = {
 
         // Common
         // 'no-console': 1,
+        'no-undef': 'off',
         'no-lonely-if': 1,
         'no-unused-vars': 1,
         'no-trailing-spaces': 1,

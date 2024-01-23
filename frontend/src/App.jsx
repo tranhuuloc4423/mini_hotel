@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, useNavigate } from 'react-router-dom'
 import paths from './utils/paths'
 import {
     Calculate,
@@ -6,34 +6,72 @@ import {
     Dashboard,
     Home,
     IndexEW,
-    Signin,
+    Login,
     Report,
     Room,
     Service,
-    Signup
+    Register
 } from './components/Pages/'
 import { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { setFirstLoad } from './redux/slices/appSlice'
+import { Bounce, ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
-const { HOME, SIGNIN, SIGNUP, DASHBOARD, CUSTOMER, ROOM, SERVICE, STATUS, REPORT, INDEX, CALCULATE } = paths
+const {
+    HOME,
+    LOGIN,
+    REGISTER,
+    DASHBOARD,
+    CUSTOMER,
+    ROOM,
+    SERVICE,
+    REPORT,
+    INDEX,
+    CALCULATE
+} = paths
 
 function App() {
+    const navigate = useNavigate()
+    const { firstLoad } = useSelector((state) => state.app)
+    const dispatch = useDispatch()
+    useEffect(() => {
+        if (firstLoad) {
+            navigate('/login')
+            dispatch(setFirstLoad(false))
+        }
+    }, [navigate])
     return (
-        <div className="bg-[#ededed]">
-            <Routes>
-                <Route path={SIGNIN} element={<Signin />} />
-                <Route path={SIGNUP} element={<Signup />} />
-                <Route path={HOME} element={<Home />}>
-                    <Route path={DASHBOARD} element={<Dashboard />} />
-                    <Route path={CUSTOMER} element={<Customer />} />
-                    <Route path={ROOM} element={<Room />} />
-                    <Route path={INDEX} element={<IndexEW />} />
-                    <Route path={CALCULATE} element={<Calculate />} />
-                    <Route path={SERVICE} element={<Service />} />
-                    <Route path={REPORT} element={<Report />} />
-                </Route>
-            </Routes>
-        </div>
+        <>
+            <div className="bg-[#ededed]">
+                <Routes>
+                    <Route path={LOGIN} element={<Login />} />
+                    <Route path={REGISTER} element={<Register />} />
+                    <Route path={HOME} element={<Home />}>
+                        <Route path={DASHBOARD} element={<Dashboard />} />
+                        <Route path={CUSTOMER} element={<Customer />} />
+                        <Route path={ROOM} element={<Room />} />
+                        <Route path={INDEX} element={<IndexEW />} />
+                        <Route path={CALCULATE} element={<Calculate />} />
+                        <Route path={SERVICE} element={<Service />} />
+                        <Route path={REPORT} element={<Report />} />
+                    </Route>
+                </Routes>
+            </div>
+            <ToastContainer
+                position="top-right"
+                autoClose={3000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+                transition={Bounce}
+            />
+        </>
     )
 }
 
