@@ -1,7 +1,15 @@
 import icons from './icons'
 import paths from './paths'
-const { FiHome, HiOutlineUserGroup, FaHouseUser, RiServiceLine, TbReport, RiWaterFlashLine, LuCalculator } = icons
-const { DASHBOARD, CUSTOMER, ROOM, SERVICE, REPORT, CALCULATE, INDEX } = paths
+const {
+    FiHome,
+    HiOutlineUserGroup,
+    FaHouseUser,
+    RiServiceLine,
+    TbReport,
+    RiWaterFlashLine,
+    LuCalculator
+} = icons
+const { DASHBOARD, CUSTOMER, ROOM, AMENITIES, REPORT, CALCULATE, INDEX } = paths
 export default [
     {
         name: 'Dashboard',
@@ -30,9 +38,9 @@ export default [
     },
 
     {
-        name: 'Service',
+        name: 'Amenities',
         icon: <RiServiceLine size={20} />,
-        link: SERVICE
+        link: AMENITIES
     },
     {
         name: 'Report',

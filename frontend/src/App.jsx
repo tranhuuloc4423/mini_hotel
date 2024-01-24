@@ -9,7 +9,7 @@ import {
     Login,
     Report,
     Room,
-    Service,
+    Amenities,
     Register
 } from './components/Pages/'
 import { useEffect, useState } from 'react'
@@ -25,7 +25,7 @@ const {
     DASHBOARD,
     CUSTOMER,
     ROOM,
-    SERVICE,
+    AMENITIES,
     REPORT,
     INDEX,
     CALCULATE
@@ -53,7 +53,7 @@ function App() {
                         <Route path={ROOM} element={<Room />} />
                         <Route path={INDEX} element={<IndexEW />} />
                         <Route path={CALCULATE} element={<Calculate />} />
-                        <Route path={SERVICE} element={<Service />} />
+                        <Route path={AMENITIES} element={<Amenities />} />
                         <Route path={REPORT} element={<Report />} />
                     </Route>
                 </Routes>

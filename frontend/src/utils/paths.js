@@ -7,7 +7,7 @@ export default {
     CUSTOMER: 'customer',
     ROOM: 'room',
     PRICE: 'price',
-    SERVICE: 'service',
+    AMENITIES: 'amenities',
     STATUS: 'status',
     REPORT: 'report',
     CALCULATE: 'calculate',
