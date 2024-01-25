@@ -11,7 +11,11 @@ import {
 } from 'mdb-react-ui-kit'
 import icons from '../utils/icons'
 import Button from './Button'
-import { createAmenity } from '../redux/api/amenities'
+import {
+    createAmenity,
+    getAllEmenities,
+    updateAmenity
+} from '../redux/api/amenities'
 import { useDispatch } from 'react-redux'
 
 const { BsSave } = icons
@@ -34,13 +38,26 @@ const FormAddService = ({
     const handleSubmit = (e) => {
         e.preventDefault()
         if (!isEdit) {
+            // create
             const newAmenity = { ...formValue }
+            delete newAmenity?.amenityId
             createAmenity(newAmenity, dispatch)
+            getAllEmenities(dispatch)
             formValue.name = ''
             formValue.price = ''
             formValue.calUnit = ''
+            formValue.amenityId = ''
+        } else {
+            // update
+            const newAmenity = { ...formValue }
+            console.log(newAmenity)
+            updateAmenity(newAmenity, dispatch)
+            formValue.name = ''
+            formValue.price = ''
+            formValue.calUnit = ''
+            formValue.amenityId = ''
         }
-        // edit
+        setIsEdit(false)
         setOpenModal(false)
     }
 

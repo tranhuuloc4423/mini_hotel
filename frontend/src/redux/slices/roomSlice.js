@@ -3,19 +3,34 @@ import { createSlice } from '@reduxjs/toolkit'
 const roomSlice = createSlice({
     name: 'room',
     initialState: {
-        openModal: false,
-        search: ''
+        rooms: []
     },
     reducers: {
-        setOpenModal: (state, action) => {
-            state.openModal = action.payload
+        setRooms: (state, action) => {
+            state.rooms = action.payload
         },
-        setSearch: (state, action) => {
-            state.search = action.payload
+        addItem: (state, action) => {
+            state.rooms.push(action.payload)
+        },
+        removeItem: (state, action) => {
+            const newrooms = state.rooms.filter(
+                (room) => room.roomId !== action.payload
+            )
+            state.rooms = newrooms
+        },
+        updateItem: (state, action) => {
+            const updatedRooms = state.rooms.map((room) => {
+                if (room.roomId === action.payload.roomId) {
+                    return { ...room, ...action.payload.data }
+                }
+                return room
+            })
+
+            state.rooms = updatedRooms
         }
     }
 })
 
-export const { setOpenModal, setSearch } = roomSlice.actions
+export const { setRooms, addItem, removeItem, updateItem } = roomSlice.actions
 
 export default roomSlice.reducer
