@@ -4,9 +4,15 @@ const customerControllers = {
   createCustomer: async (req, res) => {
     try {
       const newCustomer = new Customer({
-        name: req.body.name,
+        fullName: req.body.fullName,
+        sex: req.body.sex,
+        dob: req.body.dob,
+        idCard: req.body.idCard,
         email: req.body.email,
-        phoneNumber: req.body.phoneNumber
+        phoneNumber: req.body.phoneNumber,
+        address: req.body.address,
+        amenities: req.body.amenities,
+        members: req.body.members
       });
       const customer = await newCustomer.save();
       res.status(200).json(customer);

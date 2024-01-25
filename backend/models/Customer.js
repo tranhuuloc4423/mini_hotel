@@ -5,8 +5,21 @@ const customerSchema = new mongoose.Schema({
       type: Number,
       unique: true
     },
-    name: {
+    fullName: {
       type: String,
+      required: true
+    },
+    sex: {
+      type: String,
+      enum: ['Male', 'Female'], 
+      required: true
+    },
+    dob: {
+      type: Date, // Note
+      required: true
+    },
+    idCard: {
+      type: Number,
       required: true
     },
     email: {
@@ -20,7 +33,54 @@ const customerSchema = new mongoose.Schema({
       required: true,
       unique: true,
       maxLength: 10
-    }
+    },
+    address: {
+      type: String,
+      required: true,
+      maxLength: 100
+    },
+    amenities: [{
+      name: {
+          type: String,
+          required: true
+      },
+      price: {
+          type: Number,
+          required: true
+      },
+      calUnit: {
+          type: String,
+          required: true
+      },
+      isUse: {
+          type: Boolean,
+          default: false
+      }
+    }],
+    members: [{
+      fullName: {
+          type: String,
+          required: true
+      },
+      sex: {
+          type: String,
+          enum: ['Male', 'Female'],
+          required: true
+      },
+      dob: {
+          type: Date,
+          required: true
+      },
+      idCard: {
+          type: Number,
+          required: true
+      },
+      phoneNumber: {
+          type: String,
+          required: true,
+          maxLength: 10
+      }
+    }]
   },
   { timestamps: true }
 );

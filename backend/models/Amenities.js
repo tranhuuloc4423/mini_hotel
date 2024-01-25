@@ -16,6 +16,10 @@ const amenitiesSchema = new mongoose.Schema({
     price: {
       type: Number,
       required: true
+    },
+    isUse: {
+      type: Boolean,
+      // Note
     }
   },
   { timestamps: true }

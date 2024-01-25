@@ -22,9 +22,13 @@ const roomSchema = new mongoose.Schema({
       type: Boolean,
       default: false
     },
+    image: {
+      data: Buffer,
+      contentType: String
+    },
     occupants: [{
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'User'
+      ref: 'Customer' // Note
     }]
   },
   { timestamps: true }
