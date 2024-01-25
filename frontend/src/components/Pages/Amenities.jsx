@@ -27,14 +27,15 @@ const Amenities = () => {
     const [formValue, setFormValue] = useState({
         name: '',
         price: '',
-        calUnit: ''
+        calUnit: '',
+        amenityId: ''
     })
     const [isEdit, setIsEdit] = useState(false)
 
     useEffect(() => {
         console.log(amenities)
         getAllEmenities(dispatch)
-    }, [])
+    }, [isEdit])
 
     const handleRemove = (id) => {
         console.log(id)
@@ -74,7 +75,8 @@ const Amenities = () => {
                             setFormValue({
                                 name: '',
                                 price: '',
-                                calUnit: ''
+                                calUnit: '',
+                                amenityId: ''
                             })
                         }}
                     />
@@ -92,7 +94,7 @@ const Amenities = () => {
                     </MDBTableHead>
                     <MDBTableBody>
                         {amenities.map((amenity, index) => (
-                            <React.Fragment key={amenity?.id}>
+                            <React.Fragment key={amenity?.amenityId}>
                                 <tr>
                                     <td>
                                         <p className="fw-normal mb-1">
@@ -111,7 +113,9 @@ const Amenities = () => {
                                                 setFormValue({
                                                     name: amenity?.name,
                                                     price: amenity?.price,
-                                                    calUnit: amenity?.calUnit
+                                                    calUnit: amenity?.calUnit,
+                                                    amenityId:
+                                                        amenity?.amenityId
                                                 })
                                                 setIsEdit(true)
                                             }}

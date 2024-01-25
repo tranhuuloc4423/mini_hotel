@@ -21,7 +21,6 @@ const DatePicker = ({ label }) => {
     }
     const handleOutsideClick = (event) => {
         if (
-            datepickerRef.current &&
             !datepickerRef.current.contains(event.target) &&
             !calendarRef.current.contains(event.target)
         ) {
@@ -49,7 +48,10 @@ const DatePicker = ({ label }) => {
             onChange={(e) => setInputValue(e.target.value)}
         >
             <div ref={datepickerRef} onClick={handleIconClick}>
-                <MdOutlineDateRange className="absolute top-1/2 translate-y-[-50%] right-2 cursor-pointer" size={24} />
+                <MdOutlineDateRange
+                    className="absolute top-1/2 translate-y-[-50%] right-2 cursor-pointer"
+                    size={24}
+                />
             </div>
             {activeDatepicker && (
                 <div ref={calendarRef}>
