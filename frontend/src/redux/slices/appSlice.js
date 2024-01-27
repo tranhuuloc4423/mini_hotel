@@ -3,15 +3,24 @@ import { createSlice } from '@reduxjs/toolkit'
 const appSlice = createSlice({
     name: 'app',
     initialState: {
-        firstLoad: true
+        currentUser: {
+            username: null,
+            password: null
+        }
     },
     reducers: {
-        setFirstLoad: (state, action) => {
-            state.firstLoad = action.payload
+        setCurrentUser: (state, action) => {
+            state.currentUser.username = action.payload.username
+            state.currentUser.password = action.payload.password
+        },
+        setLogoutUser: (state) => {
+            localStorage.removeItem('currentUser')
+            state.currentUser.username = null
+            state.currentUser.password = null
         }
     }
 })
 
-export const { setFirstLoad } = appSlice.actions
+export const { setCurrentUser, setLogoutUser } = appSlice.actions
 
 export default appSlice.reducer

@@ -10,10 +10,10 @@ import {
     MDBCardFooter
 } from 'mdb-react-ui-kit'
 import { useState, useEffect } from 'react'
-import icons from '../../utils/icons'
-import FormAddRoom from '../FormAddRoom'
-import Button from '../Button'
-import { deleteRoom, getRooms } from '../../redux/api/room'
+import icons from '../../../utils/icons'
+import FormAddRoom from './FormAddRoom'
+import Button from '../../Common/Button'
+import { deleteRoom, getRooms } from '../../../redux/api/room'
 import { useDispatch, useSelector } from 'react-redux'
 
 const { FiPlusSquare, TbInfoSquare, FiEdit, CgRemoveR } = icons
@@ -37,9 +37,8 @@ const Room = () => {
     }
 
     useEffect(() => {
-        console.log(rooms)
         getRooms(dispatch)
-    }, [isEdit])
+    }, [isEdit, dispatch])
 
     return (
         <div className="main-container">

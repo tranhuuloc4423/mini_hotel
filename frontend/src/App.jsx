@@ -6,15 +6,15 @@ import {
     Dashboard,
     Home,
     IndexEW,
-    Login,
     Report,
     Room,
-    Amenities,
-    Register
+    Amenities
 } from './components/Pages/'
-import { useEffect, useState } from 'react'
+import Login from './components/Pages/Auth/Login'
+import Register from './components/Pages/Auth/Register'
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { setFirstLoad } from './redux/slices/appSlice'
+import { setCurrentUser } from './redux/slices/appSlice'
 import { Bounce, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
@@ -33,14 +33,19 @@ const {
 
 function App() {
     const navigate = useNavigate()
-    const { firstLoad } = useSelector((state) => state.app)
     const dispatch = useDispatch()
+    const { currentUser } = useSelector((state) => state.app)
     useEffect(() => {
-        if (firstLoad) {
-            navigate('/login')
-            dispatch(setFirstLoad(false))
+        const user = JSON.parse(localStorage.getItem('currentUser'))
+        if (user) {
+            dispatch(setCurrentUser(user))
         }
-    }, [navigate])
+        if (currentUser?.username === null && currentUser?.password === null) {
+            navigate('/login')
+        } else {
+            navigate('/home/dashboard')
+        }
+    }, [currentUser])
     return (
         <>
             <div className="bg-[#ededed]">

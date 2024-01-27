@@ -1,6 +1,6 @@
 import { MDBInput } from 'mdb-react-ui-kit'
 import { useEffect, useRef, useState } from 'react'
-import icons from '../utils/icons'
+import icons from '../../utils/icons'
 import { DayPicker } from 'react-day-picker'
 import 'react-day-picker/dist/style.css'
 import { format } from 'date-fns'
@@ -21,6 +21,8 @@ const DatePicker = ({ label }) => {
     }
     const handleOutsideClick = (event) => {
         if (
+            datepickerRef.current &&
+            calendarRef.current &&
             !datepickerRef.current.contains(event.target) &&
             !calendarRef.current.contains(event.target)
         ) {

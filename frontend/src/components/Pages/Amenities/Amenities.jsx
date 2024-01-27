@@ -9,11 +9,11 @@ import {
     MDBTableBody
 } from 'mdb-react-ui-kit'
 import { useEffect, useState } from 'react'
-import icons from '../../utils/icons'
-import Button from '../Button'
-import FormAddService from '../FormAddService'
+import icons from '../../../utils/icons'
+import Button from '../../Common/Button'
+import FormAddAmenity from './FormAddAmenity'
 import { useDispatch, useSelector } from 'react-redux'
-import { getAllEmenities, removeAmenity } from '../../redux/api/amenities'
+import { getAllEmenities, removeAmenity } from '../../../redux/api/amenities'
 import React from 'react'
 
 const { FiPlusSquare, FiEdit, CgRemoveR } = icons
@@ -89,21 +89,23 @@ const Amenities = () => {
                             <th scope="col">Name</th>
                             <th scope="col">Price</th>
                             <th scope="col">Unit</th>
-                            <th scope="col">In use</th>
+                            <th scope="col">Modify</th>
                         </tr>
                     </MDBTableHead>
                     <MDBTableBody>
-                        {amenities.map((amenity, index) => (
+                        {amenities.map((amenity) => (
                             <React.Fragment key={amenity?.amenityId}>
                                 <tr>
-                                    <td>
+                                    <td className="w-1/4">
                                         <p className="fw-normal mb-1">
                                             {amenity?.name}
                                         </p>
                                     </td>
-                                    <td>{amenity?.price}</td>
-                                    <td>{amenity?.calUnit}</td>
-                                    <td>
+                                    <td className="w-1/4">{amenity?.price}</td>
+                                    <td className="w-1/4">
+                                        {amenity?.calUnit}
+                                    </td>
+                                    <td className="w-1/4">
                                         <Button
                                             color={'info'}
                                             text="Edit"
@@ -135,7 +137,7 @@ const Amenities = () => {
                     </MDBTableBody>
                 </MDBTable>
             </div>
-            <FormAddService
+            <FormAddAmenity
                 openModal={openModal}
                 setOpenModal={setOpenModal}
                 formValue={formValue}

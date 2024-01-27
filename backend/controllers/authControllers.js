@@ -1,4 +1,5 @@
 const User = require('../models/User')
+const cookie = require('cookie-parser')
 const bcrypt = require('bcrypt')
 
 const authController = {
@@ -16,6 +17,11 @@ const authController = {
                     res.status(500).json('Wrong password!')
                 }
                 if (user && validPassword) {
+                    res.cookie('accessToken', 'BOARDING_HOUSE', {
+                        maxAge: 3600000,
+                        httpOnly: true
+                    })
+                    // res.redirect('/home')
                     res.status(200).json(user)
                 }
             }

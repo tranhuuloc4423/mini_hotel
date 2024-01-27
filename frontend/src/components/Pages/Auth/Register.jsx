@@ -9,7 +9,7 @@ import {
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { registerUser } from '../../redux/api/auth'
+import { registerUser } from '../../../redux/api/auth'
 import { toast } from 'react-toastify'
 
 const Register = () => {

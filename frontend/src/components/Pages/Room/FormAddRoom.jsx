@@ -9,11 +9,11 @@ import {
     MDBInput,
     MDBFile
 } from 'mdb-react-ui-kit'
-import icons from '../utils/icons'
-import Button from './Button'
-import { createRoom, updateRoom } from '../redux/api/room'
+import icons from '../../../utils/icons'
+import Button from '../../Common/Button'
+import { createRoom, updateRoom } from '../../../redux/api/room'
 import { useDispatch } from 'react-redux'
-import DropImageInput from './DropImageInput'
+import DropImageInput from '../../Common/DropImageInput'
 
 const { BsSave } = icons
 

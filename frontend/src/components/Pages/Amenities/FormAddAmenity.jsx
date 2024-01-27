@@ -6,21 +6,20 @@ import {
     MDBModalHeader,
     MDBModalTitle,
     MDBModalBody,
-    MDBModalFooter,
     MDBInput
 } from 'mdb-react-ui-kit'
-import icons from '../utils/icons'
-import Button from './Button'
+import icons from '../../../utils/icons'
+import Button from '../../Common/Button'
 import {
     createAmenity,
     getAllEmenities,
     updateAmenity
-} from '../redux/api/amenities'
+} from '../../../redux/api/amenities'
 import { useDispatch } from 'react-redux'
 
 const { BsSave } = icons
 
-const FormAddService = ({
+const FormAddAmenity = ({
     openModal,
     setOpenModal,
     formValue,
@@ -114,4 +113,4 @@ const FormAddService = ({
     )
 }
 
-export default FormAddService
+export default FormAddAmenity
