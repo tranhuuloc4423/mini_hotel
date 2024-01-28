@@ -3,10 +3,10 @@ const mongoose = require('mongoose')
 const customerSchema = new mongoose.Schema(
     {
       customerId: {
-          type: Number,
-          unique: true
+        type: Number,
+        unique: true
       },
-      fullName: {
+      fullname: {
         type: String,
         required: true
       },
@@ -16,50 +16,33 @@ const customerSchema = new mongoose.Schema(
         required: true
       },
       dob: {
-        type: Date, // Note
+        type: Date, // "YYYY-MM-DD"
         required: true
       },
-      idCard: {
+      idcard: {
         type: Number,
         required: true
       },
       email: {
         type: String,
-        required: true,
-        unique: true,
-        maxLength: 30
+        required: true
       },
-      phoneNumber: {
+      phonenumber: {
         type: String,
-        required: true,
-        unique: true,
-        maxLength: 10
+        required: true
       },
       address: {
         type: String,
         required: true,
-        maxLength: 100
       },
       amenities: [{
-        name: {
-            type: String,
-            required: true
-        },
-        price: {
-            type: Number,
-            required: true
-        },
-        calUnit: {
-            type: String,
-            required: true
-        },
-        isUse: {
-            type: Boolean,
-            default: false
+        amenityId: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'Amenities'
         }
       }],
       members: [{
-        fullName: {
+        fullname: {
             type: String,
             required: true
         },
@@ -69,17 +52,16 @@ const customerSchema = new mongoose.Schema(
             required: true
         },
         dob: {
-            type: Date,
+            type: Date, // "YYYY-MM-DD"
             required: true
         },
-        idCard: {
+        idcard: {
             type: Number,
             required: true
         },
-        phoneNumber: {
+        phonenumber: {
             type: String,
             required: true,
-            maxLength: 10
         }
       }]
   },
@@ -87,18 +69,14 @@ const customerSchema = new mongoose.Schema(
 );
 
 customerSchema.pre('save', async function (next) {
-    const customer = this
-    const Customer = mongoose.model('Customer')
-    if (!customer.customerId) {
-        const lastCustomer = await Customer.findOne(
-            {},
-            {},
-            { sort: { customerId: -1 } }
-        )
-        customer.customerId = lastCustomer ? lastCustomer.customerId + 1 : 1
-    }
-    next()
-})
+  const customer = this;
+  const Customer = mongoose.model('Customer');
+  if (!customer.customerId) {
+      const lastCustomer = await Customer.findOne({}, {}, { sort: { customerId: -1 } });
+      customer.customerId = lastCustomer ? lastCustomer.customerId + 1 : 1;
+  }
+  next();
+});
 
 const Customer = mongoose.model('Customer', customerSchema)
 

@@ -10,17 +10,13 @@ const amenitiesSchema = new mongoose.Schema(
             type: String,
             required: true
         },
-        calUnit: {
+        unit: {
             type: String,
             required: true
         },
         price: {
             type: Number,
             required: true
-        },
-        isUse: {
-          type: Boolean,
-          // Note
         }
     },
     { timestamps: true }
@@ -30,11 +26,7 @@ amenitiesSchema.pre('save', async function (next) {
     const amenity = this
     const Amenities = mongoose.model('Amenities')
     if (!amenity.amenityId) {
-        const lastAmenity = await Amenities.findOne(
-            {},
-            {},
-            { sort: { amenityId: -1 } }
-        )
+        const lastAmenity = await Amenities.findOne({},{},{ sort: { amenityId: -1 } })
         amenity.amenityId = lastAmenity ? lastAmenity.amenityId + 1 : 1
     }
     next()

@@ -6,7 +6,7 @@ const amenityControllers = {
     try {
       const newAmenity = new Amenities({
         name: req.body.name,
-        calUnit: req.body.calUnit,
+        unit: req.body.unit,
         price: req.body.price
       });
       const amenity = await newAmenity.save();
