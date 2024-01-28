@@ -70,8 +70,8 @@ const FormAddRoom = ({
                             <MDBInput
                                 label="Name"
                                 type="text"
-                                value={formValue.roomName}
-                                name="roomName"
+                                value={formValue.roomname}
+                                name="roomname"
                                 onChange={onChange}
                             />
                             <MDBInput

@@ -17,7 +17,12 @@ const FormAddCustomer = ({ openModal, setOpenModal }) => {
     const toggleOpen = () => setOpenModal(!openModal)
 
     return (
-        <MDBModal open={openModal} setOpen={setOpenModal} tabIndex="-1">
+        <MDBModal
+            staticBackdrop
+            open={openModal}
+            setOpen={setOpenModal}
+            tabIndex="-1"
+        >
             <MDBModalDialog size="xl">
                 <MDBModalContent>
                     <MDBModalHeader>

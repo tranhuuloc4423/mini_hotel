@@ -5,22 +5,46 @@ import MemberRowInfo from './MemberRowInfo'
 import React, { useEffect, useState } from 'react'
 
 const { FiPlusSquare, IoIosArrowBack, BsSave } = icons
-const StepThree = () => {
+const StepThree = ({ setStep }) => {
     const [memberRows, setMemberRows] = useState([])
+    const [formValue, setFormValue] = useState({
+        name: '',
+        phonenumber: '',
+        idcard: ''
+    })
+
+    const handleChangeSex = (e) => {
+        setSex(e.target.value)
+    }
+
+    // const { save } = useSelector((state) => state.customer)
+    const [dob, setDob] = useState()
+    const [sex, setSex] = useState()
+
     const handleAddMember = () => {
-        const newMemberRow = <MemberRowInfo onDelete={handleDeleteMemberRow} />
+        const newMemberRow = (
+            <MemberRowInfo
+                onDelete={handleDeleteMemberRow}
+                onChange={onChange}
+                formValue={formValue}
+            />
+        )
         setMemberRows([...memberRows, newMemberRow])
     }
 
+    const onChange = (e) => {
+        setFormValue({ ...formValue, [e.target.name]: e.target.value })
+    }
+
     const handleDeleteMemberRow = (rowIndex) => {
-        console.log(rowIndex)
-        setMemberRows((prevRows) =>
-            prevRows.filter((_, index) => index !== rowIndex)
-        )
+        const updatedMemberRows = [...memberRows]
+        updatedMemberRows.splice(rowIndex, 1)
+        setMemberRows(updatedMemberRows)
     }
 
     const handleSubmit = (e) => {
         e.preventDefault()
+        memberRows
     }
 
     useEffect(() => {
@@ -70,10 +94,7 @@ const StepThree = () => {
                     color={'info'}
                     text={'save'}
                     icon={<BsSave size={20} />}
-                    onClick={() => {
-                        dispatch(setSave(true))
-                        setOpenModal(false)
-                    }}
+                    onClick={handleSubmit}
                 />
             </div>
         </form>

@@ -25,7 +25,7 @@ const Room = () => {
     const [isEdit, setIsEdit] = useState(false)
     const toggleOpen = () => setOpenModal(!openModal)
     const [formValue, setFormValue] = useState({
-        roomName: '',
+        roomname: '',
         price: '',
         capacity: '',
         roomId: ''
@@ -77,7 +77,7 @@ const Room = () => {
                             <div className="h-fit">
                                 <MDBCard>
                                     <MDBCardHeader>
-                                        {room?.roomName}
+                                        {room?.roomname}
                                     </MDBCardHeader>
                                     <MDBCardBody>
                                         <div className="">
@@ -114,7 +114,7 @@ const Room = () => {
                                                 setOpenModal(true)
                                                 setIsEdit(true)
                                                 setFormValue({
-                                                    roomName: room?.roomName,
+                                                    roomname: room?.roomname,
                                                     price: room?.price,
                                                     capacity: room?.capacity,
                                                     roomId: room?.roomId

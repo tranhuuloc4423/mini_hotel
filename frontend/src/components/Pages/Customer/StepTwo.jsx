@@ -25,12 +25,15 @@ const StepTwo = ({ setStep }) => {
     }
     const { amenities } = useSelector((state) => state.amenities)
     const dispatch = useDispatch()
+
     useEffect(() => {
         getAllEmenities(dispatch)
     }, [dispatch])
+
     useEffect(() => {
         console.log(amenitiesChecked)
     }, [amenitiesChecked])
+
     return (
         <form>
             <div className="text-lg font-semibold pb-4">
@@ -41,7 +44,7 @@ const StepTwo = ({ setStep }) => {
                     <tr>
                         <th scope="col">Name</th>
                         <th scope="col">Price</th>
-                        <th scope="col">Quantity</th>
+                        <th scope="col">Unit</th>
                         <th scope="col">Check</th>
                     </tr>
                 </MDBTableHead>
@@ -56,7 +59,7 @@ const StepTwo = ({ setStep }) => {
                                     <p className="">{item?.price}</p>
                                 </td>
                                 <td>
-                                    <p className="">{item?.calUnit}</p>
+                                    <p className="">{item?.unit}</p>
                                 </td>
                                 <td className="flex justify-center">
                                     <MDBCheckbox
