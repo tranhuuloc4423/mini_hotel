@@ -44,7 +44,7 @@ const FormAddAmenity = ({
             getAllEmenities(dispatch)
             formValue.name = ''
             formValue.price = ''
-            formValue.calUnit = ''
+            formValue.unit = ''
             formValue.amenityId = ''
         } else {
             // update
@@ -53,7 +53,7 @@ const FormAddAmenity = ({
             updateAmenity(newAmenity, dispatch)
             formValue.name = ''
             formValue.price = ''
-            formValue.calUnit = ''
+            formValue.unit = ''
             formValue.amenityId = ''
         }
         setIsEdit(false)
@@ -96,8 +96,8 @@ const FormAddAmenity = ({
                             <MDBInput
                                 label="Unit"
                                 type="text"
-                                value={formValue.calUnit}
-                                name="calUnit"
+                                value={formValue.unit}
+                                name="unit"
                                 onChange={onChange}
                             />
                             <Button

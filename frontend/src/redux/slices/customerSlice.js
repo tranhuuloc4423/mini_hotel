@@ -29,10 +29,13 @@ const customer = createSlice({
     reducers: {
         addCustomer: (state, action) => {
             state.customers.push = action.payload
+        },
+        setSave: (state, action) => {
+            state.save = action.payload
         }
     }
 })
 
-export const { addCustomer } = customer.actions
+export const { addCustomer, setSave } = customer.actions
 
 export default customer.reducer

@@ -4,7 +4,7 @@ import Button from '../../Common/Button'
 import MemberRowInfo from './MemberRowInfo'
 import React, { useEffect, useState } from 'react'
 
-const { FiPlusSquare } = icons
+const { FiPlusSquare, IoIosArrowBack, BsSave } = icons
 const StepThree = () => {
     const [memberRows, setMemberRows] = useState([])
     const handleAddMember = () => {
@@ -13,9 +13,14 @@ const StepThree = () => {
     }
 
     const handleDeleteMemberRow = (rowIndex) => {
+        console.log(rowIndex)
         setMemberRows((prevRows) =>
             prevRows.filter((_, index) => index !== rowIndex)
         )
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
     }
 
     useEffect(() => {
@@ -23,7 +28,7 @@ const StepThree = () => {
     }, [memberRows])
 
     return (
-        <div>
+        <form onSubmit={handleSubmit}>
             <div className="text-lg font-semibold pb-4">Step 3: {'Member'}</div>
             <MDBTable align="middle" className="max-h-[400px] overflow-scroll">
                 <MDBTableHead>
@@ -54,7 +59,24 @@ const StepThree = () => {
                     ))}
                 </MDBTableBody>
             </MDBTable>
-        </div>
+            <div>
+                <Button
+                    color={'info'}
+                    text={'previous'}
+                    icon={<IoIosArrowBack size={20} />}
+                    onClick={() => setStep(2)}
+                />
+                <Button
+                    color={'info'}
+                    text={'save'}
+                    icon={<BsSave size={20} />}
+                    onClick={() => {
+                        dispatch(setSave(true))
+                        setOpenModal(false)
+                    }}
+                />
+            </div>
+        </form>
     )
 }
 

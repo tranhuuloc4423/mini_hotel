@@ -9,7 +9,7 @@ import {
     MDBCardHeader,
     MDBCardFooter
 } from 'mdb-react-ui-kit'
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import icons from '../../../utils/icons'
 import FormAddRoom from './FormAddRoom'
 import Button from '../../Common/Button'
@@ -73,7 +73,7 @@ const Room = () => {
             <div className="main-body flex flex-wrap gap-4">
                 {rooms?.map((room, index) => {
                     return (
-                        <>
+                        <React.Fragment key={index}>
                             <div className="h-fit">
                                 <MDBCard>
                                     <MDBCardHeader>
@@ -124,7 +124,7 @@ const Room = () => {
                                     </MDBCardFooter>
                                 </MDBCard>
                             </div>
-                        </>
+                        </React.Fragment>
                     )
                 })}
             </div>

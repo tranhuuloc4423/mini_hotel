@@ -27,7 +27,7 @@ const Amenities = () => {
     const [formValue, setFormValue] = useState({
         name: '',
         price: '',
-        calUnit: '',
+        unit: '',
         amenityId: ''
     })
     const [isEdit, setIsEdit] = useState(false)
@@ -115,7 +115,7 @@ const Amenities = () => {
                                                 setFormValue({
                                                     name: amenity?.name,
                                                     price: amenity?.price,
-                                                    calUnit: amenity?.calUnit,
+                                                    unit: amenity?.calUnit,
                                                     amenityId:
                                                         amenity?.amenityId
                                                 })

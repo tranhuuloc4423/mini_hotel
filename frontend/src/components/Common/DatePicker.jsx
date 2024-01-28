@@ -7,8 +7,7 @@ import { format } from 'date-fns'
 
 const { MdOutlineDateRange } = icons
 
-const DatePicker = ({ label }) => {
-    const [inputValue, setInputValue] = useState('')
+const DatePicker = ({ label, value, setValue }) => {
     const datepickerRef = useRef(null)
     const calendarRef = useRef(null)
     const [activeDatepicker, setActiveDatepicker] = useState(false)
@@ -37,17 +36,17 @@ const DatePicker = ({ label }) => {
     }, [])
     useEffect(() => {
         if (selected) {
-            setInputValue(format(selected, 'dd/MM/yyyy'))
+            setValue(format(selected, 'dd/MM/yyyy'))
         }
     }, [selected])
     return (
         <MDBInput
             label={label}
-            id="form1"
             type="text"
+            defaultValue={value}
+            value={selected ? format(selected, 'dd/MM/yyyy') : ''}
             className="relative"
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
+            onChange={(e) => setValue(e.target.value)}
         >
             <div ref={datepickerRef} onClick={handleIconClick}>
                 <MdOutlineDateRange
