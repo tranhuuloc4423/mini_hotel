@@ -3,10 +3,10 @@ const mongoose = require('mongoose')
 const customerSchema = new mongoose.Schema(
     {
       customerId: {
-          type: Number,
-          unique: true
+        type: Number,
+        unique: true
       },
-      fullName: {
+      fullname: {
         type: String,
         required: true
       },
@@ -19,42 +19,30 @@ const customerSchema = new mongoose.Schema(
         type: Date, // "YYYY-MM-DD"
         required: true
       },
-      idCard: {
+      idcard: {
         type: Number,
         required: true
       },
       email: {
         type: String,
-        required: true,
+        required: true
       },
-      phoneNumber: {
+      phonenumber: {
         type: String,
-        required: true,
+        required: true
       },
       address: {
         type: String,
         required: true,
       },
       amenities: [{
-        name: {
-            type: String,
-            required: true
-        },
-        price: {
-            type: Number,
-            required: true
-        },
-        calUnit: {
-            type: String,
-            required: true
-        },
-        isUse: {
-            type: Boolean,
-            default: false
+        amenityId: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'Amenities'
         }
       }],
       members: [{
-        fullName: {
+        fullname: {
             type: String,
             required: true
         },
@@ -67,11 +55,11 @@ const customerSchema = new mongoose.Schema(
             type: Date, // "YYYY-MM-DD"
             required: true
         },
-        idCard: {
+        idcard: {
             type: Number,
             required: true
         },
-        phoneNumber: {
+        phonenumber: {
             type: String,
             required: true,
         }

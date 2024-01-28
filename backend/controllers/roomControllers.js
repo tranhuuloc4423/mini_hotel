@@ -6,10 +6,10 @@ const roomControllers = {
   createRoom: async (req, res) => {
     try {
       const newRoom = new Room({
-        roomName: req.body.roomName,
+        roomname: req.body.roomname,
         price: req.body.price,
         capacity: req.body.capacity,
-        customerId: req.body.customerId
+        customers: req.body.customers
       });
       const room = await newRoom.save();
       res.status(200).json(room);

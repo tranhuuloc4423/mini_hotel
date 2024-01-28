@@ -6,7 +6,7 @@ const roomSchema = new mongoose.Schema(
             type: Number,
             unique: true
         },
-        roomName: {
+        roomname: {
             type: String,
             required: true,
             unique: true
@@ -19,7 +19,7 @@ const roomSchema = new mongoose.Schema(
             type: Number,
             required: true
         },
-        isOccupied: {
+        occupied: {
             type: Boolean,
             default: false
         },
@@ -27,10 +27,12 @@ const roomSchema = new mongoose.Schema(
             data: Buffer,
             contentType: String
         },
-        customerId: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Customer'
-        }
+        customers: [{
+            customerId: {
+              type: mongoose.Schema.Types.ObjectId,
+              ref: 'Customer'
+            }
+          }],
     },
     { timestamps: true }
 );

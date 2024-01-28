@@ -4,12 +4,12 @@ const customerControllers = {
   createCustomer: async (req, res) => {
     try {
       const newCustomer = new Customer({
-        fullName: req.body.fullName,
+        fullname: req.body.fullname,
         sex: req.body.sex,
         dob: req.body.dob,
-        idCard: req.body.idCard,
+        idcard: req.body.idcard,
         email: req.body.email,
-        phoneNumber: req.body.phoneNumber,
+        phonenumber: req.body.phonenumber,
         address: req.body.address,
         amenities: req.body.amenities,
         members: req.body.members
@@ -57,6 +57,31 @@ const customerControllers = {
       const customer = await Customer.findOneAndDelete({ customerId: customerId });
       res.status(200).json(customer);
     } catch (error) {
+      res.status(500).json(error);
+    }
+  },
+
+  getAmenityByCustomerId: async (req, res) => {
+    try {
+      const customerId = parseInt(req.params.id);
+
+      const customer = await Customer.findOne({ customerId: customerId });
+
+      if (!customer) {
+        return res.status(404).json({ message: "Customer not found" });
+      }
+
+      const amenityIds = customer.amenityId;
+
+      if (!amenityIds || amenityIds.length === 0) {
+        return res.status(404).json({ message: "No amenity found in the customer" });
+      }
+
+      const amenities = await Amenity.find({ amenityId: { $in: amenityIds } });
+
+      res.status(200).json(amenities);
+    } catch (error) {
+      console.log(error);
       res.status(500).json(error);
     }
   },
