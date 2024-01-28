@@ -9,7 +9,7 @@ import {
 } from 'mdb-react-ui-kit'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { loginUser } from '../../redux/api/auth'
+import { loginUser } from '../../../redux/api/auth'
 
 const Login = () => {
     const [username, setUsername] = useState('')

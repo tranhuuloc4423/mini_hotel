@@ -16,7 +16,8 @@ export const loginUser = async (user, dispatch, navigate) => {
         dispatch(loginSuccess(res.data))
         dispatch(loginSuccess(user))
         toast.success('Login Success!')
-        navigate('/home')
+        localStorage.setItem('currentUser', JSON.stringify(user))
+        navigate('/home/dashboard')
     } catch (error) {
         toast.error('Login Failed!')
         dispatch(loginFailed())

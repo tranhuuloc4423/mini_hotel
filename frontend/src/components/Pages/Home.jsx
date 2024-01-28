@@ -1,5 +1,5 @@
 import { Outlet, useNavigate } from 'react-router'
-import Sidenav from '../Sidenav'
+import Sidenav from '../Common/Sidenav'
 import { useEffect } from 'react'
 
 const Home = () => {

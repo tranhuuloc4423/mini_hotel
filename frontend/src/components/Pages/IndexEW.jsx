@@ -13,10 +13,10 @@ import {
     MDBTabsContent,
     MDBTabsPane
 } from 'mdb-react-ui-kit'
-import DatePicker from '../DatePicker'
+import DatePicker from '../Common/DatePicker'
 import { useState } from 'react'
 import icons from '../../utils/icons'
-import Button from '../Button'
+import Button from '../Common/Button'
 
 const { TbInfoSquare, BsSave } = icons
 const IndexEW = () => {
@@ -34,7 +34,10 @@ const IndexEW = () => {
                 <div className="flex-center-y justify-between gap-2">
                     <MDBTabs className="flex-nowrap gap-2">
                         <MDBTabsItem>
-                            <MDBTabsLink onClick={() => handleBasicClick('tab1')} active={basicActive === 'tab1'}>
+                            <MDBTabsLink
+                                onClick={() => handleBasicClick('tab1')}
+                                active={basicActive === 'tab1'}
+                            >
                                 Water Index
                             </MDBTabsLink>
                         </MDBTabsItem>
@@ -52,29 +55,53 @@ const IndexEW = () => {
                     <div className="flex-center-y gap-2">
                         <span>state</span>
                         <MDBDropdown>
-                            <MDBDropdownToggle color="secondary">State</MDBDropdownToggle>
+                            <MDBDropdownToggle color="secondary">
+                                State
+                            </MDBDropdownToggle>
                             <MDBDropdownMenu>
-                                <MDBDropdownItem link>Menu item</MDBDropdownItem>
-                                <MDBDropdownItem link>Menu item</MDBDropdownItem>
-                                <MDBDropdownItem link>Menu item</MDBDropdownItem>
+                                <MDBDropdownItem link>
+                                    Menu item
+                                </MDBDropdownItem>
+                                <MDBDropdownItem link>
+                                    Menu item
+                                </MDBDropdownItem>
+                                <MDBDropdownItem link>
+                                    Menu item
+                                </MDBDropdownItem>
                             </MDBDropdownMenu>
                         </MDBDropdown>
                     </div>
                     <div className="flex-center-y gap-2">
                         <span>state</span>
                         <MDBDropdown>
-                            <MDBDropdownToggle color="secondary">State</MDBDropdownToggle>
+                            <MDBDropdownToggle color="secondary">
+                                State
+                            </MDBDropdownToggle>
                             <MDBDropdownMenu>
-                                <MDBDropdownItem link>Menu item</MDBDropdownItem>
-                                <MDBDropdownItem link>Menu item</MDBDropdownItem>
-                                <MDBDropdownItem link>Menu item</MDBDropdownItem>
+                                <MDBDropdownItem link>
+                                    Menu item
+                                </MDBDropdownItem>
+                                <MDBDropdownItem link>
+                                    Menu item
+                                </MDBDropdownItem>
+                                <MDBDropdownItem link>
+                                    Menu item
+                                </MDBDropdownItem>
                             </MDBDropdownMenu>
                         </MDBDropdown>
                     </div>
                 </div>
                 <div className="flex-center-y gap-2">
-                    <Button color={'info'} text={'View'} icon={<TbInfoSquare size={20} />} />
-                    <Button color={'success'} text={'Save'} icon={<BsSave size={20} />} />
+                    <Button
+                        color={'info'}
+                        text={'View'}
+                        icon={<TbInfoSquare size={20} />}
+                    />
+                    <Button
+                        color={'success'}
+                        text={'Save'}
+                        icon={<BsSave size={20} />}
+                    />
                 </div>
             </div>
             <div className="main-body">
@@ -92,40 +119,74 @@ const IndexEW = () => {
                             <MDBTableBody>
                                 <tr>
                                     <td>
-                                        <p className="fw-normal mb-1">Software engineer</p>
-                                        <p className="text-muted mb-0">IT department</p>
+                                        <p className="fw-normal mb-1">
+                                            Software engineer
+                                        </p>
+                                        <p className="text-muted mb-0">
+                                            IT department
+                                        </p>
                                     </td>
                                     <td>
-                                        <MDBInput label="Old number" id="typeNumber" type="number" />
+                                        <MDBInput
+                                            label="Old number"
+                                            id="typeNumber"
+                                            type="number"
+                                        />
                                     </td>
                                     <td>
-                                        <MDBInput label="New number" id="typeNumber" type="number" />
+                                        <MDBInput
+                                            label="New number"
+                                            id="typeNumber"
+                                            type="number"
+                                        />
                                     </td>
                                     <td>total</td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <p className="fw-normal mb-1">Consultant</p>
-                                        <p className="text-muted mb-0">Finance</p>
+                                        <p className="fw-normal mb-1">
+                                            Consultant
+                                        </p>
+                                        <p className="text-muted mb-0">
+                                            Finance
+                                        </p>
                                     </td>
                                     <td>
-                                        <MDBInput label="Old number" id="typeNumber" type="number" />
+                                        <MDBInput
+                                            label="Old number"
+                                            id="typeNumber"
+                                            type="number"
+                                        />
                                     </td>
                                     <td>
-                                        <MDBInput label="New number" id="typeNumber" type="number" />
+                                        <MDBInput
+                                            label="New number"
+                                            id="typeNumber"
+                                            type="number"
+                                        />
                                     </td>
                                     <td>total</td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <p className="fw-normal mb-1">Designer</p>
+                                        <p className="fw-normal mb-1">
+                                            Designer
+                                        </p>
                                         <p className="text-muted mb-0">UI/UX</p>
                                     </td>
                                     <td>
-                                        <MDBInput label="Old number" id="typeNumber" type="number" />
+                                        <MDBInput
+                                            label="Old number"
+                                            id="typeNumber"
+                                            type="number"
+                                        />
                                     </td>
                                     <td>
-                                        <MDBInput label="New number" id="typeNumber" type="number" />
+                                        <MDBInput
+                                            label="New number"
+                                            id="typeNumber"
+                                            type="number"
+                                        />
                                     </td>
                                     <td>total</td>
                                 </tr>
@@ -144,43 +205,24 @@ const IndexEW = () => {
                             </MDBTableHead>
                             <MDBTableBody>
                                 <tr>
-                                    <td>
-                                        <p className="fw-normal mb-1">Software engineer</p>
-                                        <p className="text-muted mb-0">IT department</p>
+                                    <td className="w-1/4">
+                                        <p className="fw-normal mb-1">
+                                            Software engineer
+                                        </p>
                                     </td>
-                                    <td>
-                                        <MDBInput label="Old number" id="typeNumber" type="number" />
+                                    <td className="w-1/4">
+                                        <MDBInput
+                                            label="Old number"
+                                            type="number"
+                                        />
                                     </td>
-                                    <td>
-                                        <MDBInput label="New number" id="typeNumber" type="number" />
+                                    <td className="w-1/4">
+                                        <MDBInput
+                                            label="New number"
+                                            type="number"
+                                        />
                                     </td>
-                                    <td>total</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <p className="fw-normal mb-1">Consultant</p>
-                                        <p className="text-muted mb-0">Finance</p>
-                                    </td>
-                                    <td>
-                                        <MDBInput label="Old number" id="typeNumber" type="number" />
-                                    </td>
-                                    <td>
-                                        <MDBInput label="New number" id="typeNumber" type="number" />
-                                    </td>
-                                    <td>total</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <p className="fw-normal mb-1">Designer</p>
-                                        <p className="text-muted mb-0">UI/UX</p>
-                                    </td>
-                                    <td>
-                                        <MDBInput label="Old number" id="typeNumber" type="number" />
-                                    </td>
-                                    <td>
-                                        <MDBInput label="New number" id="typeNumber" type="number" />
-                                    </td>
-                                    <td>total</td>
+                                    <td className="w-1/4">total</td>
                                 </tr>
                             </MDBTableBody>
                         </MDBTable>

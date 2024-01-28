@@ -11,9 +11,9 @@ import {
     MDBDropdownToggle,
     MDBDropdownItem
 } from 'mdb-react-ui-kit'
-import icons from '../../utils/icons'
-import Chart from '../Chart'
-import Table from '../Table'
+import icons from '../../../utils/icons'
+import Chart from '../../Common/Chart'
+import Table from '../../Common/Table'
 
 const { IoAddCircleOutline } = icons
 const Report = () => {
@@ -32,22 +32,34 @@ const Report = () => {
             <div className="main-header">
                 <MDBTabs className="flex-center-y gap-2">
                     <MDBTabsItem>
-                        <MDBTabsLink onClick={() => handleBasicClick('tab1')} active={basicActive === 'tab1'}>
+                        <MDBTabsLink
+                            onClick={() => handleBasicClick('tab1')}
+                            active={basicActive === 'tab1'}
+                        >
                             Revenue
                         </MDBTabsLink>
                     </MDBTabsItem>
                     <MDBTabsItem>
-                        <MDBTabsLink onClick={() => handleBasicClick('tab2')} active={basicActive === 'tab2'}>
+                        <MDBTabsLink
+                            onClick={() => handleBasicClick('tab2')}
+                            active={basicActive === 'tab2'}
+                        >
                             Bill list
                         </MDBTabsLink>
                     </MDBTabsItem>
                     <MDBTabsItem>
-                        <MDBTabsLink onClick={() => handleBasicClick('tab3')} active={basicActive === 'tab3'}>
+                        <MDBTabsLink
+                            onClick={() => handleBasicClick('tab3')}
+                            active={basicActive === 'tab3'}
+                        >
                             Paid list
                         </MDBTabsLink>
                     </MDBTabsItem>
                     <MDBTabsItem>
-                        <MDBTabsLink onClick={() => handleBasicClick('tab4')} active={basicActive === 'tab4'}>
+                        <MDBTabsLink
+                            onClick={() => handleBasicClick('tab4')}
+                            active={basicActive === 'tab4'}
+                        >
                             Lack money list
                         </MDBTabsLink>
                     </MDBTabsItem>
@@ -62,7 +74,9 @@ const Report = () => {
                     />
 
                     <MDBDropdown>
-                        <MDBDropdownToggle color="secondary">Filter</MDBDropdownToggle>
+                        <MDBDropdownToggle color="secondary">
+                            Filter
+                        </MDBDropdownToggle>
                         <MDBDropdownMenu>
                             <MDBDropdownItem link>Menu item</MDBDropdownItem>
                             <MDBDropdownItem link>Menu item</MDBDropdownItem>

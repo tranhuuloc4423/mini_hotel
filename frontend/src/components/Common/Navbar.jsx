@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import navbar from '../utils/verticalbars_items'
+import navbar from '../../utils/verticalbars_items'
 import { Link } from 'react-router-dom'
 
 const Navbar = () => {
@@ -18,7 +18,12 @@ const Navbar = () => {
                         {item?.name}
                     </Link>
                 ) : (
-                    <Link className="sidenav-item" key={index} to={item?.link} onClick={() => setTabActive(index)}>
+                    <Link
+                        className="sidenav-item"
+                        key={index}
+                        to={item?.link}
+                        onClick={() => setTabActive(index)}
+                    >
                         <div>{item?.icon}</div>
                         {item?.name}
                     </Link>
