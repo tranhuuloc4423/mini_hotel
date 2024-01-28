@@ -20,7 +20,6 @@ const amenitiesSchema = new mongoose.Schema(
         },
         isUse: {
           type: Boolean,
-          // Note
         }
     },
     { timestamps: true }

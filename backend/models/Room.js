@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
 const roomSchema = new mongoose.Schema(
     {
@@ -23,30 +23,28 @@ const roomSchema = new mongoose.Schema(
             type: Boolean,
             default: false
         },
-        occupants: [
-            {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: 'Customer'
-            }
-        ],
         image: {
-          data: Buffer,
-          contentType: String
+            data: Buffer,
+            contentType: String
         },
+        customerId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Customer'
+        }
     },
     { timestamps: true }
 );
 
 roomSchema.pre('save', async function (next) {
-    const room = this
-    const Room = mongoose.model('Room')
+    const room = this;
+    const Room = mongoose.model('Room');
     if (!room.roomId) {
-        const lastRoom = await Room.findOne({}, {}, { sort: { roomId: -1 } })
-        room.roomId = lastRoom ? lastRoom.roomId + 1 : 1
+        const lastRoom = await Room.findOne({}, {}, { sort: { roomId: -1 } });
+        room.roomId = lastRoom ? lastRoom.roomId + 1 : 1;
     }
-    next()
-})
+    next();
+});
 
-const Room = mongoose.model('Room', roomSchema)
+const Room = mongoose.model('Room', roomSchema);
 
-module.exports = Room
+module.exports = Room;

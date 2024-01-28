@@ -16,7 +16,7 @@ const customerSchema = new mongoose.Schema(
         required: true
       },
       dob: {
-        type: Date, // Note
+        type: Date, // "YYYY-MM-DD"
         required: true
       },
       idCard: {
@@ -26,19 +26,14 @@ const customerSchema = new mongoose.Schema(
       email: {
         type: String,
         required: true,
-        unique: true,
-        maxLength: 30
       },
       phoneNumber: {
         type: String,
         required: true,
-        unique: true,
-        maxLength: 10
       },
       address: {
         type: String,
         required: true,
-        maxLength: 100
       },
       amenities: [{
         name: {
@@ -69,7 +64,7 @@ const customerSchema = new mongoose.Schema(
             required: true
         },
         dob: {
-            type: Date,
+            type: Date, // "YYYY-MM-DD"
             required: true
         },
         idCard: {
@@ -79,7 +74,6 @@ const customerSchema = new mongoose.Schema(
         phoneNumber: {
             type: String,
             required: true,
-            maxLength: 10
         }
       }]
   },
@@ -87,18 +81,14 @@ const customerSchema = new mongoose.Schema(
 );
 
 customerSchema.pre('save', async function (next) {
-    const customer = this
-    const Customer = mongoose.model('Customer')
-    if (!customer.customerId) {
-        const lastCustomer = await Customer.findOne(
-            {},
-            {},
-            { sort: { customerId: -1 } }
-        )
-        customer.customerId = lastCustomer ? lastCustomer.customerId + 1 : 1
-    }
-    next()
-})
+  const customer = this;
+  const Customer = mongoose.model('Customer');
+  if (!customer.customerId) {
+      const lastCustomer = await Customer.findOne({}, {}, { sort: { customerId: -1 } });
+      customer.customerId = lastCustomer ? lastCustomer.customerId + 1 : 1;
+  }
+  next();
+});
 
 const Customer = mongoose.model('Customer', customerSchema)
 
