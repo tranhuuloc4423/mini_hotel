@@ -9,8 +9,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getAllEmenities } from '../../../redux/api/amenities'
 import Button from '../../Common/Button'
 import icons from '../../../utils/icons'
+import { addAmenities } from '../../../redux/slices/customerSlice'
 
-const { IoIosArrowBack, IoIosArrowForward } = icons
+const { IoIosArrowForward } = icons
 
 const StepTwo = ({ setStep }) => {
     const [amenitiesChecked, setAmenitiesChecked] = useState([])
@@ -34,8 +35,15 @@ const StepTwo = ({ setStep }) => {
         console.log(amenitiesChecked)
     }, [amenitiesChecked])
 
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        dispatch(addAmenities(amenitiesChecked))
+        // validate
+        setStep(3)
+    }
+
     return (
-        <form>
+        <div>
             <div className="text-lg font-semibold pb-4">
                 Step 2: {'Service'}
             </div>
@@ -83,19 +91,13 @@ const StepTwo = ({ setStep }) => {
             <div className="w-full flex justify-center items-center mt-4">
                 <Button
                     color={'info'}
-                    text={'previous'}
-                    icon={<IoIosArrowBack size={20} />}
-                    onClick={() => setStep(1)}
-                />
-                <Button
-                    color={'info'}
                     text={'next'}
                     icon={<IoIosArrowForward size={20} />}
-                    onClick={() => setStep(3)}
+                    onClick={handleSubmit}
                     end
                 />
             </div>
-        </form>
+        </div>
     )
 }
 

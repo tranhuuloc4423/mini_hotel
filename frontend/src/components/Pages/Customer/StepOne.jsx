@@ -1,10 +1,12 @@
-import { useEffect, useRef, useState } from 'react'
+import { useState } from 'react'
 import DatePicker from '../../Common/DatePicker'
 import { MDBInput, MDBRadio } from 'mdb-react-ui-kit'
-import { useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import Button from '../../Common/Button'
 
 import icons from '../../../utils/icons'
+import { addCustomer } from '../../../redux/slices/customerSlice'
+import { toast } from 'react-toastify'
 
 const { IoIosArrowForward } = icons
 
@@ -16,6 +18,7 @@ const StepOne = ({ setStep }) => {
         idcard: '',
         address: ''
     })
+    const dispatch = useDispatch()
     // const { save } = useSelector((state) => state.customer)
     const [dob, setDob] = useState()
     const [sex, setSex] = useState()
@@ -28,20 +31,26 @@ const StepOne = ({ setStep }) => {
         setSex(e.target.value)
     }
 
-    const handleStepOne = (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault()
-        setStep(2)
-        const newCustomerInfo = { ...formValue, dob: dob, sex: sex }
-        console.log(newCustomerInfo)
+        const isAllFieldsFilled = Object.values(formValue).every(
+            (value) => value !== ''
+        )
+        const isDobFilled = dob !== undefined
+        const isSexFilled = sex !== undefined
+
+        if (isAllFieldsFilled && isDobFilled && isSexFilled) {
+            const newCustomerInfo = { ...formValue, dob: dob, sex: sex }
+            console.log(newCustomerInfo)
+            dispatch(addCustomer(newCustomerInfo))
+            setStep(2)
+        } else {
+            toast.warning('Please fill in complete information!')
+        }
     }
 
-    // useEffect(() => {
-    //     // const newCustomerInfo = { ...formValue }
-    //     console.log(dob)
-    // }, [dob])
-
     return (
-        <form onSubmit={handleStepOne}>
+        <form onSubmit={handleSubmit}>
             <div className="text-lg font-semibold pb-4">
                 Step 1: {"Customer's infomation"}
             </div>
@@ -106,7 +115,7 @@ const StepOne = ({ setStep }) => {
                     color={'info'}
                     text={'next'}
                     icon={<IoIosArrowForward size={20} />}
-                    onClick={handleStepOne}
+                    onClick={handleSubmit}
                     end
                 />
             </div>

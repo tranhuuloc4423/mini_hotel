@@ -37,6 +37,7 @@ const DatePicker = ({ label, value, setValue }) => {
     useEffect(() => {
         if (selected) {
             setValue(format(selected, 'dd/MM/yyyy'))
+            setActiveDatepicker(false)
         }
     }, [selected])
     return (
