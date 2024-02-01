@@ -28,8 +28,8 @@ const amenityControllers = {
 
   getAmenityById: async (req, res) => {
     try {
-      const amenityId = parseInt(req.params.id);
-      const amenity = await Amenities.findOne({ amenityId: amenityId });
+      const id = parseInt(req.params.id);
+      const amenity = await Amenities.findOne({ id: id });
       res.status(200).json(amenity);
     } catch (error) {
       res.status(500).json(error);
@@ -38,8 +38,8 @@ const amenityControllers = {
 
   updateAmenityById: async (req, res) => {
     try {
-      const amenityId = parseInt(req.params.id);
-      const amenity = await Amenities.findOneAndUpdate({ amenityId: amenityId }, req.body, { new: true });
+      const id = parseInt(req.params.id);
+      const amenity = await Amenities.findOneAndUpdate({ id: id }, req.body, { new: true });
       res.status(200).json(amenity);
     } catch (error) {
       res.status(500).json(error);
@@ -48,8 +48,8 @@ const amenityControllers = {
 
   deleteAmenityById: async (req, res) => {
     try {
-      const amenityId = parseInt(req.params.id);
-      const amenity = await Amenities.findOneAndDelete({ amenityId: amenityId });
+      const id = parseInt(req.params.id);
+      const amenity = await Amenities.findOneAndDelete({ id: id });
       res.status(200).json(amenity);
     } catch (error) {
       res.status(500).json(error);

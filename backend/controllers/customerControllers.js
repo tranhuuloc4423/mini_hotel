@@ -33,8 +33,8 @@ const customerControllers = {
 
   getCustomerById: async (req, res) => {
     try {
-      const customerId = parseInt(req.params.id);
-      const customer = await Customer.findOne({ customerId: customerId });
+      const id = parseInt(req.params.id);
+      const customer = await Customer.findOne({ id: id }).populate('amenities');;
       res.status(200).json(customer);
     } catch (error) {
       res.status(500).json(error);
@@ -43,8 +43,8 @@ const customerControllers = {
 
   updateCustomerById: async (req, res) => {
     try {
-      const customerId = parseInt(req.params.id);
-      const customer = await Customer.findOneAndUpdate({ customerId: customerId }, req.body, { new: true });
+      const id = parseInt(req.params.id);
+      const customer = await Customer.findOneAndUpdate({ id: id }, req.body, { new: true });
       res.status(200).json(customer);
     } catch (error) {
       res.status(500).json(error);
@@ -53,35 +53,10 @@ const customerControllers = {
 
   deleteCustomerById: async (req, res) => {
     try {
-      const customerId = parseInt(req.params.id);
-      const customer = await Customer.findOneAndDelete({ customerId: customerId });
+      const id = parseInt(req.params.id);
+      const customer = await Customer.findOneAndDelete({ id: id });
       res.status(200).json(customer);
     } catch (error) {
-      res.status(500).json(error);
-    }
-  },
-
-  getAmenityByCustomerId: async (req, res) => {
-    try {
-      const customerId = parseInt(req.params.id);
-
-      const customer = await Customer.findOne({ customerId: customerId });
-
-      if (!customer) {
-        return res.status(404).json({ message: "Customer not found" });
-      }
-
-      const amenityIds = customer.amenityId;
-
-      if (!amenityIds || amenityIds.length === 0) {
-        return res.status(404).json({ message: "No amenity found in the customer" });
-      }
-
-      const amenities = await Amenity.find({ amenityId: { $in: amenityIds } });
-
-      res.status(200).json(amenities);
-    } catch (error) {
-      console.log(error);
       res.status(500).json(error);
     }
   },

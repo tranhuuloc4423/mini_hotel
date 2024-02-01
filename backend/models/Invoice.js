@@ -1,20 +1,16 @@
 const mongoose = require('mongoose');
 
 const invoiceSchema = new mongoose.Schema({
-  invoiceId: {
+  id: {
     type: Number,
     unique: true
   },
-  customerId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Customer',
-    require: true
-  },
-  roomId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Room',
-    require: true
-  },
+  customer: [
+
+  ],
+  room: [
+
+  ],
   amount: {
     type: Number,
     required: true
@@ -32,9 +28,9 @@ const invoiceSchema = new mongoose.Schema({
 invoiceSchema.pre('save', async function (next) {
   const invoice = this;
   const Invoice = mongoose.model('Invoice');
-  if (!invoice.invoiceId) {
-      const lastInvoice = await Invoice.findOne({}, {}, { sort: { invoiceId: -1 } });
-      invoice.invoiceId = lastInvoice ? lastInvoice.invoiceId + 1 : 1;
+  if (!invoice.id) {
+      const lastInvoice = await Invoice.findOne({}, {}, { sort: { id: -1 } });
+      invoice.id = lastInvoice ? lastInvoice.id + 1 : 1;
   }
   next();
 });

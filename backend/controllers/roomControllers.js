@@ -9,7 +9,8 @@ const roomControllers = {
         roomname: req.body.roomname,
         price: req.body.price,
         capacity: req.body.capacity,
-        customers: req.body.customers
+        customer: req.body.customer,
+        amenities: req.body.amenities
       });
       const room = await newRoom.save();
       res.status(200).json(room);
@@ -28,17 +29,17 @@ const roomControllers = {
   },
   getRoomById: async (req, res) => {
     try {
-      const roomId = parseInt(req.params.id);
-      const room = await Room.findOne({ roomId: roomId }).populate('customerId');
+      const id = parseInt(req.params.id);
+      const room = await Room.findOne({ id: id }).populate('customer').populate('amenities');
       res.status(200).json(room);
     } catch (error) {
       res.status(500).json(error);
     }
-  },
+  },  
   updateRoomById: async (req, res) => {
     try {
-      const roomId = parseInt(req.params.id);
-      const room = await Room.findOneAndUpdate({ roomId: roomId }, req.body, { new: true });
+      const id = parseInt(req.params.id);
+      const room = await Room.findOneAndUpdate({ id: id }, req.body, { new: true });
       res.status(200).json(room);
     } catch (error) {
       res.status(500).json(error);
@@ -47,37 +48,13 @@ const roomControllers = {
   
   deleteRoomById: async (req, res) => {
     try {
-      const roomId = parseInt(req.params.id);
-      const room = await Room.findOneAndDelete({ roomId: roomId });
+      const id = parseInt(req.params.id);
+      const room = await Room.findOneAndDelete({ id: id });
       res.status(200).json(room);
     } catch (error) {
       res.status(500).json(error);
     }
   },  
-  getCustomerByRoomId: async (req, res) => {
-    try {
-      const roomId = parseInt(req.params.id);
-
-      const room = await Room.findOne({ roomId: roomId });
-
-      if (!room) {
-        return res.status(404).json({ message: "Room not found" });
-      }
-
-      const customerIds = room.customerId;
-
-      if (!customerIds || customerIds.length === 0) {
-        return res.status(404).json({ message: "No customers found in the room" });
-      }
-
-      const customers = await Customer.find({ customerId: { $in: customerIds } });
-
-      res.status(200).json(customers);
-    } catch (error) {
-      console.log(error);
-      res.status(500).json(error);
-    }
-  },
 };
 
 module.exports = roomControllers;

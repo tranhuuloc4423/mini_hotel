@@ -6,6 +6,5 @@ router.get('/', roomControllers.getAllRooms);
 router.get('/:id', roomControllers.getRoomById);
 router.put('/:id', roomControllers.updateRoomById);
 router.delete('/:id', roomControllers.deleteRoomById);
-router.get('/customer/:id', roomControllers.getCustomerByRoomId);
 
 module.exports = router;
