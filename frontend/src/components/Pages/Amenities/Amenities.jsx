@@ -102,9 +102,7 @@ const Amenities = () => {
                                         </p>
                                     </td>
                                     <td className="w-1/4">{amenity?.price}</td>
-                                    <td className="w-1/4">
-                                        {amenity?.calUnit}
-                                    </td>
+                                    <td className="w-1/4">{amenity?.unit}</td>
                                     <td className="w-1/4">
                                         <Button
                                             color={'info'}
@@ -115,7 +113,7 @@ const Amenities = () => {
                                                 setFormValue({
                                                     name: amenity?.name,
                                                     price: amenity?.price,
-                                                    unit: amenity?.calUnit,
+                                                    unit: amenity?.unit,
                                                     amenityId:
                                                         amenity?.amenityId
                                                 })
