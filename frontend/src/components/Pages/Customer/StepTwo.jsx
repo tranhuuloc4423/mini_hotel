@@ -74,12 +74,10 @@ const StepTwo = ({ setStep }) => {
                                         name="use"
                                         label="use"
                                         checked={amenitiesChecked.includes(
-                                            item?.amenityId
+                                            item?.id
                                         )}
                                         onChange={() =>
-                                            handleAmenitiesChecked(
-                                                item?.amenityId
-                                            )
+                                            handleAmenitiesChecked(item?.id)
                                         }
                                     />
                                 </td>

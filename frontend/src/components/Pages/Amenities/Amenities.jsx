@@ -28,7 +28,7 @@ const Amenities = () => {
         name: '',
         price: '',
         unit: '',
-        amenityId: ''
+        id: ''
     })
     const [isEdit, setIsEdit] = useState(false)
 
@@ -76,7 +76,7 @@ const Amenities = () => {
                                 name: '',
                                 price: '',
                                 calUnit: '',
-                                amenityId: ''
+                                id: ''
                             })
                         }}
                     />
@@ -94,7 +94,7 @@ const Amenities = () => {
                     </MDBTableHead>
                     <MDBTableBody>
                         {amenities.map((amenity) => (
-                            <React.Fragment key={amenity?.amenityId}>
+                            <React.Fragment key={amenity?.id}>
                                 <tr>
                                     <td className="w-1/4">
                                         <p className="fw-normal mb-1">
@@ -114,8 +114,7 @@ const Amenities = () => {
                                                     name: amenity?.name,
                                                     price: amenity?.price,
                                                     unit: amenity?.unit,
-                                                    amenityId:
-                                                        amenity?.amenityId
+                                                    id: amenity?.id
                                                 })
                                                 setIsEdit(true)
                                             }}
@@ -125,7 +124,7 @@ const Amenities = () => {
                                             text="Delete"
                                             icon={<CgRemoveR size={20} />}
                                             onClick={() =>
-                                                handleRemove(amenity?.amenityId)
+                                                handleRemove(amenity?.id)
                                             }
                                         />
                                     </td>

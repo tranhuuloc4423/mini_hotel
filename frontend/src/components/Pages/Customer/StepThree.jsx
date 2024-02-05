@@ -70,7 +70,8 @@ const StepThree = ({ setStep }) => {
                 amenities: amenities,
                 members: memberData
             }
-            dispatch(createCustomer(newCustomer))
+            console.log(newCustomer)
+            createCustomer(newCustomer, dispatch)
         } else {
             toast.warning('Please fill in complete information!')
         }

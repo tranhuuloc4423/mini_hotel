@@ -39,13 +39,13 @@ const FormAddAmenity = ({
         if (!isEdit) {
             // create
             const newAmenity = { ...formValue }
-            delete newAmenity?.amenityId
+            delete newAmenity?.id
             createAmenity(newAmenity, dispatch)
             getAllEmenities(dispatch)
             formValue.name = ''
             formValue.price = ''
             formValue.unit = ''
-            formValue.amenityId = ''
+            formValue.id = ''
         } else {
             // update
             const newAmenity = { ...formValue }
@@ -54,7 +54,7 @@ const FormAddAmenity = ({
             formValue.name = ''
             formValue.price = ''
             formValue.unit = ''
-            formValue.amenityId = ''
+            formValue.id = ''
         }
         setIsEdit(false)
         setOpenModal(false)

@@ -37,8 +37,8 @@ const deleteRoom = async (id, dispatch) => {
 const updateRoom = async (room, dispatch) => {
     try {
         const newRoom = { ...room }
-        delete newRoom?.roomId
-        await axios.put(`/room/${room?.roomId}`, newRoom)
+        delete newRoom?.id
+        await axios.put(`/room/${room?.id}`, newRoom)
         dispatch(updateItem(room))
         toast.success('Update Room Successfully!')
     } catch (error) {

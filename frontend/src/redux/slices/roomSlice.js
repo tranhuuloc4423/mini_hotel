@@ -14,13 +14,13 @@ const roomSlice = createSlice({
         },
         removeItem: (state, action) => {
             const newrooms = state.rooms.filter(
-                (room) => room.roomId !== action.payload
+                (room) => room.id !== action.payload
             )
             state.rooms = newrooms
         },
         updateItem: (state, action) => {
             const updatedRooms = state.rooms.map((room) => {
-                if (room.roomId === action.payload.roomId) {
+                if (room.id === action.payload.id) {
                     return { ...room, ...action.payload.data }
                 }
                 return room

@@ -14,6 +14,7 @@ import Button from '../../Common/Button'
 import { createRoom, updateRoom } from '../../../redux/api/room'
 import { useDispatch } from 'react-redux'
 import DropImageInput from '../../Common/DropImageInput'
+import { useState } from 'react'
 
 const { BsSave } = icons
 
@@ -26,23 +27,30 @@ const FormAddRoom = ({
     setIsEdit
 }) => {
     const toggleOpen = () => setOpenModal(!openModal)
+    const [file, setFile] = useState()
     const dispatch = useDispatch()
 
     const onChange = (e) => {
         setFormValue({ ...formValue, [e.target.name]: e.target.value })
     }
 
-    const handleCreateRoom = (e) => {
+    const fetchBlobFromUrl = async (url) => {
+        const response = await fetch(url)
+        const blob = await response.blob()
+        return blob
+    }
+
+    const handleCreateRoom = async (e) => {
         e.preventDefault()
+        const newImageUrl = await fetchBlobFromUrl(file)
         if (!isEdit) {
-            const newRoom = { ...formValue }
-            delete newRoom.roomId
+            const newRoom = { ...formValue, image: newImageUrl }
+            delete newRoom.id
             console.log(newRoom)
             createRoom(newRoom, dispatch)
         } else {
-            const newRoom = { ...formValue }
+            const newRoom = { ...formValue, image: newImageUrl }
             updateRoom(newRoom, dispatch)
-            console.log()
         }
         setIsEdit(false)
         setOpenModal(false)
@@ -88,7 +96,7 @@ const FormAddRoom = ({
                                 name="capacity"
                                 onChange={onChange}
                             />
-                            <DropImageInput />
+                            <DropImageInput file={file} setFile={setFile} />
                             <Button
                                 color={'info'}
                                 text={'save'}

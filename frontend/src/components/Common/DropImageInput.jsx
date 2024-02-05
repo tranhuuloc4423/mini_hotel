@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 
-const DropImageInput = () => {
-    const [file, setFile] = useState()
+const DropImageInput = ({ file, setFile }) => {
     const [blob, setBlob] = useState('')
     const inputFileRef = useRef(null)
     const [isDragEnter, setIsDragEnter] = useState(false)
@@ -9,6 +8,7 @@ const DropImageInput = () => {
     useEffect(() => {
         if (file) {
             setBlob(URL.createObjectURL(file))
+            console.log(file)
         }
 
         return () => {

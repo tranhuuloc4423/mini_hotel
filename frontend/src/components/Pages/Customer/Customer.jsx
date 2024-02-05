@@ -98,9 +98,7 @@ const Customer = () => {
                                             text={'delete'}
                                             icon={<CgRemoveR size={20} />}
                                             onClick={() =>
-                                                handleRemove(
-                                                    customer?.customerId
-                                                )
+                                                handleRemove(customer?.id)
                                             }
                                         />
                                     </td>

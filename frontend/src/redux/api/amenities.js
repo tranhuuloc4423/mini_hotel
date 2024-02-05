@@ -39,8 +39,8 @@ export const removeAmenity = async (id, dispatch) => {
 export const updateAmenity = async (amenity, dispatch) => {
     try {
         const newAmenity = { ...amenity }
-        delete newAmenity?.amenityId
-        await axios.put(`/amenity/${amenity?.amenityId}`, newAmenity)
+        delete newAmenity?.id
+        await axios.put(`/amenity/${amenity?.id}`, newAmenity)
         dispatch(updateItem(amenity))
         toast.success('Update Amenity Success!')
     } catch (error) {

@@ -28,7 +28,7 @@ const Room = () => {
         roomname: '',
         price: '',
         capacity: '',
-        roomId: ''
+        id: ''
     })
 
     const handleRemove = (id) => {
@@ -103,7 +103,7 @@ const Room = () => {
                                             text={'delete'}
                                             icon={<CgRemoveR size={20} />}
                                             onClick={() => {
-                                                handleRemove(room?.roomId)
+                                                handleRemove(room?.id)
                                             }}
                                         />
                                         <Button
@@ -117,7 +117,7 @@ const Room = () => {
                                                     roomname: room?.roomname,
                                                     price: room?.price,
                                                     capacity: room?.capacity,
-                                                    roomId: room?.roomId
+                                                    id: room?.id
                                                 })
                                             }}
                                         />

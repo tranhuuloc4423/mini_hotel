@@ -23,7 +23,7 @@ const createCustomer = async (customer, dispatch) => {
         toast.success('Create Customer Success!')
     } catch (error) {
         toast.error('Create Customer Failed!')
-        console.log('failed')
+        console.log(error)
     }
 }
 
@@ -41,8 +41,8 @@ const removeCustomer = async (id, dispatch) => {
 const updateCustomer = async (customer) => {
     try {
         const newCustomer = { ...customer }
-        delete newCustomer?.customerId
-        await axios.put(`/customer/${customer?.customerId}`, newCustomer)
+        delete newCustomer?.id
+        await axios.put(`/customer/${customer?.id}`, newCustomer)
         dispatch(updateCustomers(customer))
         toast.success('Update Customer Success!')
     } catch (error) {

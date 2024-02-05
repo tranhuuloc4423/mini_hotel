@@ -14,13 +14,13 @@ const amenities = createSlice({
         },
         removeItem: (state, action) => {
             const newAmenities = state.amenities.filter(
-                (amenity) => amenity.amenityId !== action.payload
+                (amenity) => amenity.id !== action.payload
             )
             state.amenities = newAmenities
         },
         updateItem: (state, action) => {
             const updatedAmenities = state.amenities.map((amenity) => {
-                if (amenity.amenityId === action.payload.amenityId) {
+                if (amenity.id === action.payload.id) {
                     return { ...amenity, ...action.payload.data }
                 }
                 return amenity

@@ -15,13 +15,13 @@ const customer = createSlice({
         },
         removeCustomer: (state, action) => {
             const newCustomers = state.customers.filter(
-                (customer) => customer.customerId !== action.payload
+                (customer) => customer.id !== action.payload
             )
             state.customers = newCustomers
         },
         updateCustomers: (state, action) => {
             const updatedcustomers = state.customers.map((customer) => {
-                if (customer.customerId === action.payload.customerId) {
+                if (customer.id === action.payload.id) {
                     return { ...customer, ...action.payload.data }
                 }
                 return customer
