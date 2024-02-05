@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
-const roomSchema = new mongoose.Schema({
+const roomSchema = new mongoose.Schema(
+{
     id: {
         type: Number,
         unique: true
@@ -26,12 +27,10 @@ const roomSchema = new mongoose.Schema({
         data: Buffer,
         contentType: String
     },
-    customer: [
+    customer: {
 
-    ],
-    amenities: [
-
-    ]}, { timestamps: true }
+    }
+},{ timestamps: true }
 );
 
 roomSchema.pre('save', async function (next) {

@@ -9,8 +9,7 @@ const roomControllers = {
         roomname: req.body.roomname,
         price: req.body.price,
         capacity: req.body.capacity,
-        customer: req.body.customer,
-        amenities: req.body.amenities
+        customer: req.body.customer
       });
       const room = await newRoom.save();
       res.status(200).json(room);
@@ -30,7 +29,7 @@ const roomControllers = {
   getRoomById: async (req, res) => {
     try {
       const id = parseInt(req.params.id);
-      const room = await Room.findOne({ id: id }).populate('customer').populate('amenities');
+      const room = await Room.findOne({ id: id }).populate('customer');
       res.status(200).json(room);
     } catch (error) {
       res.status(500).json(error);
