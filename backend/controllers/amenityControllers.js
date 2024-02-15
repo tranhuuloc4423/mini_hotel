@@ -39,10 +39,10 @@ const amenityControllers = {
   updateAmenityById: async (req, res) => {
     try {
       const id = parseInt(req.params.id);
-      const name = req.body.name;
-      if (name === 'Water' || name === 'Electricity') {
-        return res.status(400).json({ error: "Cannot update default amenities: Water and Electricity" });
-      }
+      // const amenityName = req.body.name;
+      // if (amenityName === 'water' || amenityName === 'electricity' || amenityName === 'Water' || amenityName === 'Electricity') {
+      //   return res.status(400).json({ error: "Cannot edit default amenities: Water and Electricity" });
+      // }
       const amenity = await Amenities.findOneAndUpdate({ id: id }, req.body, { new: true });
       res.status(200).json(amenity);
     } catch (error) {
@@ -53,10 +53,10 @@ const amenityControllers = {
   deleteAmenityById: async (req, res) => {
     try {
       const id = parseInt(req.params.id);
-      const amenityName = req.body.name;
-      if (amenityName === 'water' || amenityName === 'electricity') {
-        return res.status(400).json({ error: "Cannot delete default amenities: Water and Electricity" });
-      }
+      // const amenityName = req.body.name;
+      // if (amenityName === 'water' || amenityName === 'electricity' || amenityName === 'Water' || amenityName === 'Electricity') {
+      //   return res.status(400).json({ error: "Cannot delete default amenities: Water and Electricity" });
+      // }
       const amenity = await Amenities.findOneAndDelete({ id: id });
       res.status(200).json(amenity);
     } catch (error) {

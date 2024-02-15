@@ -5,12 +5,8 @@ const invoiceSchema = new mongoose.Schema({
     type: Number,
     unique: true
   },
-  customer: [
-
-  ],
-  room: [
-
-  ],
+  customer: [],
+  room: [],
   amount: {
     type: Number,
     required: true
