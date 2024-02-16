@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 
 const MonthlyDataSchema = new mongoose.Schema(
     {
@@ -8,29 +8,31 @@ const MonthlyDataSchema = new mongoose.Schema(
         },
         time: {
             month: {
-                type: Number,
+                type: Number
             },
             year: {
-                type: Number, 
+                type: Number
             }
         },
-        rooms: [{
-            amenities: []
-        }]
+        rooms: [
+            {
+                amenities: []
+            }
+        ]
     },
     { timestamps: true }
 )
 
-amenitiesSchema.pre('save', async function (next) {
-    const data = this;
-    const MonthlyData = mongoose.model('MonthlyData');
+MonthlyDataSchema.pre('save', async function (next) {
+    const data = this
+    const MonthlyData = mongoose.model('MonthlyData')
     if (!data.id) {
-        const lastData = await MonthlyData.findOne({},{},{ sort: { id: -1 } })
+        const lastData = await MonthlyData.findOne({}, {}, { sort: { id: -1 } })
         data.id = lastData ? lastData.id + 1 : 1
     }
-    next();
-});
+    next()
+})
 
-const MonthlyData = mongoose.model('MonthlyData', MonthlyDataSchema);
+const MonthlyData = mongoose.model('MonthlyData', MonthlyDataSchema)
 
-module.exports = MonthlyData;
+module.exports = MonthlyData
