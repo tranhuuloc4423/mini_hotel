@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react'
 
-const DropImageInput = ({ file, setFile }) => {
-    const [blob, setBlob] = useState('')
+const DropImageInput = ({ blob, setBlob }) => {
+    // const [blob, setBlob] = useState('')
+    const [file, setFile] = useState('')
     const inputFileRef = useRef(null)
     const [isDragEnter, setIsDragEnter] = useState(false)
 

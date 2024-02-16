@@ -6,8 +6,7 @@ import {
     MDBModalHeader,
     MDBModalTitle,
     MDBModalBody,
-    MDBInput,
-    MDBFile
+    MDBInput
 } from 'mdb-react-ui-kit'
 import icons from '../../../utils/icons'
 import Button from '../../Common/Button'
@@ -15,6 +14,7 @@ import { createRoom, updateRoom } from '../../../redux/api/room'
 import { useDispatch } from 'react-redux'
 import DropImageInput from '../../Common/DropImageInput'
 import { useState } from 'react'
+import { Buffer } from 'buffer'
 
 const { BsSave } = icons
 
@@ -27,22 +27,25 @@ const FormAddRoom = ({
     setIsEdit
 }) => {
     const toggleOpen = () => setOpenModal(!openModal)
-    const [file, setFile] = useState()
+    const [blob, setBlob] = useState()
     const dispatch = useDispatch()
 
     const onChange = (e) => {
         setFormValue({ ...formValue, [e.target.name]: e.target.value })
     }
 
-    const fetchBlobFromUrl = async (url) => {
-        const response = await fetch(url)
-        const blob = await response.blob()
-        return blob
+    const convertFromUrl = async (blobUrl) => {
+        const response = await fetch(blobUrl)
+        const blobData = await response.blob()
+        const bufferData = await blobData.arrayBuffer()
+        const buffer = Buffer.from(bufferData)
+        const base64 = buffer.toString('base64')
+        return base64
     }
 
     const handleCreateRoom = async (e) => {
         e.preventDefault()
-        const newImageUrl = await fetchBlobFromUrl(file)
+        const newImageUrl = await convertFromUrl(blob)
         if (!isEdit) {
             const newRoom = { ...formValue, image: newImageUrl }
             delete newRoom.id
@@ -96,7 +99,7 @@ const FormAddRoom = ({
                                 name="capacity"
                                 onChange={onChange}
                             />
-                            <DropImageInput file={file} setFile={setFile} />
+                            <DropImageInput blob={blob} setBlob={setBlob} />
                             <Button
                                 color={'info'}
                                 text={'save'}

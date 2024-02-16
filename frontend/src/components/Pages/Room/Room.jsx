@@ -80,7 +80,9 @@ const Room = () => {
                                         {room?.roomname}
                                     </MDBCardHeader>
                                     <MDBCardBody>
-                                        <div className="">
+                                        <div
+                                            className={`bg-[data:image/jpeg;base64,${room?.image}] bg-contain w-full h-full`}
+                                        >
                                             <div>Price: {room?.price}</div>
                                             <div>
                                                 Capacity: {room?.capacity}

@@ -44,21 +44,13 @@ const Report = () => {
                             onClick={() => handleBasicClick('tab2')}
                             active={basicActive === 'tab2'}
                         >
-                            Bill list
+                            Paid list
                         </MDBTabsLink>
                     </MDBTabsItem>
                     <MDBTabsItem>
                         <MDBTabsLink
                             onClick={() => handleBasicClick('tab3')}
                             active={basicActive === 'tab3'}
-                        >
-                            Paid list
-                        </MDBTabsLink>
-                    </MDBTabsItem>
-                    <MDBTabsItem>
-                        <MDBTabsLink
-                            onClick={() => handleBasicClick('tab4')}
-                            active={basicActive === 'tab4'}
                         >
                             Lack money list
                         </MDBTabsLink>

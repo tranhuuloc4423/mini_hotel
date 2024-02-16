@@ -19,6 +19,7 @@ export const createAmenity = async (amenity, dispatch) => {
         const res = await axios.post('/amenity/create', amenity)
         dispatch(addItem(res.data))
         toast.success('Create Amenity Success!')
+        console.log('Success')
     } catch (error) {
         toast.error('Create Amenity Failed!')
         console.log('failed')

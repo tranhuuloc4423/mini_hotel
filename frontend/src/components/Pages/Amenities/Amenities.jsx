@@ -75,7 +75,7 @@ const Amenities = () => {
                             setFormValue({
                                 name: '',
                                 price: '',
-                                calUnit: '',
+                                unit: '',
                                 id: ''
                             })
                         }}
