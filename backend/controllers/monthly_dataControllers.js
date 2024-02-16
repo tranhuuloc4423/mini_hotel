@@ -2,7 +2,7 @@ const Amenities = require('../models/Amenities');
 const MonthlyData = require('../models/MonthlyData');
 
 const monthly_dataControllers = {
-  createAmenity: async (req, res) => {
+  cal: async (req, res) => {
     // {
     //     "id": "1",
     //     "amenities": [

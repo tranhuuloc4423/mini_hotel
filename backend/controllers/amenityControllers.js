@@ -53,10 +53,10 @@ const amenityControllers = {
   deleteAmenityById: async (req, res) => {
     try {
       const id = parseInt(req.params.id);
-      // const amenityName = req.body.name;
-      // if (amenityName === 'water' || amenityName === 'electricity' || amenityName === 'Water' || amenityName === 'Electricity') {
-      //   return res.status(400).json({ error: "Cannot delete default amenities: Water and Electricity" });
-      // }
+      const amenityName = req.body.name;
+      if (amenityName === 'water' || amenityName === 'electricity' || amenityName === 'Water' || amenityName === 'Electricity') {
+        return res.status(400).json({ error: "Cannot delete default amenities: Water and Electricity" });
+      }
       const amenity = await Amenities.findOneAndDelete({ id: id });
       res.status(200).json(amenity);
     } catch (error) {

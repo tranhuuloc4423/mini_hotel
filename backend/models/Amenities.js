@@ -17,7 +17,13 @@ const amenitiesSchema = new mongoose.Schema(
         price: {
             type: Number,
             required: true
-        }
+        },
+        mandatory: [
+            {
+                type: Boolean,
+                default: false
+            }
+        ]
     },
     { timestamps: true }
 )
@@ -29,19 +35,21 @@ amenitiesSchema.pre('save', async function (next) {
         const lastAmenity = await Amenities.findOne({},{},{ sort: { id: -1 } })
         amenity.id = lastAmenity ? lastAmenity.id + 1 : 1
     }
-
-    // const water = await Amenities.findOne({ name: 'Water' });
-    // const electricity = await Amenities.findOne({ name: 'Electricity' });
-
-    // if (!water) {
-    //     await Amenities.create({ name: 'Water', unit: 'm3', price: 10000 });
-    // }
-    // if (!electricity) {
-    //     await Amenities.create({ name: 'Electricity', unit: 'kWh', price: 2000 });
-    // }
     next();
 });
 
 const Amenities = mongoose.model('Amenities', amenitiesSchema);
+
+Amenities.findOneAndUpdate({ name: 'Water' }, { mandatory: true }, { upsert: true }, (err) => {
+    if (err) {
+        console.error('Error setting default mandatory value for Water:', err);
+    }
+});
+
+Amenities.findOneAndUpdate({ name: 'Electricity' }, { mandatory: true }, { upsert: true }, (err) => {
+    if (err) {
+        console.error('Error setting default mandatory value for Electricity:', err);
+    }
+});
 
 module.exports = Amenities;
