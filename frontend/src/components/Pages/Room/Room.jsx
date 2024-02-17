@@ -26,6 +26,7 @@ const Room = () => {
     const { rooms } = useSelector((state) => state.room)
     const [isEdit, setIsEdit] = useState(false)
     const toggleOpen = () => setOpenModal(!openModal)
+    const [formCustomer, setFormCustomer] = useState(false)
     const [formValue, setFormValue] = useState({
         roomname: '',
         price: '',
@@ -36,9 +37,6 @@ const Room = () => {
     const handleRemove = (id) => {
         deleteRoom(id, dispatch)
         getRooms(dispatch)
-    }
-    const handleAddCustomer = () => {
-        setModalCustomer(true)
     }
 
     useEffect(() => {
@@ -104,9 +102,9 @@ const Room = () => {
                                             color={'info'}
                                             text={'Add customer'}
                                             icon={<FiPlusSquare size={20} />}
-                                            onClick={() => {
-                                                handleAddCustomer()
-                                            }}
+                                            onClick={() =>
+                                                setFormCustomer(true)
+                                            }
                                         />
                                         <Button
                                             color={'danger'}
@@ -138,7 +136,10 @@ const Room = () => {
                     )
                 })}
             </div>
-            <FormAddCusRoom />
+            <FormAddCusRoom
+                formCustomer={formCustomer}
+                setFormCustomer={setFormCustomer}
+            />
             <FormAddRoom
                 openModal={openModal}
                 setOpenModal={setOpenModal}

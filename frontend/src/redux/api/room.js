@@ -27,6 +27,7 @@ const deleteRoom = async (id, dispatch) => {
     try {
         await axios.delete(`/room/${id}`)
         dispatch(removeItem(id))
+        getRooms(dispatch)
         toast.success('Delete Room Successfully!')
     } catch (error) {
         toast.error('Delete Room Failed!')
@@ -43,6 +44,17 @@ const updateRoom = async (room, dispatch) => {
         toast.success('Update Room Successfully!')
     } catch (error) {
         toast.success('Update Room Failed!')
+        console.log(error)
+    }
+}
+
+const addCustomerRoom = async (id, dispatch) => {
+    try {
+        await axios.put(`/room/${id}`)
+        dispatch()
+        toast.success('Delete Room Successfully!')
+    } catch (error) {
+        toast.error('Delete Room Failed!')
         console.log(error)
     }
 }

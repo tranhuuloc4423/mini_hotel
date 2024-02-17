@@ -7,6 +7,9 @@ const roomSlice = createSlice({
         modalCustomer: false
     },
     reducers: {
+        setModalCustomer: (state, action) => {
+            state.modalCustomer = action.payload
+        },
         setRooms: (state, action) => {
             state.rooms = action.payload
         },
@@ -26,12 +29,11 @@ const roomSlice = createSlice({
                 }
                 return room
             })
-
             state.rooms = updatedRooms
-        },
-        setModalCustomer: (state, action) => {
-            state.modalCustomer = action.payload
         }
+        // updateCustomerItem: (state, action) => {
+        //     state
+        // }
     }
 })
 

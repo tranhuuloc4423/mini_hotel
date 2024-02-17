@@ -1,57 +1,89 @@
 import {
-    MDBCheckbox,
+    MDBModal,
+    MDBModalBody,
+    MDBModalContent,
+    MDBModalDialog,
+    MDBModalFooter,
+    MDBModalHeader,
+    MDBRadio,
     MDBTable,
     MDBTableBody,
     MDBTableHead
 } from 'mdb-react-ui-kit'
-import React from 'react'
+import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
+import Button from '../../Common/Button'
+import icons from '../../../utils/icons'
 
-const FormAddCusRoom = () => {
+const { BsSave } = icons
+const FormAddCusRoom = ({ formCustomer, setFormCustomer }) => {
     const { modalCustomer } = useSelector((state) => state.room)
+    const { customers } = useSelector((state) => state.customer)
+    const [selectedCustomer, setSelectedCustomer] = useState()
 
+    const handleSubmit = () => {
+        console.log(selectedCustomer)
+    }
     return (
-        modalCustomer && (
-            <MDBTable align="middle" className="text-center">
-                <MDBTableHead>
-                    <tr>
-                        <th scope="col">Name</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">Unit</th>
-                        <th scope="col">Check</th>
-                    </tr>
-                </MDBTableHead>
-                <MDBTableBody>
-                    {amenities?.map((item) => (
-                        <React.Fragment key={item?.amenityId}>
-                            <tr>
-                                <td>
-                                    <p className="">{item?.name}</p>
-                                </td>
-                                <td>
-                                    <p className="">{item?.price}</p>
-                                </td>
-                                <td>
-                                    <p className="">{item?.unit}</p>
-                                </td>
-                                <td className="flex justify-center">
-                                    <MDBCheckbox
-                                        name="use"
-                                        label="use"
-                                        checked={amenitiesChecked.includes(
-                                            item?.id
-                                        )}
-                                        onChange={() =>
-                                            handleAmenitiesChecked(item?.id)
-                                        }
-                                    />
-                                </td>
-                            </tr>
-                        </React.Fragment>
-                    ))}
-                </MDBTableBody>
-            </MDBTable>
-        )
+        <MDBModal open={formCustomer} setOpen={setFormCustomer} tabIndex="-1">
+            <MDBModalDialog size="xl">
+                <MDBModalContent>
+                    <MDBModalHeader className="mx-auto text-xl font-bold">
+                        Select Customer
+                    </MDBModalHeader>
+                    <MDBModalBody>
+                        <MDBTable align="middle" className="text-center">
+                            <MDBTableHead>
+                                <tr className="table-primary">
+                                    <th scope="col">FullName</th>
+                                    <th scope="col">ID Card</th>
+                                    <th scope="col">Phone Number</th>
+                                    <th scope="col">Select</th>
+                                </tr>
+                            </MDBTableHead>
+                            <MDBTableBody>
+                                {customers?.map((item, index) => (
+                                    <tr key={index}>
+                                        <td>
+                                            <p className="">{item?.fullname}</p>
+                                        </td>
+                                        <td>
+                                            <p className="">{item?.idcard}</p>
+                                        </td>
+                                        <td>
+                                            <p className="">
+                                                {item?.phonenumber}
+                                            </p>
+                                        </td>
+                                        <td className="flex justify-center">
+                                            <MDBRadio
+                                                name="customer"
+                                                value={item?.id}
+                                                onChange={(e) =>
+                                                    setSelectedCustomer(
+                                                        e.target.value
+                                                    )
+                                                }
+                                            />
+                                        </td>
+                                    </tr>
+                                ))}
+                            </MDBTableBody>
+                        </MDBTable>
+                    </MDBModalBody>
+                    <MDBModalFooter className="mx-auto">
+                        <Button
+                            color={'info'}
+                            text={'save'}
+                            icon={<BsSave size={20} />}
+                            onClick={() => {
+                                handleSubmit()
+                            }}
+                        />
+                    </MDBModalFooter>
+                </MDBModalContent>
+            </MDBModalDialog>
+        </MDBModal>
     )
 }
 
