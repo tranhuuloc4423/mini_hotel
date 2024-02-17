@@ -5,20 +5,28 @@ const invoiceSchema = new mongoose.Schema({
     type: Number,
     unique: true
   },
-  customer: [],
-  room: [],
+  time: {
+    day: {
+      type: Number
+    },
+    month: {
+      type: Number
+    },
+    year: {
+      type: Number
+    }
+  },
+  customer: {},
+  amenities:[],
+  room: {},
   amount: {
     type: Number,
     required: true
   },
-  isPaid: {
-    type: Boolean,
-    default: false
-  },
-  invoiceDate: {
-    type: Date,
-    default: Date.now
-  }
+  // invoiceDate: {
+  //   type: Date,
+  //   default: Date.now
+  // }
 });
 
 invoiceSchema.pre('save', async function (next) {

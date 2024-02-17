@@ -1,4 +1,6 @@
 const Room = require('../models/Room')
+const Customer = require('../models/Customer')
+
 const mongoose = require('mongoose')
 
 const roomControllers = {
@@ -55,6 +57,29 @@ const roomControllers = {
             res.status(200).json(room)
         } catch (error) {
             res.status(500).json(error)
+        }
+    },
+    addCustomerForRoom: async (req, res) => {
+        try {
+            const roomId = parseInt(req.params.roomId); 
+            const customerId = parseInt(req.params.customerId); 
+
+            const room = await Room.findOne({ id: roomId }); 
+            if (!room) {
+                return res.status(404).json({ message: 'Room not found' });
+            }
+
+            const customer = await Customer.findOne({ id: customerId }); 
+            if (!customer) {
+                return res.status(404).json({ message: 'Customer not found' });
+            }
+
+            room.customer = customerId; 
+            await room.save(); 
+
+            res.status(200).json({ message: 'Customer added to room successfully' });
+        } catch (error) {
+            res.status(500).json(error);
         }
     }
 }

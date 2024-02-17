@@ -8,8 +8,12 @@ const invoiceControllers = {
         customer: req.body.customer,
         room: req.body.room,
         amount: req.body.amount,
-        isPaid: req.body.isPaid,
-        invoiceDate: req.body.invoiceDate
+        time: {
+          day: req.body.time.day,
+          month: req.body.time.month,
+          year: req.body.time.year
+        },
+        amenities: req.body.amenities 
       });
       const invoice = await newInvoice.save();
       res.status(200).json(invoice);
@@ -18,7 +22,6 @@ const invoiceControllers = {
       res.status(500).json(error);
     }
   },
-
   getAllInvoices: async (req, res) => {
     try {
       const invoices = await Invoice.find();
