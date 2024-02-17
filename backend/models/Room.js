@@ -27,8 +27,9 @@ const roomSchema = new mongoose.Schema(
             data: Buffer,
             contentType: String
         },
-        customer: [],
-        amenities: []
+        customer: {
+            type: Number
+        }
     },
     { timestamps: true }
 )

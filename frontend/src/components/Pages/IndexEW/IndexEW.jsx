@@ -13,7 +13,7 @@ import icons from '../../../utils/icons'
 import Button from '../../Common/Button'
 import { useDispatch, useSelector } from 'react-redux'
 import { setActiveTab } from '../../../redux/slices/indexSlice'
-import { getAllEmenities } from '../../../redux/api/amenities'
+import IndexBody from './IndexBody'
 
 const { TbInfoSquare, BsSave } = icons
 const IndexEW = () => {
@@ -22,8 +22,9 @@ const IndexEW = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        console.log(amenities)
-    }, [amenities])
+        // console.log(amenities)
+        console.log(activeTab)
+    }, [activeTab])
     return (
         <div className="main-container">
             <div className="main-header">
@@ -35,22 +36,24 @@ const IndexEW = () => {
                                 Water & Electricity
                             </MDBDropdownToggle>
                             <MDBDropdownMenu>
-                                <MDBDropdownItem
-                                    link
-                                    onClick={() =>
-                                        dispatch(setActiveTab('Water'))
-                                    }
-                                >
-                                    Water
-                                </MDBDropdownItem>
-                                <MDBDropdownItem
-                                    link
-                                    onClick={() =>
-                                        dispatch(setActiveTab('Electricity'))
-                                    }
-                                >
-                                    Electricity
-                                </MDBDropdownItem>
+                                {amenities
+                                    ?.filter(
+                                        (amenity, _) =>
+                                            amenity?.mandatory === true
+                                    )
+                                    .map((amenity, index) => (
+                                        <MDBDropdownItem
+                                            key={index}
+                                            link
+                                            onClick={() =>
+                                                dispatch(
+                                                    setActiveTab(amenity?.name)
+                                                )
+                                            }
+                                        >
+                                            {amenity?.name}
+                                        </MDBDropdownItem>
+                                    ))}
                             </MDBDropdownMenu>
                         </MDBDropdown>
                     </div>
@@ -62,12 +65,19 @@ const IndexEW = () => {
                             <MDBDropdownMenu>
                                 {amenities
                                     ?.filter(
-                                        (amenity, index) =>
-                                            amenity.name !== 'Water' &&
-                                            amenity.name !== 'Electricity'
+                                        (amenity, _) =>
+                                            amenity?.mandatory === false
                                     )
                                     .map((amenity, index) => (
-                                        <MDBDropdownItem link key={index}>
+                                        <MDBDropdownItem
+                                            key={index}
+                                            link
+                                            onClick={() =>
+                                                dispatch(
+                                                    setActiveTab(amenity?.name)
+                                                )
+                                            }
+                                        >
                                             {amenity?.name}
                                         </MDBDropdownItem>
                                     ))}
@@ -88,7 +98,12 @@ const IndexEW = () => {
                     />
                 </div>
             </div>
-            <div className="main-body"></div>
+            <div className="main-body">
+                <div className="w-full text-center text-xl pb-3 font-bold">
+                    {activeTab}
+                </div>
+                <IndexBody />
+            </div>
         </div>
     )
 }

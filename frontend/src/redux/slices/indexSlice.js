@@ -4,7 +4,7 @@ const index = createSlice({
     name: 'index',
     initialState: {
         index: [],
-        activeTab: null
+        activeTab: 'Water'
     },
     reducers: {
         setActiveTab: (state, action) => {

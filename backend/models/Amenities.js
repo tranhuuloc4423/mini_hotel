@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 
 const amenitiesSchema = new mongoose.Schema(
     {
@@ -18,38 +18,55 @@ const amenitiesSchema = new mongoose.Schema(
             type: Number,
             required: true
         },
-        mandatory: [
-            {
-                type: Boolean,
-                default: false
-            }
-        ]
+        mandatory: {
+            type: Boolean
+        }
     },
     { timestamps: true }
 )
 
 amenitiesSchema.pre('save', async function (next) {
-    const amenity = this;
-    const Amenities = mongoose.model('Amenities');
+    const amenity = this
+    const Amenities = mongoose.model('Amenities')
     if (!amenity.id) {
-        const lastAmenity = await Amenities.findOne({},{},{ sort: { id: -1 } })
+        const lastAmenity = await Amenities.findOne(
+            {},
+            {},
+            { sort: { id: -1 } }
+        )
         amenity.id = lastAmenity ? lastAmenity.id + 1 : 1
     }
-    next();
-});
+    next()
+})
 
-const Amenities = mongoose.model('Amenities', amenitiesSchema);
+const Amenities = mongoose.model('Amenities', amenitiesSchema)
 
-Amenities.findOneAndUpdate({ name: 'Water' }, { mandatory: true }, { upsert: true }, (err) => {
-    if (err) {
-        console.error('Error setting default mandatory value for Water:', err);
-    }
-});
+// Amenities.findOneAndUpdate(
+//     { name: 'Water' },
+//     { mandatory: true },
+//     { upsert: true },
+//     (err) => {
+//         if (err) {
+//             console.error(
+//                 'Error setting default mandatory value for Water:',
+//                 err
+//             )
+//         }
+//     }
+// )
 
-Amenities.findOneAndUpdate({ name: 'Electricity' }, { mandatory: true }, { upsert: true }, (err) => {
-    if (err) {
-        console.error('Error setting default mandatory value for Electricity:', err);
-    }
-});
+// Amenities.findOneAndUpdate(
+//     { name: 'Electricity' },
+//     { mandatory: true },
+//     { upsert: true },
+//     (err) => {
+//         if (err) {
+//             console.error(
+//                 'Error setting default mandatory value for Electricity:',
+//                 err
+//             )
+//         }
+//     }
+// )
 
-module.exports = Amenities;
+module.exports = Amenities

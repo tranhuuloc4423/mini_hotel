@@ -1,4 +1,4 @@
-import React from 'react'
+import { useEffect } from 'react'
 import {
     MDBTable,
     MDBTableHead,
@@ -7,11 +7,23 @@ import {
     MDBTabsPane,
     MDBInput
 } from 'mdb-react-ui-kit'
+import { useSelector } from 'react-redux'
 
 const IndexBody = () => {
+    const { activeTab } = useSelector((state) => state.index)
+    const { amenities } = useSelector((state) => state.amenities)
+
+    useEffect(() => {
+        // console.log(activeTab)
+    }, [activeTab])
     return (
         <MDBTabsContent>
-            <MDBTabsPane open={basicActive === 'tab1'}>
+            <MDBTabsPane
+                open={amenities?.find(
+                    (item, index) =>
+                        item?.mandatory === true && item?.name === activeTab
+                )}
+            >
                 <MDBTable align="middle">
                     <MDBTableHead>
                         <tr className="table-primary">
@@ -90,13 +102,17 @@ const IndexBody = () => {
                     </MDBTableBody>
                 </MDBTable>
             </MDBTabsPane>
-            <MDBTabsPane open={basicActive === 'tab2'}>
+            <MDBTabsPane
+                open={amenities?.find(
+                    (item, index) =>
+                        item?.mandatory === false && item?.name === activeTab
+                )}
+            >
                 <MDBTable align="middle">
                     <MDBTableHead>
                         <tr className="table-primary">
                             <th scope="col">{"Name's room"}</th>
-                            <th scope="col">Old number</th>
-                            <th scope="col">New number</th>
+                            <th scope="col">Quantity</th>
                             <th scope="col">Total</th>
                         </tr>
                     </MDBTableHead>
@@ -109,9 +125,6 @@ const IndexBody = () => {
                             </td>
                             <td className="w-1/4">
                                 <MDBInput label="Old number" type="number" />
-                            </td>
-                            <td className="w-1/4">
-                                <MDBInput label="New number" type="number" />
                             </td>
                             <td className="w-1/4">total</td>
                         </tr>

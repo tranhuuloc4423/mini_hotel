@@ -1802,10 +1802,10 @@ loose-envify@^1.0.0, loose-envify@^1.1.0, loose-envify@^1.4.0:
   resolved "https://registry.yarnpkg.com/lru-cache/-/lru-cache-10.1.0.tgz#2098d41c2dc56500e6c88584aa656c84de7d0484"
   integrity sha512-/1clY/ui8CzjKFyjdvwPWJUYKiFVXG2I2cY0ssG7h4+hwk+XOIX7ZSG9Q7TW8TW3Kp3BUSqgFWBLgL4PJ+Blag==
 
-mdb-react-ui-kit@^7.1.0:
-  version "7.1.0"
-  resolved "https://registry.yarnpkg.com/mdb-react-ui-kit/-/mdb-react-ui-kit-7.1.0.tgz#5ebc2887e751166a981c813f0cc5d448464cf302"
-  integrity sha512-PVx3jQJr4ykMSl5rlRkG8Ny4/XfN/100ra7JuROPL5ncZ7/v/TR+WGJxpErJueBJ2XvbEOZuKYTOhvJfg1OfaQ==
+mdb-react-ui-kit@^7.2.0:
+  version "7.2.0"
+  resolved "https://registry.yarnpkg.com/mdb-react-ui-kit/-/mdb-react-ui-kit-7.2.0.tgz#4a793007a71e0ec0ab9959235166f0226ab3d2be"
+  integrity sha512-2AoW02DL2K1k4X4PoG8k1VGkWTTskykvGpKn7fLkGOmUD2eEXOKzLhSXgw3HbaYqg4ikWM2tL86M4oxRCtZdWg==
   dependencies:
     "@popperjs/core" "2.11.5"
     clsx "1.1.1"

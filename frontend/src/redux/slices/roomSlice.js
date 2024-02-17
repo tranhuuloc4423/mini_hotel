@@ -3,7 +3,8 @@ import { createSlice } from '@reduxjs/toolkit'
 const roomSlice = createSlice({
     name: 'room',
     initialState: {
-        rooms: []
+        rooms: [],
+        modalCustomer: false
     },
     reducers: {
         setRooms: (state, action) => {
@@ -27,10 +28,14 @@ const roomSlice = createSlice({
             })
 
             state.rooms = updatedRooms
+        },
+        setModalCustomer: (state, action) => {
+            state.modalCustomer = action.payload
         }
     }
 })
 
-export const { setRooms, addItem, removeItem, updateItem } = roomSlice.actions
+export const { setRooms, addItem, removeItem, updateItem, setModalCustomer } =
+    roomSlice.actions
 
 export default roomSlice.reducer
