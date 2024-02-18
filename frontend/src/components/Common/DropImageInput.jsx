@@ -9,7 +9,7 @@ const DropImageInput = ({ blob, setBlob }) => {
     useEffect(() => {
         if (file) {
             setBlob(URL.createObjectURL(file))
-            console.log(file)
+            console.log(URL.createObjectURL(file))
         }
 
         return () => {

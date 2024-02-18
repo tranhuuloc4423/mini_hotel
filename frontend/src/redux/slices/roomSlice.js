@@ -30,14 +30,22 @@ const roomSlice = createSlice({
                 return room
             })
             state.rooms = updatedRooms
+        },
+        updateCustomerItem: (state, action) => {
+            state.rooms.find(
+                (item, index) => item?.id === action.payload.roomId
+            ).customer = action.payload.customerId
         }
-        // updateCustomerItem: (state, action) => {
-        //     state
-        // }
     }
 })
 
-export const { setRooms, addItem, removeItem, updateItem, setModalCustomer } =
-    roomSlice.actions
+export const {
+    setRooms,
+    addItem,
+    removeItem,
+    updateItem,
+    setModalCustomer,
+    updateCustomerItem
+} = roomSlice.actions
 
 export default roomSlice.reducer

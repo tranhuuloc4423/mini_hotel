@@ -28,7 +28,8 @@ const roomSchema = new mongoose.Schema(
             contentType: String
         },
         customer: {
-            type: Number
+            type: Number,
+            default: null
         }
     },
     { timestamps: true }

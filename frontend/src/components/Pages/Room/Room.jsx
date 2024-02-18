@@ -15,7 +15,6 @@ import FormAddRoom from './FormAddRoom'
 import Button from '../../Common/Button'
 import { deleteRoom, getRooms } from '../../../redux/api/room'
 import { useDispatch, useSelector } from 'react-redux'
-import { setModalCustomer } from '../../../redux/slices/roomSlice'
 import FormAddCusRoom from './FormAddCusRoom'
 
 const { FiPlusSquare, TbInfoSquare, FiEdit, CgRemoveR } = icons
@@ -27,6 +26,7 @@ const Room = () => {
     const [isEdit, setIsEdit] = useState(false)
     const toggleOpen = () => setOpenModal(!openModal)
     const [formCustomer, setFormCustomer] = useState(false)
+    const [roomId, setRoomId] = useState()
     const [formValue, setFormValue] = useState({
         roomname: '',
         price: '',
@@ -74,71 +74,66 @@ const Room = () => {
                 />
             </div>
             <div className="main-body flex flex-wrap gap-4">
-                {rooms?.map((room, index) => {
-                    return (
-                        <React.Fragment key={index}>
-                            <div className="h-fit">
-                                <MDBCard>
-                                    <MDBCardHeader>
-                                        {room?.roomname}
-                                    </MDBCardHeader>
-                                    <MDBCardBody>
-                                        <div
-                                            className={`bg-[data:image/jpeg;base64,${room?.image}] bg-contain w-full h-full`}
-                                        >
-                                            <div>Price: {room?.price}</div>
-                                            <div>
-                                                Capacity: {room?.capacity}
-                                            </div>
-                                        </div>
-                                    </MDBCardBody>
-                                    <MDBCardFooter className="grid grid-cols-2 gap-2">
-                                        <Button
-                                            color={'success'}
-                                            text={'view'}
-                                            icon={<TbInfoSquare size={20} />}
-                                        />
-                                        <Button
-                                            color={'info'}
-                                            text={'Add customer'}
-                                            icon={<FiPlusSquare size={20} />}
-                                            onClick={() =>
-                                                setFormCustomer(true)
-                                            }
-                                        />
-                                        <Button
-                                            color={'danger'}
-                                            text={'delete'}
-                                            icon={<CgRemoveR size={20} />}
-                                            onClick={() => {
-                                                handleRemove(room?.id)
-                                            }}
-                                        />
-                                        <Button
-                                            color={'warning'}
-                                            text={'edit'}
-                                            icon={<FiEdit size={20} />}
-                                            onClick={() => {
-                                                setOpenModal(true)
-                                                setIsEdit(true)
-                                                setFormValue({
-                                                    roomname: room?.roomname,
-                                                    price: room?.price,
-                                                    capacity: room?.capacity,
-                                                    id: room?.id
-                                                })
-                                            }}
-                                        />
-                                    </MDBCardFooter>
-                                </MDBCard>
-                            </div>
-                        </React.Fragment>
-                    )
-                })}
+                {rooms?.map((room) => (
+                    <div className="h-fit" key={room?.id}>
+                        <MDBCard>
+                            <MDBCardHeader>{room?.roomname}</MDBCardHeader>
+                            <MDBCardBody>
+                                <div
+                                    className={`bg-[data:image/jpeg;base64,${room?.image}] bg-contain w-full h-full`}
+                                >
+                                    <div>Price: {room?.price}</div>
+                                    <div>Capacity: {room?.capacity}</div>
+                                    <div>CustomerId: {room?.customer}</div>
+                                </div>
+                            </MDBCardBody>
+                            <MDBCardFooter className="grid grid-cols-2 gap-2">
+                                <Button
+                                    color={'success'}
+                                    text={'view'}
+                                    icon={<TbInfoSquare size={20} />}
+                                />
+                                <Button
+                                    color={'info'}
+                                    text={'Add customer'}
+                                    icon={<FiPlusSquare size={20} />}
+                                    onClick={() => {
+                                        setFormCustomer(true)
+                                        setRoomId(room?.id)
+                                    }}
+                                />
+                                <Button
+                                    color={'danger'}
+                                    text={'delete'}
+                                    icon={<CgRemoveR size={20} />}
+                                    onClick={() => {
+                                        handleRemove(room?.id)
+                                    }}
+                                />
+                                <Button
+                                    color={'warning'}
+                                    text={'edit'}
+                                    icon={<FiEdit size={20} />}
+                                    onClick={() => {
+                                        setOpenModal(true)
+                                        setIsEdit(true)
+                                        setFormValue({
+                                            roomname: room?.roomname,
+                                            price: room?.price,
+                                            capacity: room?.capacity,
+                                            id: room?.id
+                                        })
+                                    }}
+                                />
+                            </MDBCardFooter>
+                        </MDBCard>
+                    </div>
+                ))}
             </div>
             <FormAddCusRoom
                 formCustomer={formCustomer}
                 setFormCustomer={setFormCustomer}
+                roomId={roomId}
             />
             <FormAddRoom
                 openModal={openModal}

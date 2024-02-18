@@ -11,21 +11,32 @@ import {
     MDBTableHead
 } from 'mdb-react-ui-kit'
 import { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import Button from '../../Common/Button'
 import icons from '../../../utils/icons'
+import { addCustomerRoom } from '../../../redux/api/room'
 
 const { BsSave } = icons
-const FormAddCusRoom = ({ formCustomer, setFormCustomer }) => {
+const FormAddCusRoom = ({ formCustomer, setFormCustomer, roomId }) => {
     const { modalCustomer } = useSelector((state) => state.room)
     const { customers } = useSelector((state) => state.customer)
     const [selectedCustomer, setSelectedCustomer] = useState()
+    const dispatch = useDispatch()
 
     const handleSubmit = () => {
-        console.log(selectedCustomer)
+        setFormCustomer(false)
+        // addCustomerRoom()
+        const data = { customerId: selectedCustomer, roomId: roomId }
+        console.log(data)
+        addCustomerRoom(data, dispatch)
     }
     return (
-        <MDBModal open={formCustomer} setOpen={setFormCustomer} tabIndex="-1">
+        <MDBModal
+            staticBackdrop
+            open={formCustomer}
+            setOpen={setFormCustomer}
+            tabIndex="-1"
+        >
             <MDBModalDialog size="xl">
                 <MDBModalContent>
                     <MDBModalHeader className="mx-auto text-xl font-bold">
@@ -59,11 +70,11 @@ const FormAddCusRoom = ({ formCustomer, setFormCustomer }) => {
                                             <MDBRadio
                                                 name="customer"
                                                 value={item?.id}
-                                                onChange={(e) =>
+                                                onChange={(e) => {
                                                     setSelectedCustomer(
-                                                        e.target.value
+                                                        Number(e.target.value)
                                                     )
-                                                }
+                                                }}
                                             />
                                         </td>
                                     </tr>

@@ -45,14 +45,14 @@ const FormAddRoom = ({
 
     const handleCreateRoom = async (e) => {
         e.preventDefault()
-        const newImageUrl = await convertFromUrl(blob)
+        // const newImageUrl = await convertFromUrl(blob)
         if (!isEdit) {
-            const newRoom = { ...formValue, image: newImageUrl }
+            const newRoom = { ...formValue }
             delete newRoom.id
             console.log(newRoom)
             createRoom(newRoom, dispatch)
         } else {
-            const newRoom = { ...formValue, image: newImageUrl }
+            const newRoom = { ...formValue }
             updateRoom(newRoom, dispatch)
         }
         setIsEdit(false)

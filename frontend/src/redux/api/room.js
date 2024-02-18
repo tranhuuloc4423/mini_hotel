@@ -1,6 +1,12 @@
 import axios from '../../axios'
 import { toast } from 'react-toastify'
-import { addItem, removeItem, setRooms, updateItem } from '../slices/roomSlice'
+import {
+    addItem,
+    removeItem,
+    setRooms,
+    updateCustomerItem,
+    updateItem
+} from '../slices/roomSlice'
 
 const getRooms = async (dispatch) => {
     try {
@@ -48,15 +54,16 @@ const updateRoom = async (room, dispatch) => {
     }
 }
 
-const addCustomerRoom = async (id, dispatch) => {
+const addCustomerRoom = async (data, dispatch) => {
     try {
-        await axios.put(`/room/${id}`)
-        dispatch()
-        toast.success('Delete Room Successfully!')
+        const { roomId } = data
+        await axios.put(`/room/add_customer/${roomId}`, data)
+        dispatch(updateCustomerItem(data))
+        toast.success('Add Customer for Room Successfully!')
     } catch (error) {
-        toast.error('Delete Room Failed!')
+        toast.error('Add Customer for Room Failed!')
         console.log(error)
     }
 }
 
-export { getRooms, createRoom, deleteRoom, updateRoom }
+export { getRooms, createRoom, deleteRoom, updateRoom, addCustomerRoom }

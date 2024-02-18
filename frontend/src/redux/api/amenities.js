@@ -6,7 +6,7 @@ import {
     setAmenities,
     updateItem
 } from '../slices/amenitiesSlice'
-export const getAllEmenities = async (dispatch) => {
+const getAllEmenities = async (dispatch) => {
     try {
         const res = await axios.get('/amenity/')
         dispatch(setAmenities(res.data))
@@ -14,7 +14,7 @@ export const getAllEmenities = async (dispatch) => {
         console.log('failed')
     }
 }
-export const createAmenity = async (amenity, dispatch) => {
+const createAmenity = async (amenity, dispatch) => {
     try {
         const res = await axios.post('/amenity/create', amenity)
         dispatch(addItem(res.data))
@@ -26,7 +26,7 @@ export const createAmenity = async (amenity, dispatch) => {
     }
 }
 
-export const removeAmenity = async (id, dispatch) => {
+const removeAmenity = async (id, dispatch) => {
     try {
         await axios.delete(`/amenity/${id}`)
         dispatch(removeItem(id))
@@ -37,7 +37,7 @@ export const removeAmenity = async (id, dispatch) => {
     }
 }
 
-export const updateAmenity = async (amenity, dispatch) => {
+const updateAmenity = async (amenity, dispatch) => {
     try {
         const newAmenity = { ...amenity }
         delete newAmenity?.id
@@ -50,3 +50,5 @@ export const updateAmenity = async (amenity, dispatch) => {
         console.log('failed')
     }
 }
+
+export { getAllEmenities, createAmenity, removeAmenity, updateAmenity }

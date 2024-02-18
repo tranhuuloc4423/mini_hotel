@@ -9,8 +9,8 @@ const roomControllers = {
             const newRoom = new Room({
                 roomname: req.body.roomname,
                 price: req.body.price,
-                capacity: req.body.capacity,
-                image: req.body.image
+                capacity: req.body.capacity
+                // image: req.body.image
             })
             const room = await newRoom.save()
             res.status(200).json(room)
@@ -61,25 +61,36 @@ const roomControllers = {
     },
     addCustomerForRoom: async (req, res) => {
         try {
-            const roomId = parseInt(req.params.roomId); 
-            const customerId = parseInt(req.params.customerId); 
+            const roomId = Number(req.params.id)
+            const customerId = Number(req.body.customerId)
 
-            const room = await Room.findOne({ id: roomId }); 
+            const room = await Room.findOne({ id: roomId })
+
+            const customerExists = await Room.exists({ customer: customerId })
+
+            if (customerExists) {
+                return res
+                    .status(400)
+                    .json({ error: 'CustomerId already exists' })
+            }
+
             if (!room) {
-                return res.status(404).json({ message: 'Room not found' });
+                return res.status(404).json({ message: 'Room not found' })
             }
 
-            const customer = await Customer.findOne({ id: customerId }); 
+            const customer = await Customer.findOne({ id: customerId })
             if (!customer) {
-                return res.status(404).json({ message: 'Customer not found' });
+                return res.status(404).json({ message: 'Customer not found' })
             }
 
-            room.customer = customerId; 
-            await room.save(); 
+            await room.save()
 
-            res.status(200).json({ message: 'Customer added to room successfully' });
+            res.status(200).json({
+                message: 'Customer added to room successfully'
+            })
         } catch (error) {
-            res.status(500).json(error);
+            console.log(error)
+            res.status(500).json(error)
         }
     }
 }
