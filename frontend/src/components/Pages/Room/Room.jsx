@@ -82,9 +82,24 @@ const Room = () => {
                                 <div
                                     className={`bg-[data:image/jpeg;base64,${room?.image}] bg-contain w-full h-full`}
                                 >
-                                    <div>Price: {room?.price}</div>
-                                    <div>Capacity: {room?.capacity}</div>
-                                    <div>CustomerId: {room?.customer}</div>
+                                    <div>Price: {room?.price} $</div>
+                                    <div>Capacity: {room?.capacity} slot</div>
+                                    <div>
+                                        CustomerId:{' '}
+                                        {room?.customer
+                                            ? room.customer
+                                            : 'empty'}
+                                    </div>
+                                </div>
+                                <div>
+                                    <img
+                                        src={URL.createObjectURL(
+                                            new Blob([room?.image.data], {
+                                                type: room?.image.contentType
+                                            })
+                                        )}
+                                        alt="Room"
+                                    />
                                 </div>
                             </MDBCardBody>
                             <MDBCardFooter className="grid grid-cols-2 gap-2">

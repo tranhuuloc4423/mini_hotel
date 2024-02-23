@@ -6,7 +6,9 @@ const Logo = () => {
             <div className="text-[#1b6ff3]">
                 <img src={logo} className="w-[150px]" />
             </div>
-            <div className="text-silver text-xl">👋 Hello roku</div>
+            <div className="text-silver text-xs md:text-lg lg:text-xl">
+                👋 Hello roku
+            </div>
         </div>
     )
 }

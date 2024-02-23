@@ -13,7 +13,7 @@ import Button from '../../Common/Button'
 
 const { LuCalculator, TbInfoSquare, FaPrint, CgRemoveR } = icons
 
-const Calculate = () => {
+const Bill = () => {
     return (
         <div className="main-container">
             <div className="main-header">
@@ -80,7 +80,7 @@ const Calculate = () => {
                 <div className="flex-center-y gap-2">
                     <Button
                         color={'success'}
-                        text={'calculate'}
+                        text={'Bill'}
                         icon={<LuCalculator size={20} />}
                     />
                     <Button
@@ -127,4 +127,4 @@ const Calculate = () => {
     )
 }
 
-export default Calculate
+export default Bill

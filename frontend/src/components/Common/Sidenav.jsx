@@ -15,11 +15,12 @@ import { useDispatch } from 'react-redux'
 import { setLogoutUser } from '../../redux/slices/appSlice'
 import { useNavigate } from 'react-router'
 
-const { IoIosArrowBack } = icons
+const { IoIosArrowBack, IoIosArrowForward } = icons
 
 const { TbLogout2, MdOutlineLightMode } = icons
 const Sidenav = () => {
     const [openModal, setOpenModal] = useState(false)
+    const [openSidenav, setOpenSidenav] = useState(false)
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const handleLogout = () => {
@@ -30,10 +31,14 @@ const Sidenav = () => {
 
     return (
         <>
-            <div className="bg-[#242526] h-screen select-none relative z-10 w-[15%] py-[10px] flex flex-col justify-between">
+            <div
+                className={`bg-[#242526] h-screen select-none relative z-10 py-[10px] flex flex-col justify-between transition-all ${
+                    openSidenav ? 'w-[200px]' : 'w-[68px]'
+                }`}
+            >
                 <div>
                     <Logo />
-                    <Navbar />
+                    <Navbar openSidenav={openSidenav} />
                 </div>
                 <div className="flex flex-col gap-2">
                     <div
@@ -56,11 +61,21 @@ const Sidenav = () => {
                 </div>
 
                 <div className="absolute w-8 h-8 bg-[#3a3b3c] right-[-16px] rounded-full flex-center">
-                    <IoIosArrowBack
-                        size={20}
-                        color="white"
-                        className="cursor-pointer"
-                    />
+                    {openSidenav ? (
+                        <IoIosArrowBack
+                            size={20}
+                            color="white"
+                            className="cursor-pointer"
+                            onClick={() => setOpenSidenav(false)}
+                        />
+                    ) : (
+                        <IoIosArrowForward
+                            size={20}
+                            color="white"
+                            className="cursor-pointer"
+                            onClick={() => setOpenSidenav(true)}
+                        />
+                    )}
                 </div>
             </div>
             <MDBModal

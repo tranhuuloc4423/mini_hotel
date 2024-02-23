@@ -36,9 +36,7 @@ const IndexBody = () => {
                     <MDBTableBody>
                         <tr>
                             <td>
-                                <p className="fw-normal mb-1">
-                                    Software engineer
-                                </p>
+                                <p className="fw-normal mb-1">Room name</p>
                                 <p className="text-muted mb-0">IT department</p>
                             </td>
                             <td>

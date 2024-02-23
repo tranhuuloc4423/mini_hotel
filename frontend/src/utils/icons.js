@@ -1,11 +1,25 @@
 import { FiHome, FiPlusSquare, FiEdit } from 'react-icons/fi'
-import { MdOutlineAccountCircle, MdOutlineLightMode, MdOutlineDateRange } from 'react-icons/md'
+import {
+    MdOutlineAccountCircle,
+    MdOutlineLightMode,
+    MdOutlineDateRange
+} from 'react-icons/md'
 import { HiOutlineUserGroup } from 'react-icons/hi'
-import { FaHouseUser, FaCalculator, FaPrint } from 'react-icons/fa'
+import {
+    FaHouseUser,
+    FaCalculator,
+    FaPrint,
+    FaFileInvoiceDollar
+} from 'react-icons/fa'
 import { TbReportMoney, TbLogout2, TbReport } from 'react-icons/tb'
 import { RiServiceLine } from 'react-icons/ri'
 import { GrInfo } from 'react-icons/gr'
-import { RiGoogleFill, RiFacebookFill, RiGithubFill, RiWaterFlashLine } from 'react-icons/ri'
+import {
+    RiGoogleFill,
+    RiFacebookFill,
+    RiGithubFill,
+    RiWaterFlashLine
+} from 'react-icons/ri'
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
 import { LuCalculator } from 'react-icons/lu'
 import { IoAddCircleOutline } from 'react-icons/io5'
@@ -44,5 +58,6 @@ export default {
     CgRemoveR,
     FiPlusSquare,
     TbInfoSquare,
-    FaPrint
+    FaPrint,
+    FaFileInvoiceDollar
 }

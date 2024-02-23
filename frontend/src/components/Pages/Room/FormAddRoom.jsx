@@ -39,15 +39,15 @@ const FormAddRoom = ({
         const blobData = await response.blob()
         const bufferData = await blobData.arrayBuffer()
         const buffer = Buffer.from(bufferData)
-        const base64 = buffer.toString('base64')
-        return base64
+        return buffer
     }
 
     const handleCreateRoom = async (e) => {
         e.preventDefault()
-        // const newImageUrl = await convertFromUrl(blob)
+        const imageData = await convertFromUrl(blob)
+        console.log(imageData)
         if (!isEdit) {
-            const newRoom = { ...formValue }
+            const newRoom = { ...formValue, image: imageData }
             delete newRoom.id
             console.log(newRoom)
             createRoom(newRoom, dispatch)

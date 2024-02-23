@@ -6,11 +6,16 @@ const mongoose = require('mongoose')
 const roomControllers = {
     createRoom: async (req, res) => {
         try {
+            const imageData = req.body.image
+            const buffer = Buffer.from(imageData)
             const newRoom = new Room({
                 roomname: req.body.roomname,
                 price: req.body.price,
-                capacity: req.body.capacity
-                // image: req.body.image
+                capacity: req.body.capacity,
+                image: {
+                    data: buffer,
+                    contentType: 'image/jpg'
+                }
             })
             const room = await newRoom.save()
             res.status(200).json(room)
@@ -82,7 +87,7 @@ const roomControllers = {
             if (!customer) {
                 return res.status(404).json({ message: 'Customer not found' })
             }
-
+            room.customer = customerId
             await room.save()
 
             res.status(200).json({

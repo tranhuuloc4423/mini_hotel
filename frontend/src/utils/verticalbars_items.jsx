@@ -7,9 +7,9 @@ const {
     RiServiceLine,
     TbReport,
     RiWaterFlashLine,
-    LuCalculator
+    FaFileInvoiceDollar
 } = icons
-const { DASHBOARD, CUSTOMER, ROOM, AMENITIES, REPORT, CALCULATE, INDEX } = paths
+const { DASHBOARD, CUSTOMER, ROOM, AMENITIES, REPORT, BILL, INDEX } = paths
 export default [
     {
         name: 'Dashboard',
@@ -27,9 +27,9 @@ export default [
         link: CUSTOMER
     },
     {
-        name: 'Calculate',
-        icon: <LuCalculator size={20} />,
-        link: CALCULATE
+        name: 'Bill',
+        icon: <FaFileInvoiceDollar size={20} />,
+        link: BILL
     },
     {
         name: 'Index',

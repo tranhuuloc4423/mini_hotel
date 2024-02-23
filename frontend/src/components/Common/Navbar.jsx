@@ -2,7 +2,7 @@ import { useState } from 'react'
 import navbar from '../../utils/verticalbars_items'
 import { Link } from 'react-router-dom'
 
-const Navbar = () => {
+const Navbar = ({ openSidenav }) => {
     const [tabActive, setTabActive] = useState(0)
     return (
         <div className="flex flex-col gap-2">
@@ -15,7 +15,7 @@ const Navbar = () => {
                         onClick={() => setTabActive(index)}
                     >
                         <div>{item?.icon}</div>
-                        {item?.name}
+                        {openSidenav ? item?.name : ''}
                     </Link>
                 ) : (
                     <Link
@@ -25,7 +25,7 @@ const Navbar = () => {
                         onClick={() => setTabActive(index)}
                     >
                         <div>{item?.icon}</div>
-                        {item?.name}
+                        {openSidenav ? item?.name : ''}
                     </Link>
                 )
             )}
