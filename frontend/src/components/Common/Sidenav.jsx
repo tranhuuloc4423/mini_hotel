@@ -47,16 +47,12 @@ const Sidenav = () => {
                             setOpenModal(true)
                         }}
                     >
-                        <div className="px-2">
-                            <TbLogout2 size={22} />
-                        </div>
-                        Logout
+                        <TbLogout2 size={22} />
+                        {openSidenav ? 'Logout' : ''}
                     </div>
                     <div className="sidenav-item bg-[#3a3b3c]">
-                        <div className="px-2">
-                            <MdOutlineLightMode size={22} />
-                        </div>
-                        Settings
+                        <MdOutlineLightMode size={22} />
+                        {openSidenav ? 'Settings' : ''}
                     </div>
                 </div>
 

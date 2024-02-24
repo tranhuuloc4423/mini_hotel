@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import {
     MDBTable,
     MDBTableHead,
@@ -8,128 +8,62 @@ import {
     MDBInput
 } from 'mdb-react-ui-kit'
 import { useSelector } from 'react-redux'
+import Button from '../../Common/Button'
+import icons from '../../../utils/icons'
+import FormAddIndex from './FormAddIndex'
+
+const { FiEdit, TbInfoSquare } = icons
 
 const IndexBody = () => {
-    const { activeTab } = useSelector((state) => state.index)
-    const { amenities } = useSelector((state) => state.amenities)
+    const [openModal, setOpenModal] = useState(false)
+    const [customerId, setCustomerId] = useState(null)
+    const { rooms } = useSelector((state) => state.room)
 
-    useEffect(() => {
-        // console.log(activeTab)
-    }, [activeTab])
+    const handleSubmit = (customerId) => {
+        setCustomerId(customerId)
+        setOpenModal(true)
+    }
+
     return (
-        <MDBTabsContent>
-            <MDBTabsPane
-                open={amenities?.find(
-                    (item, index) =>
-                        item?.mandatory === true && item?.name === activeTab
-                )}
-            >
-                <MDBTable align="middle">
-                    <MDBTableHead>
-                        <tr className="table-primary">
-                            <th scope="col">{"Name's room"}</th>
-                            <th scope="col">Old number</th>
-                            <th scope="col">New number</th>
-                            <th scope="col">Total</th>
-                        </tr>
-                    </MDBTableHead>
-                    <MDBTableBody>
-                        <tr>
-                            <td>
-                                <p className="fw-normal mb-1">Room name</p>
-                                <p className="text-muted mb-0">IT department</p>
-                            </td>
-                            <td>
-                                <MDBInput
-                                    label="Old number"
-                                    id="typeNumber"
-                                    type="number"
-                                />
-                            </td>
-                            <td>
-                                <MDBInput
-                                    label="New number"
-                                    id="typeNumber"
-                                    type="number"
-                                />
-                            </td>
-                            <td>total</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <p className="fw-normal mb-1">Consultant</p>
-                                <p className="text-muted mb-0">Finance</p>
-                            </td>
-                            <td>
-                                <MDBInput
-                                    label="Old number"
-                                    id="typeNumber"
-                                    type="number"
-                                />
-                            </td>
-                            <td>
-                                <MDBInput
-                                    label="New number"
-                                    id="typeNumber"
-                                    type="number"
-                                />
-                            </td>
-                            <td>total</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <p className="fw-normal mb-1">Designer</p>
-                                <p className="text-muted mb-0">UI/UX</p>
-                            </td>
-                            <td>
-                                <MDBInput
-                                    label="Old number"
-                                    id="typeNumber"
-                                    type="number"
-                                />
-                            </td>
-                            <td>
-                                <MDBInput
-                                    label="New number"
-                                    id="typeNumber"
-                                    type="number"
-                                />
-                            </td>
-                            <td>total</td>
-                        </tr>
-                    </MDBTableBody>
-                </MDBTable>
-            </MDBTabsPane>
-            <MDBTabsPane
-                open={amenities?.find(
-                    (item, index) =>
-                        item?.mandatory === false && item?.name === activeTab
-                )}
-            >
-                <MDBTable align="middle">
-                    <MDBTableHead>
-                        <tr className="table-primary">
-                            <th scope="col">{"Name's room"}</th>
-                            <th scope="col">Quantity</th>
-                            <th scope="col">Total</th>
-                        </tr>
-                    </MDBTableHead>
-                    <MDBTableBody>
-                        <tr>
-                            <td className="w-1/4">
-                                <p className="fw-normal mb-1">
-                                    Software engineer
-                                </p>
-                            </td>
-                            <td className="w-1/4">
-                                <MDBInput label="Old number" type="number" />
-                            </td>
-                            <td className="w-1/4">total</td>
-                        </tr>
-                    </MDBTableBody>
-                </MDBTable>
-            </MDBTabsPane>
-        </MDBTabsContent>
+        <MDBTable align="middle">
+            <MDBTableHead>
+                <tr className="table-primary">
+                    <th scope="col">{"Name's room"}</th>
+                    <th scope="col">Customer</th>
+                    <th scope="col">Modify</th>
+                </tr>
+            </MDBTableHead>
+            <MDBTableBody>
+                {rooms?.map((room, _) => (
+                    <tr key={room?.id} className="w-full">
+                        <td className="w-[30%]">
+                            <p className="">{room?.roomname}</p>
+                        </td>
+                        <td className="w-[30%]">
+                            <p className="">{room?.customer}</p>
+                        </td>
+                        <td className="w-[30%]">
+                            <Button
+                                color={'success'}
+                                text={'View'}
+                                icon={<TbInfoSquare size={20} />}
+                            />
+                            <Button
+                                color={'info'}
+                                text={'Input'}
+                                icon={<FiEdit size={20} />}
+                                onClick={() => handleSubmit(room?.customer)}
+                            />
+                        </td>
+                    </tr>
+                ))}
+            </MDBTableBody>
+            <FormAddIndex
+                openModal={openModal}
+                setOpenModal={setOpenModal}
+                customerId={customerId}
+            />
+        </MDBTable>
     )
 }
 
