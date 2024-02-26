@@ -16,11 +16,11 @@ const { FiEdit, TbInfoSquare } = icons
 
 const IndexBody = () => {
     const [openModal, setOpenModal] = useState(false)
-    const [customerId, setCustomerId] = useState(null)
+    const [room, setRoom] = useState(null)
     const { rooms } = useSelector((state) => state.room)
 
-    const handleSubmit = (customerId) => {
-        setCustomerId(customerId)
+    const handleSubmit = (room) => {
+        setRoom(room)
         setOpenModal(true)
     }
 
@@ -52,7 +52,7 @@ const IndexBody = () => {
                                 color={'info'}
                                 text={'Input'}
                                 icon={<FiEdit size={20} />}
-                                onClick={() => handleSubmit(room?.customer)}
+                                onClick={() => handleSubmit(room)}
                             />
                         </td>
                     </tr>
@@ -61,7 +61,7 @@ const IndexBody = () => {
             <FormAddIndex
                 openModal={openModal}
                 setOpenModal={setOpenModal}
-                customerId={customerId}
+                room={room}
             />
         </MDBTable>
     )

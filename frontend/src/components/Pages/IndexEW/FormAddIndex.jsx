@@ -16,41 +16,64 @@ import { useSelector } from 'react-redux'
 
 const { BsSave } = icons
 
-const FormAddIndex = ({ openModal, setOpenModal, customerId }) => {
+const FormAddIndex = ({ openModal, setOpenModal, room }) => {
     const { customers } = useSelector((state) => state.customer)
     const { amenities } = useSelector((state) => state.amenities)
+    // const { activeAmenities } = useSelector((state) => state.index)
     const [activeCustomer, setActiveCustomer] = useState()
     const [activeAmenities, setActiveAmenities] = useState()
+
     const [formValue, setFormValue] = useState({
-        oldwater: '',
-        newwater: '',
-        oldelec: '',
-        newelec: ''
+        Oldwater: '',
+        Newwater: '',
+        Oldelec: '',
+        Newelec: ''
     })
-    const [date, setDate] = useState()
 
     const onChange = (e) => {
         setFormValue({ ...formValue, [e.target.name]: e.target.value })
     }
 
+    const [date, setDate] = useState()
     const handleSubmit = (e) => {
         e.preventDefault()
+        const checkWater =
+            Number(formValue.Oldwater) <= Number(formValue.Newwater)
+        const checkElec = Number(formValue.Oldelec) <= Number(formValue.Newelec)
+        if (checkWater && checkElec) {
+            const data = {
+                ...formValue,
+                date: date,
+                customer: activeCustomer.fullname,
+                price: room?.price,
+                room: room?.roomname
+            }
+            console.log(data)
+        } else {
+            console.log('invalid value!')
+        }
     }
 
     useEffect(() => {
-        setActiveCustomer(customers.find((item, _) => item.id === customerId))
-
-        setActiveAmenities(
-            amenities
-                .filter((amenity, index) =>
-                    activeCustomer?.amenities?.find(
-                        (item, _) => amenity?.id === item
-                    )
-                )
-                .filter((amenityItem, _) => !amenityItem.mandatory)
+        setActiveCustomer(
+            customers.find((item, _) => item.id === room?.customer)
         )
-        console.log(activeAmenities)
-    }, [customerId])
+    }, [room?.customer])
+
+    useEffect(() => {
+        const finalAmenities = []
+
+        activeCustomer?.amenities?.forEach((amenity) => {
+            const matchedAmenity = amenities?.find(
+                (item) => item.id === amenity
+            )
+            if (matchedAmenity) {
+                finalAmenities.push(matchedAmenity)
+            }
+        })
+        const others = finalAmenities.filter((item, _) => !item?.mandatory)
+        setActiveAmenities(others)
+    }, [room?.customer, amenities, activeCustomer])
 
     return (
         <MDBModal
@@ -77,15 +100,15 @@ const FormAddIndex = ({ openModal, setOpenModal, customerId }) => {
                                 <div className="flex gap-4">
                                     <MDBInput
                                         label="Old Water Index"
-                                        name="oldwater"
-                                        value={formValue.oldwater}
+                                        name="Oldwater"
+                                        value={formValue.Oldwater}
                                         onChange={onChange}
                                         type="number"
                                     />
                                     <MDBInput
                                         label="New Water Index"
-                                        name="newwater"
-                                        value={formValue.newwater}
+                                        name="Newwater"
+                                        value={formValue.Newwater}
                                         onChange={onChange}
                                         type="number"
                                     />
@@ -93,15 +116,15 @@ const FormAddIndex = ({ openModal, setOpenModal, customerId }) => {
                                 <div className="flex gap-4">
                                     <MDBInput
                                         label="Old Elec Index"
-                                        name="oldelec"
-                                        value={formValue.oldelec}
+                                        name="Oldelec"
+                                        value={formValue.Oldelec}
                                         onChange={onChange}
                                         type="number"
                                     />
                                     <MDBInput
                                         label="New Elec Index"
-                                        name="newelec"
-                                        value={formValue.newelec}
+                                        name="Newelec"
+                                        value={formValue.Newelec}
                                         onChange={onChange}
                                         type="number"
                                     />
@@ -112,13 +135,13 @@ const FormAddIndex = ({ openModal, setOpenModal, customerId }) => {
                                     value={date}
                                     setValue={setDate}
                                 />
-                                {activeAmenities?.map((input, _) => (
+                                {activeAmenities?.map((input, index) => (
                                     <MDBInput
-                                        key={input}
+                                        key={index}
                                         label={input?.name}
-                                        type="text"
+                                        type="number"
                                         name={input?.name}
-                                        value={formValue.idcard}
+                                        value={formValue?.input?.name}
                                         onChange={onChange}
                                     />
                                 ))}

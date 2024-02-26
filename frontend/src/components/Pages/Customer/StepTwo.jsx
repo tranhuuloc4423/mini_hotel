@@ -57,33 +57,35 @@ const StepTwo = ({ setStep }) => {
                     </tr>
                 </MDBTableHead>
                 <MDBTableBody>
-                    {amenities?.map((item) => (
-                        <React.Fragment key={item?.amenityId}>
-                            <tr>
-                                <td>
-                                    <p className="">{item?.name}</p>
-                                </td>
-                                <td>
-                                    <p className="">{item?.price}</p>
-                                </td>
-                                <td>
-                                    <p className="">{item?.unit}</p>
-                                </td>
-                                <td className="flex justify-center">
-                                    <MDBCheckbox
-                                        name="use"
-                                        label="use"
-                                        checked={amenitiesChecked.includes(
-                                            item?.id
-                                        )}
-                                        onChange={() =>
-                                            handleAmenitiesChecked(item?.id)
-                                        }
-                                    />
-                                </td>
-                            </tr>
-                        </React.Fragment>
-                    ))}
+                    {amenities
+                        ?.filter((amenity, _) => !amenity.mandatory)
+                        .map((item) => (
+                            <React.Fragment key={item?.amenityId}>
+                                <tr>
+                                    <td>
+                                        <p className="">{item?.name}</p>
+                                    </td>
+                                    <td>
+                                        <p className="">{item?.price}</p>
+                                    </td>
+                                    <td>
+                                        <p className="">{item?.unit}</p>
+                                    </td>
+                                    <td className="flex justify-center">
+                                        <MDBCheckbox
+                                            name="use"
+                                            label="use"
+                                            checked={amenitiesChecked.includes(
+                                                item?.id
+                                            )}
+                                            onChange={() =>
+                                                handleAmenitiesChecked(item?.id)
+                                            }
+                                        />
+                                    </td>
+                                </tr>
+                            </React.Fragment>
+                        ))}
                 </MDBTableBody>
             </MDBTable>
             <div className="w-full flex justify-center items-center mt-4">
