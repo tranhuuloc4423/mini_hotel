@@ -41,7 +41,12 @@ const FormAddCustomer = ({ openModal, setOpenModal }) => {
                         {/* step 2 */}
                         {step === 2 && <StepTwo setStep={setStep} />}
                         {/* step 3 */}
-                        {step === 3 && <StepThree setStep={setStep} />}
+                        {step === 3 && (
+                            <StepThree
+                                setStep={setStep}
+                                setOpenModal={setOpenModal}
+                            />
+                        )}
                     </MDBModalBody>
                 </MDBModalContent>
             </MDBModalDialog>

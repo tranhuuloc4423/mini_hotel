@@ -79,9 +79,7 @@ const Room = () => {
                         <MDBCard>
                             <MDBCardHeader>{room?.roomname}</MDBCardHeader>
                             <MDBCardBody>
-                                <div
-                                    className={`bg-[data:image/jpeg;base64,${room?.image}] bg-contain w-full h-full`}
-                                >
+                                <div className={`bg-contain w-full h-full`}>
                                     <div>Price: {room?.price} $</div>
                                     <div>Capacity: {room?.capacity} slot</div>
                                     <div>
@@ -99,6 +97,7 @@ const Room = () => {
                                             })
                                         )}
                                         alt="Room"
+                                        className="w-full h-full"
                                     />
                                 </div>
                             </MDBCardBody>

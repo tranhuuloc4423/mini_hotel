@@ -2,14 +2,20 @@ import DatePicker from '../../Common/DatePicker'
 import icons from '../../../utils/icons'
 import Button from '../../Common/Button'
 import IndexBody from './IndexBody'
+import { useState } from 'react'
 
 const { TbInfoSquare, BsSave } = icons
 const IndexEW = () => {
+    const [date, setDate] = useState('')
     return (
         <div className="main-container">
             <div className="main-header">
                 <div className="flex-center-y justify-between gap-2">
-                    <DatePicker label={'Date'} />
+                    <DatePicker
+                        label={'Date'}
+                        value={date}
+                        setValue={setDate}
+                    />
                     <div className="flex-center-y gap-2"></div>
                     <div className="flex-center-y gap-2"></div>
                 </div>

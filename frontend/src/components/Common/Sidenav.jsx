@@ -1,7 +1,7 @@
 import Logo from './Logo'
 import Navbar from './Navbar'
 import icons from '../../utils/icons'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
     MDBBtn,
     MDBModal,
@@ -11,8 +11,12 @@ import {
     MDBModalBody,
     MDBModalFooter
 } from 'mdb-react-ui-kit'
-import { useDispatch } from 'react-redux'
-import { setLogoutUser } from '../../redux/slices/appSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import {
+    openSidenav,
+    closeSidenav,
+    setLogoutUser
+} from '../../redux/slices/appSlice'
 import { useNavigate } from 'react-router'
 
 const { IoIosArrowBack, IoIosArrowForward } = icons
@@ -20,7 +24,7 @@ const { IoIosArrowBack, IoIosArrowForward } = icons
 const { TbLogout2, MdOutlineLightMode } = icons
 const Sidenav = () => {
     const [openModal, setOpenModal] = useState(false)
-    const [openSidenav, setOpenSidenav] = useState(false)
+    const { sidenav } = useSelector((state) => state.app)
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const handleLogout = () => {
@@ -29,16 +33,20 @@ const Sidenav = () => {
         navigate('/login')
     }
 
+    useEffect(() => {
+        console.log(sidenav)
+    }, [sidenav])
+
     return (
         <>
             <div
                 className={`bg-[#242526] h-screen select-none relative z-10 py-[10px] flex flex-col justify-between transition-all ${
-                    openSidenav ? 'w-[200px]' : 'w-[68px]'
+                    sidenav ? 'w-[12%]' : 'w-[68px]'
                 }`}
             >
                 <div>
                     <Logo />
-                    <Navbar openSidenav={openSidenav} />
+                    <Navbar />
                 </div>
                 <div className="flex flex-col gap-2">
                     <div
@@ -48,28 +56,30 @@ const Sidenav = () => {
                         }}
                     >
                         <TbLogout2 size={22} />
-                        {openSidenav ? 'Logout' : ''}
+                        <span className={sidenav ? '' : 'hidden'}>Logout</span>
                     </div>
                     <div className="sidenav-item bg-[#3a3b3c]">
                         <MdOutlineLightMode size={22} />
-                        {openSidenav ? 'Settings' : ''}
+                        <span className={sidenav ? '' : 'hidden'}>
+                            Settings
+                        </span>
                     </div>
                 </div>
 
                 <div className="absolute w-8 h-8 bg-[#3a3b3c] right-[-16px] rounded-full flex-center">
-                    {openSidenav ? (
+                    {sidenav ? (
                         <IoIosArrowBack
                             size={20}
                             color="white"
                             className="cursor-pointer"
-                            onClick={() => setOpenSidenav(false)}
+                            onClick={() => dispatch(closeSidenav())}
                         />
                     ) : (
                         <IoIosArrowForward
                             size={20}
                             color="white"
                             className="cursor-pointer"
-                            onClick={() => setOpenSidenav(true)}
+                            onClick={() => dispatch(openSidenav())}
                         />
                     )}
                 </div>

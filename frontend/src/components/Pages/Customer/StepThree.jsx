@@ -21,7 +21,7 @@ import { createCustomer } from '../../../redux/api/customer'
 const { CgRemoveR } = icons
 
 const { FiPlusSquare, IoIosArrowBack, BsSave } = icons
-const StepThree = ({ setStep }) => {
+const StepThree = ({ setStep, setOpenModal }) => {
     const { members, customer, amenities } = useSelector(
         (state) => state.customer
     )
@@ -70,8 +70,9 @@ const StepThree = ({ setStep }) => {
                 amenities: amenities,
                 members: memberData
             }
-            console.log(newCustomer)
+            // console.log(newCustomer)
             createCustomer(newCustomer, dispatch)
+            setOpenModal(false)
         } else {
             toast.warning('Please fill in complete information!')
         }
