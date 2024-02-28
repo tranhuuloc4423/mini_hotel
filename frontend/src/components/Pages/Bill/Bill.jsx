@@ -18,6 +18,7 @@ import icons from '../../../utils/icons'
 import Button from '../../Common/Button'
 import { useState } from 'react'
 import BillPrint from './BillPrint'
+import ReactDOM from 'react-dom'
 
 const { LuCalculator, TbInfoSquare, FaPrint, CgRemoveR } = icons
 
@@ -29,6 +30,13 @@ const Bill = () => {
         { roomName: 'Room B', customer: '789', date: '321' }
         // Các item bill khác
     ]
+
+    const handlePrint = () => {
+        const printWindow = window.open('', '_blank')
+        const printRoot = printWindow.document.createElement('div')
+        printWindow.document.body.appendChild(printRoot)
+        ReactDOM.createRoot(printRoot).render(<BillPrint />)
+    }
     return (
         <div className="main-container">
             <div className="main-header">
@@ -121,6 +129,7 @@ const Bill = () => {
                                 color={'info'}
                                 text={'Print'}
                                 icon={<FaPrint size={20} />}
+                                onClick={handlePrint}
                             />
                         </MDBModalBody>
                     </MDBModalContent>
