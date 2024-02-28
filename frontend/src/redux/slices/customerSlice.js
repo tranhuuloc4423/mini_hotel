@@ -13,7 +13,7 @@ const customer = createSlice({
         setCustomers: (state, action) => {
             state.customers = action.payload
         },
-        removeCustomer: (state, action) => {
+        removeCustomers: (state, action) => {
             const newCustomers = state.customers.filter(
                 (customer) => customer.id !== action.payload
             )

@@ -12,7 +12,7 @@ const Home = () => {
                 <div
                     className={`${
                         sidenav ? 'w-[85%]' : 'w-[95%]'
-                    } sm:mt-8 flex justify-center`}
+                    } sm:mt-8 flex justify-center pl-[150px]`}
                 >
                     <div className="w-[100%] p-4">
                         <Outlet />

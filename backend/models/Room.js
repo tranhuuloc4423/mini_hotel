@@ -24,8 +24,7 @@ const roomSchema = new mongoose.Schema(
             default: false
         },
         image: {
-            data: Buffer,
-            contentType: String
+            type: String
         },
         customer: {
             type: Number,

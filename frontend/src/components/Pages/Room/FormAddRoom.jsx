@@ -14,7 +14,6 @@ import { createRoom, updateRoom } from '../../../redux/api/room'
 import { useDispatch } from 'react-redux'
 import DropImageInput from '../../Common/DropImageInput'
 import { useState } from 'react'
-import { Buffer } from 'buffer'
 
 const { BsSave } = icons
 
@@ -27,27 +26,32 @@ const FormAddRoom = ({
     setIsEdit
 }) => {
     const toggleOpen = () => setOpenModal(!openModal)
-    const [blob, setBlob] = useState()
+    const [file, setFile] = useState()
     const dispatch = useDispatch()
 
     const onChange = (e) => {
         setFormValue({ ...formValue, [e.target.name]: e.target.value })
     }
 
-    const convertFromUrl = async (blobUrl) => {
-        const response = await fetch(blobUrl)
-        const blobData = await response.blob()
-        const bufferData = await blobData.arrayBuffer()
-        const buffer = Buffer.from(bufferData)
-        return buffer
+    const convertToBase64 = (file) => {
+        return new Promise((resolve, reject) => {
+            const fileReader = new FileReader()
+            fileReader.readAsDataURL(file)
+            fileReader.onload = () => {
+                resolve(fileReader.result)
+            }
+            fileReader.onerror = (error) => {
+                reject(error)
+            }
+        })
     }
 
     const handleCreateRoom = async (e) => {
         e.preventDefault()
-        const imageData = await convertFromUrl(blob)
-        console.log(imageData)
+        const imageBase64 = await convertToBase64(file)
+        console.log(imageBase64)
         if (!isEdit) {
-            const newRoom = { ...formValue, image: imageData }
+            const newRoom = { ...formValue, image: imageBase64 }
             delete newRoom.id
             console.log(newRoom)
             createRoom(newRoom, dispatch)
@@ -99,7 +103,7 @@ const FormAddRoom = ({
                                 name="capacity"
                                 onChange={onChange}
                             />
-                            <DropImageInput blob={blob} setBlob={setBlob} />
+                            <DropImageInput file={file} setFile={setFile} />
                             <Button
                                 color={'info'}
                                 text={'save'}

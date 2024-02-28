@@ -40,7 +40,7 @@ const Sidenav = () => {
     return (
         <>
             <div
-                className={`bg-[#242526] h-screen select-none relative z-10 py-[10px] flex flex-col justify-between transition-all ${
+                className={`bg-[#242526] h-screen select-none fixed z-10 py-[10px] flex flex-col justify-between transition-all ${
                     sidenav ? 'w-[12%]' : 'w-[68px]'
                 }`}
             >

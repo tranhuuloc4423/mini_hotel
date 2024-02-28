@@ -24,10 +24,10 @@ const FormAddIndex = ({ openModal, setOpenModal, room }) => {
     const [activeAmenities, setActiveAmenities] = useState()
 
     const [formValue, setFormValue] = useState({
-        Oldwater: '',
-        Newwater: '',
-        Oldelec: '',
-        Newelec: ''
+        oldWater: '',
+        newWater: '',
+        oldElec: '',
+        newElec: ''
     })
 
     const onChange = (e) => {
@@ -37,18 +37,44 @@ const FormAddIndex = ({ openModal, setOpenModal, room }) => {
     const [date, setDate] = useState()
     const handleSubmit = (e) => {
         e.preventDefault()
-        const checkWater =
-            Number(formValue.Oldwater) <= Number(formValue.Newwater)
-        const checkElec = Number(formValue.Oldelec) <= Number(formValue.Newelec)
+        const { oldWater, newWater, oldElec, newElec, ...others } = formValue
+        const checkWater = Number(oldWater) <= Number(newWater)
+        const checkElec = Number(oldElec) <= Number(newElec)
+        const otherAmenities = []
+
+        Object.entries(others).forEach(([key, value]) => {
+            otherAmenities.push({
+                name: key,
+                quantity: value
+            })
+        })
         if (checkWater && checkElec) {
             const data = {
-                ...formValue,
+                water: {
+                    old: oldWater,
+                    new: newWater
+                },
+                electricity: {
+                    old: oldElec,
+                    new: newElec
+                },
+                others: otherAmenities,
                 date: date,
-                customer: activeCustomer.fullname,
-                price: room?.price,
-                room: room?.roomname
+                room: {
+                    name: room?.roomname,
+                    price: room?.price
+                },
+                customer: activeCustomer.fullname
             }
-            console.log(data)
+            console.log(data) // call api
+
+            // reset formValue
+            setFormValue({
+                oldWater: '',
+                newWater: '',
+                oldElec: '',
+                newElec: ''
+            })
         } else {
             console.log('invalid value!')
         }
@@ -100,15 +126,15 @@ const FormAddIndex = ({ openModal, setOpenModal, room }) => {
                                 <div className="flex gap-4">
                                     <MDBInput
                                         label="Old Water Index"
-                                        name="Oldwater"
-                                        value={formValue.Oldwater}
+                                        name="oldWater"
+                                        value={formValue.oldWater}
                                         onChange={onChange}
                                         type="number"
                                     />
                                     <MDBInput
                                         label="New Water Index"
-                                        name="Newwater"
-                                        value={formValue.Newwater}
+                                        name="newWater"
+                                        value={formValue.newWater}
                                         onChange={onChange}
                                         type="number"
                                     />
@@ -116,15 +142,15 @@ const FormAddIndex = ({ openModal, setOpenModal, room }) => {
                                 <div className="flex gap-4">
                                     <MDBInput
                                         label="Old Elec Index"
-                                        name="Oldelec"
-                                        value={formValue.Oldelec}
+                                        name="oldElec"
+                                        value={formValue.oldElec}
                                         onChange={onChange}
                                         type="number"
                                     />
                                     <MDBInput
                                         label="New Elec Index"
-                                        name="Newelec"
-                                        value={formValue.Newelec}
+                                        name="newElec"
+                                        value={formValue.newElec}
                                         onChange={onChange}
                                         type="number"
                                     />

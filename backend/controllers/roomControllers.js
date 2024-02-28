@@ -7,15 +7,12 @@ const roomControllers = {
     createRoom: async (req, res) => {
         try {
             const imageData = req.body.image
-            const buffer = Buffer.from(imageData)
+            // const buffer = Buffer.from(imageData)
             const newRoom = new Room({
                 roomname: req.body.roomname,
                 price: req.body.price,
                 capacity: req.body.capacity,
-                image: {
-                    data: buffer,
-                    contentType: 'image/jpg'
-                }
+                image: req.body.image
             })
             const room = await newRoom.save()
             res.status(200).json(room)

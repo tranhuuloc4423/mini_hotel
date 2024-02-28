@@ -23,6 +23,7 @@ const Room = () => {
     const [openModal, setOpenModal] = useState(false)
     const dispatch = useDispatch()
     const { rooms } = useSelector((state) => state.room)
+    const { customers } = useSelector((state) => state.customer)
     const [isEdit, setIsEdit] = useState(false)
     const toggleOpen = () => setOpenModal(!openModal)
     const [formCustomer, setFormCustomer] = useState(false)
@@ -75,40 +76,34 @@ const Room = () => {
             </div>
             <div className="main-body flex flex-wrap gap-4">
                 {rooms?.map((room) => (
-                    <div className="h-fit" key={room?.id}>
+                    <div
+                        className="h-fit rounded-md border-[1px] border-gray-600 shadow-slate-900 shadow-lg w-1/5"
+                        key={room?.id}
+                    >
                         <MDBCard>
-                            <MDBCardHeader>{room?.roomname}</MDBCardHeader>
+                            <MDBCardHeader className="text-2xl text-center font-bold">
+                                {room?.roomname}
+                            </MDBCardHeader>
                             <MDBCardBody>
                                 <div className={`bg-contain w-full h-full`}>
+                                    <img
+                                        src={room?.image}
+                                        alt="roomImage"
+                                        className="w-full h-[150px] object-cover"
+                                    />
                                     <div>Price: {room?.price} $</div>
                                     <div>Capacity: {room?.capacity} slot</div>
                                     <div>
-                                        CustomerId:{' '}
+                                        Customer:{' '}
                                         {room?.customer
                                             ? room.customer
                                             : 'empty'}
                                     </div>
                                 </div>
-                                <div>
-                                    <img
-                                        src={URL.createObjectURL(
-                                            new Blob([room?.image.data], {
-                                                type: room?.image.contentType
-                                            })
-                                        )}
-                                        alt="Room"
-                                        className="w-full h-full"
-                                    />
-                                </div>
                             </MDBCardBody>
-                            <MDBCardFooter className="grid grid-cols-2 gap-2">
+                            <MDBCardFooter className="flex flex-col gap-2">
                                 <Button
                                     color={'success'}
-                                    text={'view'}
-                                    icon={<TbInfoSquare size={20} />}
-                                />
-                                <Button
-                                    color={'info'}
                                     text={'Add customer'}
                                     icon={<FiPlusSquare size={20} />}
                                     onClick={() => {
@@ -116,29 +111,31 @@ const Room = () => {
                                         setRoomId(room?.id)
                                     }}
                                 />
-                                <Button
-                                    color={'danger'}
-                                    text={'delete'}
-                                    icon={<CgRemoveR size={20} />}
-                                    onClick={() => {
-                                        handleRemove(room?.id)
-                                    }}
-                                />
-                                <Button
-                                    color={'warning'}
-                                    text={'edit'}
-                                    icon={<FiEdit size={20} />}
-                                    onClick={() => {
-                                        setOpenModal(true)
-                                        setIsEdit(true)
-                                        setFormValue({
-                                            roomname: room?.roomname,
-                                            price: room?.price,
-                                            capacity: room?.capacity,
-                                            id: room?.id
-                                        })
-                                    }}
-                                />
+                                <div className="flex">
+                                    <Button
+                                        color={'danger'}
+                                        text={'delete'}
+                                        icon={<CgRemoveR size={20} />}
+                                        onClick={() => {
+                                            handleRemove(room?.id)
+                                        }}
+                                    />
+                                    <Button
+                                        color={'warning'}
+                                        text={'edit'}
+                                        icon={<FiEdit size={20} />}
+                                        onClick={() => {
+                                            setOpenModal(true)
+                                            setIsEdit(true)
+                                            setFormValue({
+                                                roomname: room?.roomname,
+                                                price: room?.price,
+                                                capacity: room?.capacity,
+                                                id: room?.id
+                                            })
+                                        }}
+                                    />
+                                </div>
                             </MDBCardFooter>
                         </MDBCard>
                     </div>
