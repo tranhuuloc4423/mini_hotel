@@ -1,8 +1,6 @@
 const Room = require('../models/Room')
 const Customer = require('../models/Customer')
 
-const mongoose = require('mongoose')
-
 const roomControllers = {
     createRoom: async (req, res) => {
         try {

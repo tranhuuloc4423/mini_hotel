@@ -1,27 +1,8 @@
-const Amenities = require('../models/Amenities')
 const MonthlyData = require('../models/Monthly_Data')
+const Amenities = require('../models/Amenities')
 
 const monthly_dataControllers = {
     cal: async (req, res) => {
-        // {
-        //     "id": "1",
-        //     "amenities": [
-        //       "water": "100",
-        //       "electricity": "100",
-        //       "car": "4"
-        //     ]
-
-        //     "rooms": [
-        //       {
-        //         "id": "1"
-        //         "amenities": [
-        //           "water": "300000",
-        //           "electricity": "400000",
-        //           "car": "40000"
-        //         ]
-        //       }
-        //     ]
-        // }
         try {
             const amenitiesData = req.body.amenities
 

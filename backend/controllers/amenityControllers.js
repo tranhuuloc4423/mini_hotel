@@ -1,5 +1,4 @@
 const Amenities = require('../models/Amenities')
-const mongoose = require('mongoose')
 
 const amenityControllers = {
     createAmenity: async (req, res) => {

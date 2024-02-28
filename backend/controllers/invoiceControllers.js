@@ -1,25 +1,54 @@
 const Invoice = require('../models/Invoice')
-const mongoose = require('mongoose')
+const Amenities = require('../models/Amenities')
 
 const invoiceControllers = {
     createInvoice: async (req, res) => {
         try {
+            const { time, room, customer, electricity, water, other, total } = req.body;
+
+            // Calculate electricity values
+            const electricityOld = electricity.old;
+            const electricityNew = electricity.new;
+            const electricityUse = electricityNew - electricityOld;
+            const electricityPrice = await Amenities.findOne({ name: 'Electricity' }).select('price');
+            const electricityTotal = electricityUse * electricityPrice;
+
+            // Calculate water values
+            const waterOld = water.old;
+            const waterNew = water.new;
+            const waterUse = waterNew - waterOld;
+            const waterPrice = await Amenities.findOne({ name: 'Water' }).select('price');
+            const waterTotal = waterUse * waterPrice;
+
+            // Calculate other values
+            const otherUpdated = await Promise.all(
+                other.map(async (item) => {
+                    const amenity = await Amenities.findOne({ name: item.name });
+                    const quantity = item.quantity;
+                    const total = quantity * amenity.price;
+                    return { ...item, quantity, total };
+                })
+            );
+
+            // Calculate total value
+            const finalTotal = electricityTotal + waterTotal;
+
+            // Create new invoice
             const newInvoice = new Invoice({
-                customer: req.body.customer,
-                room: req.body.room,
-                amount: req.body.amount,
-                time: {
-                    day: req.body.time.day,
-                    month: req.body.time.month,
-                    year: req.body.time.year
-                },
-                amenities: req.body.amenities
-            })
-            const invoice = await newInvoice.save()
-            res.status(200).json(invoice)
+                time,
+                room,
+                customer,
+                electricity: { old: electricityOld, new: electricityNew, use: electricityUse, total: electricityTotal },
+                water: { old: waterOld, new: waterNew, use: waterUse, total: waterTotal },
+                other: otherUpdated,
+                total: finalTotal
+            });
+
+            const invoice = await newInvoice.save();
+            return res.status(200).json(invoice);
         } catch (error) {
-            console.log(error)
-            res.status(500).json(error)
+            console.log(error);
+            return res.status(500).json(error);
         }
     },
     getAllInvoices: async (req, res) => {
