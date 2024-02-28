@@ -61,7 +61,7 @@ const customer = createSlice({
                 members: updatedMembers
             }
         },
-        createCustomer: (state, action) => {
+        createCustomers: (state, action) => {
             state.customers.push(action.payload)
             state.customer = {}
             state.amenities = []

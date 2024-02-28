@@ -1,25 +1,44 @@
 import {
-    MDBDropdown,
-    MDBDropdownMenu,
-    MDBDropdownToggle,
-    MDBDropdownItem,
+    // MDBDropdown,
+    // MDBDropdownMenu,
+    // MDBDropdownToggle,
+    // MDBDropdownItem,
     MDBTable,
     MDBTableHead,
-    MDBTableBody
+    MDBTableBody,
+    MDBModal,
+    MDBModalDialog,
+    MDBModalContent,
+    MDBModalHeader,
+    MDBModalTitle,
+    MDBModalBody
 } from 'mdb-react-ui-kit'
 import DatePicker from '../../Common/DatePicker'
 import icons from '../../../utils/icons'
 import Button from '../../Common/Button'
+import { useState } from 'react'
+import BillPrint from './BillPrint'
 
 const { LuCalculator, TbInfoSquare, FaPrint, CgRemoveR } = icons
 
 const Bill = () => {
+    const [date, setDate] = useState()
+    const [openModal, setOpenModal] = useState()
+    const bills = [
+        { roomName: 'Room A', customer: '123', date: '456' },
+        { roomName: 'Room B', customer: '789', date: '321' }
+        // Các item bill khác
+    ]
     return (
         <div className="main-container">
             <div className="main-header">
                 <div className="flex-center-y gap-2">
-                    <DatePicker label={'Date'} />
-                    <div className="flex-center-y gap-2">
+                    <DatePicker
+                        label={'Date'}
+                        value={date}
+                        setValue={setDate}
+                    />
+                    {/* <div className="flex-center-y gap-2">
                         <span>state</span>
                         <MDBDropdown>
                             <MDBDropdownToggle color="secondary">
@@ -37,45 +56,7 @@ const Bill = () => {
                                 </MDBDropdownItem>
                             </MDBDropdownMenu>
                         </MDBDropdown>
-                    </div>
-                    <div className="flex-center-y gap-2">
-                        <span>state</span>
-                        <MDBDropdown>
-                            <MDBDropdownToggle color="secondary">
-                                State
-                            </MDBDropdownToggle>
-                            <MDBDropdownMenu>
-                                <MDBDropdownItem link>
-                                    Menu item
-                                </MDBDropdownItem>
-                                <MDBDropdownItem link>
-                                    Menu item
-                                </MDBDropdownItem>
-                                <MDBDropdownItem link>
-                                    Menu item
-                                </MDBDropdownItem>
-                            </MDBDropdownMenu>
-                        </MDBDropdown>
-                    </div>
-                    <div className="flex-center-y gap-2">
-                        <span>state</span>
-                        <MDBDropdown>
-                            <MDBDropdownToggle color="secondary">
-                                State
-                            </MDBDropdownToggle>
-                            <MDBDropdownMenu>
-                                <MDBDropdownItem link>
-                                    Menu item
-                                </MDBDropdownItem>
-                                <MDBDropdownItem link>
-                                    Menu item
-                                </MDBDropdownItem>
-                                <MDBDropdownItem link>
-                                    Menu item
-                                </MDBDropdownItem>
-                            </MDBDropdownMenu>
-                        </MDBDropdown>
-                    </div>
+                    </div> */}
                 </div>
                 <div className="flex-center-y gap-2">
                     <Button
@@ -101,28 +82,50 @@ const Bill = () => {
                         </tr>
                     </MDBTableHead>
                     <MDBTableBody>
-                        <tr>
-                            <td className="w-1/4">
-                                <p className="fw-normal mb-1">room name</p>
-                            </td>
-                            <td className="w-1/4">444</td>
-                            <td className="w-1/4">444</td>
-                            <td className="w-1/4">
-                                <Button
-                                    color={'info'}
-                                    text={'print'}
-                                    icon={<FaPrint size={20} />}
-                                />
-                                <Button
-                                    color={'danger'}
-                                    text={'delete'}
-                                    icon={<CgRemoveR size={20} />}
-                                />
-                            </td>
-                        </tr>
+                        {bills.map((bill, index) => (
+                            <tr key={index}>
+                                <td className="w-1/4">
+                                    <p className="fw-normal mb-1">
+                                        {bill.roomName}
+                                    </p>
+                                </td>
+                                <td className="w-1/4">{bill.customer}</td>
+                                <td className="w-1/4">{bill.date}</td>
+                                <td className="w-1/4">
+                                    <Button
+                                        color={'info'}
+                                        text={'print'}
+                                        icon={<FaPrint size={20} />}
+                                        onClick={() => setOpenModal(true)}
+                                    />
+                                    <Button
+                                        color={'danger'}
+                                        text={'delete'}
+                                        icon={<CgRemoveR size={20} />}
+                                    />
+                                </td>
+                            </tr>
+                        ))}
                     </MDBTableBody>
                 </MDBTable>
             </div>
+            <MDBModal open={openModal} setOpen={setOpenModal} tabIndex="-1">
+                <MDBModalDialog>
+                    <MDBModalContent>
+                        <MDBModalHeader>
+                            <MDBModalTitle>Bill Detail</MDBModalTitle>
+                        </MDBModalHeader>
+                        <MDBModalBody>
+                            <BillPrint />
+                            <Button
+                                color={'info'}
+                                text={'Print'}
+                                icon={<FaPrint size={20} />}
+                            />
+                        </MDBModalBody>
+                    </MDBModalContent>
+                </MDBModalDialog>
+            </MDBModal>
         </div>
     )
 }

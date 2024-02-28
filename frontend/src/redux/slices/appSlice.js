@@ -6,7 +6,8 @@ const appSlice = createSlice({
         currentUser: {
             username: null,
             password: null
-        }
+        },
+        sidenav: true
     },
     reducers: {
         setCurrentUser: (state, action) => {
@@ -17,10 +18,17 @@ const appSlice = createSlice({
             localStorage.removeItem('currentUser')
             state.currentUser.username = null
             state.currentUser.password = null
+        },
+        openSidenav: (state) => {
+            state.sidenav = true
+        },
+        closeSidenav: (state) => {
+            state.sidenav = false
         }
     }
 })
 
-export const { setCurrentUser, setLogoutUser } = appSlice.actions
+export const { setCurrentUser, setLogoutUser, openSidenav, closeSidenav } =
+    appSlice.actions
 
 export default appSlice.reducer
