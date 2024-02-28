@@ -1,27 +1,62 @@
 const Invoice = require('../models/Invoice')
-const mongoose = require('mongoose')
+const Amenities = require('../models/Amenities')
 
 const invoiceControllers = {
     createInvoice: async (req, res) => {
         try {
-            const newInvoice = new Invoice({
-                customer: req.body.customer,
-                room: req.body.room,
-                amount: req.body.amount,
-                time: {
-                    day: req.body.time.day,
-                    month: req.body.time.month,
-                    year: req.body.time.year
-                },
-                amenities: req.body.amenities
+          const { time, room , customer, electricity, water, other } = req.body;
+      
+            // Calculate electricity values
+            const electricityOld = Number(electricity.old);
+            const electricityNew = Number(electricity.new);
+            const electricityUse = Number(electricityNew - electricityOld);
+            const electricityPrice = await Amenities.findOne({ name: 'Electricity' });
+            const electricityTotal = Number(electricityUse * electricityPrice.price);
+        
+            // Calculate water values
+            const waterOld = Number(water.old);
+            const waterNew = Number(water.new);
+            const waterUse = Number(waterNew - waterOld);
+            const waterPrice = await Amenities.findOne({ name: 'Water' });
+            const waterTotal = Number(waterUse * waterPrice.price);
+        
+            // Calculate other values
+            const otherUpdated = await Promise.all(
+            other.map(async (item) => {
+                const amenity = await Amenities.findOne({ name: item.name });
+                const quantity = Number(item.quantity);
+                const price = Number(amenity.price);
+                const otherTotal = Number(quantity * price);
+                return { ...item, quantity, otherTotal };
             })
-            const invoice = await newInvoice.save()
-            res.status(200).json(invoice)
+            );
+
+            const otherTotal = otherUpdated.reduce((sum, item) => sum + item.otherTotal, 0)
+            const roomPrice = Number(room.price)
+        
+            // Calculate total value
+            const finalTotal = Number(roomPrice + electricityTotal + waterTotal + otherTotal);
+            console.log(typeof finalTotal)
+        
+            // Create new invoice
+            const newInvoice = new Invoice({
+                time,
+                room: { ...room },
+                customer: customer ,
+                electricity: { old: electricityOld, new: electricityNew, use: electricityUse, total: electricityTotal },
+                water: { old: waterOld, new: waterNew, use: waterUse, total: waterTotal },
+                other: otherUpdated,
+                total: finalTotal
+            });
+      
+            const invoice = await newInvoice.save();
+            return res.status(200).json(invoice);
         } catch (error) {
-            console.log(error)
-            res.status(500).json(error)
+            console.log(error);
+            return res.status(500).json(error);
         }
     },
+
     getAllInvoices: async (req, res) => {
         try {
             const invoices = await Invoice.find()
@@ -67,3 +102,31 @@ const invoiceControllers = {
 }
 
 module.exports = invoiceControllers
+
+// {
+//     "time": "09/02/2024",
+//     "room": {
+//       "name": "room2",
+//       "price": "500"
+//     },
+//     "customer": "roku",
+//     "electricity": {
+//       "old": "12", 
+//       "new": "22"
+//     },
+//     "water": {
+//       "old": "12",
+//       "new": "22"
+//     },
+//     "other": 
+//     [
+//       {
+//         "name": "Parking",
+//         "quantity": "1"
+//       },
+//       {
+//         "name": "Wifi",
+//         "quantity": "1"
+//       }
+//     ]
+//   }

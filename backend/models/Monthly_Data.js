@@ -14,7 +14,7 @@ const Monthly_DataSchema = new mongoose.Schema(
                 type: Number
             }
         },
-        rooms: [ // Chỗ này hình như thiếu thiếu 
+        rooms: [ 
             {
                 amenities: []
             }
