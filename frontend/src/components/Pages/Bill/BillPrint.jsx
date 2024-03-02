@@ -1,60 +1,57 @@
-import { Document, Page, Text, View, StyleSheet } from 'react-pdf'
+import { MDBTable, MDBTableBody, MDBTableHead } from 'mdb-react-ui-kit'
+import { forwardRef } from 'react'
 
-const styles = StyleSheet.create({
-    table: {
-        display: 'table',
-        width: '100%',
-        borderStyle: 'solid',
-        borderWidth: 1,
-        borderColor: '#000'
-    },
-    tableRow: { margin: 'auto', flexDirection: 'row' },
-    tableCell: {
-        margin: 'auto',
-        width: '25%',
-        borderStyle: 'solid',
-        borderWidth: 1,
-        borderColor: '#000',
-        padding: 5
-    }
-})
-
-const BillPrint = () => {
+const BillPrint = forwardRef(({ data }, ref) => {
+    // const data = props
+    console.log('data ', data)
     return (
-        <Document>
-            <Page>
-                <View>
-                    <Text>BILL DETAIL</Text>
-
-                    <View style={styles.table}>
-                        <View style={styles.tableRow}>
-                            <View style={styles.tableCell}>
-                                <Text>ID</Text>
-                            </View>
-                            <View style={styles.tableCell}>
-                                <Text>Name</Text>
-                            </View>
-                            <View style={styles.tableCell}>
-                                <Text>Price</Text>
-                            </View>
-                        </View>
-
-                        <View style={styles.tableRow}>
-                            <View style={styles.tableCell}>
-                                <Text>Room 1</Text>
-                            </View>
-                            <View style={styles.tableCell}>
-                                <Text>dsa</Text>
-                            </View>
-                            <View style={styles.tableCell}>
-                                <Text>dsa</Text>
-                            </View>
-                        </View>
-                    </View>
-                </View>
-            </Page>
-        </Document>
+        <div ref={ref} className="border-b-4 border-black p-4">
+            <div className="text-center text-2xl font-bold">
+                Invoice Details
+            </div>
+            <div className="flex justify-between my-2">
+                <div>
+                    <div className="font-bold text-lg">Customer name</div>
+                    <div>
+                        <span className="font-bold">Phone</span> +1 12345-4569
+                    </div>
+                    <div>
+                        <span className="font-bold">Email</span>{' '}
+                        customer@gmail.com
+                    </div>
+                    <div>
+                        <span className="font-bold">Address</span> New York
+                    </div>
+                </div>
+                <div>
+                    <div>Time : {data.time}</div>
+                    <div>Room: {data.room.name}</div>
+                    <div>BillID: 000001</div>
+                </div>
+            </div>
+            <div>
+                <MDBTable align="middle">
+                    <MDBTableHead>
+                        <tr className="table-primary">
+                            <th scope="col">#</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Amount</th>
+                        </tr>
+                    </MDBTableHead>
+                    <MDBTableBody>
+                        <tr>
+                            <td className="w-1/4">1</td>
+                            <td className="w-1/4">Room price</td>
+                            <td className="w-1/4">1</td>
+                            <td className="w-1/4">100</td>
+                        </tr>
+                    </MDBTableBody>
+                </MDBTable>
+            </div>
+            <div>invoice</div>
+        </div>
     )
-}
+})
 
 export default BillPrint

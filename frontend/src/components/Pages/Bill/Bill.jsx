@@ -16,9 +16,10 @@ import {
 import DatePicker from '../../Common/DatePicker'
 import icons from '../../../utils/icons'
 import Button from '../../Common/Button'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import BillPrint from './BillPrint'
 import ReactDOM from 'react-dom'
+import { useReactToPrint } from 'react-to-print'
 
 const { LuCalculator, TbInfoSquare, FaPrint, CgRemoveR } = icons
 
@@ -30,13 +31,38 @@ const Bill = () => {
         { roomName: 'Room B', customer: '789', date: '321' }
         // Các item bill khác
     ]
+    const componentRef = useRef()
 
-    const handlePrint = () => {
-        const printWindow = window.open('', '_blank')
-        const printRoot = printWindow.document.createElement('div')
-        printWindow.document.body.appendChild(printRoot)
-        ReactDOM.createRoot(printRoot).render(<BillPrint />)
+    const bill = {
+        time: '09/02/2024',
+        room: {
+            name: 'room2',
+            price: '500'
+        },
+        customer: 'roku',
+        electricity: {
+            old: '12',
+            new: '22'
+        },
+        water: {
+            old: '12',
+            new: '22'
+        },
+        other: [
+            {
+                name: 'Parking',
+                quantity: '1'
+            },
+            {
+                name: 'Wifi',
+                quantity: '1'
+            }
+        ]
     }
+
+    const handlePrint = useReactToPrint({
+        content: () => componentRef.current
+    })
     return (
         <div className="main-container">
             <div className="main-header">
@@ -104,7 +130,7 @@ const Bill = () => {
                                         color={'info'}
                                         text={'print'}
                                         icon={<FaPrint size={20} />}
-                                        onClick={() => setOpenModal(true)}
+                                        onClick={handlePrint}
                                     />
                                     <Button
                                         color={'danger'}
@@ -117,24 +143,25 @@ const Bill = () => {
                     </MDBTableBody>
                 </MDBTable>
             </div>
-            <MDBModal open={openModal} setOpen={setOpenModal} tabIndex="-1">
+            <BillPrint ref={componentRef} data={bill} />
+            {/* <MDBModal open={openModal} setOpen={setOpenModal} tabIndex="-1">
                 <MDBModalDialog>
                     <MDBModalContent>
                         <MDBModalHeader>
                             <MDBModalTitle>Bill Detail</MDBModalTitle>
                         </MDBModalHeader>
                         <MDBModalBody>
-                            <BillPrint />
+                            
                             <Button
                                 color={'info'}
                                 text={'Print'}
                                 icon={<FaPrint size={20} />}
-                                onClick={handlePrint}
+                                onClick={}
                             />
                         </MDBModalBody>
                     </MDBModalContent>
                 </MDBModalDialog>
-            </MDBModal>
+            </MDBModal> */}
         </div>
     )
 }
