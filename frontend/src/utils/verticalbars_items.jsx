@@ -9,7 +9,7 @@ const {
     RiWaterFlashLine,
     FaFileInvoiceDollar
 } = icons
-const { DASHBOARD, CUSTOMER, ROOM, AMENITIES, REPORT, BILL, INDEX } = paths
+const { DASHBOARD, CUSTOMER, ROOM, AMENITIES, REPORT, INVOICE, INDEX } = paths
 export default [
     {
         name: 'Dashboard',
@@ -27,9 +27,9 @@ export default [
         link: CUSTOMER
     },
     {
-        name: 'Bill',
+        name: 'Invoice',
         icon: <FaFileInvoiceDollar size={20} />,
-        link: BILL
+        link: INVOICE
     },
     {
         name: 'Index',

@@ -1,8 +1,4 @@
 import {
-    // MDBDropdown,
-    // MDBDropdownMenu,
-    // MDBDropdownToggle,
-    // MDBDropdownItem,
     MDBTable,
     MDBTableHead,
     MDBTableBody,
@@ -16,47 +12,28 @@ import {
 import DatePicker from '../../Common/DatePicker'
 import icons from '../../../utils/icons'
 import Button from '../../Common/Button'
-import { useRef, useState } from 'react'
-import BillPrint from './BillPrint'
+import { useEffect, useRef, useState } from 'react'
+import InvoicePrint from './InvoicePrint'
+import { useDispatch, useSelector } from 'react-redux'
 import { useReactToPrint } from 'react-to-print'
+import { getInvoices } from '../../../redux/api/invoice'
 
 const { LuCalculator, TbInfoSquare, FaPrint, CgRemoveR } = icons
 
-const Bill = () => {
+const Invoice = () => {
     const [date, setDate] = useState()
     const [openModal, setOpenModal] = useState()
-    const bills = [
-        { roomName: 'Room A', customer: '123', date: '456' },
-        { roomName: 'Room B', customer: '789', date: '321' }
-        // Các item bill khác
-    ]
+    const [activeInvoice, setActiveInoice] = useState()
+    const { invoices } = useSelector((state) => state.invoice)
+    const dispatch = useDispatch()
     const componentRef = useRef()
 
-    const bill = {
-        time: '09/02/2024',
-        room: {
-            name: 'room2',
-            price: '500'
-        },
-        customer: 'roku',
-        electricity: {
-            old: '12',
-            new: '22'
-        },
-        water: {
-            old: '12',
-            new: '22'
-        },
-        other: [
-            {
-                name: 'Parking',
-                quantity: '1'
-            },
-            {
-                name: 'Wifi',
-                quantity: '1'
-            }
-        ]
+    useEffect(() => {
+        getInvoices(dispatch)
+    }, [invoices])
+    const handleInvoice = (invoice) => {
+        setOpenModal(true)
+        setActiveInoice(invoice)
     }
 
     const handlePrint = useReactToPrint({
@@ -71,25 +48,6 @@ const Bill = () => {
                         value={date}
                         setValue={setDate}
                     />
-                    {/* <div className="flex-center-y gap-2">
-                        <span>state</span>
-                        <MDBDropdown>
-                            <MDBDropdownToggle color="secondary">
-                                State
-                            </MDBDropdownToggle>
-                            <MDBDropdownMenu>
-                                <MDBDropdownItem link>
-                                    Menu item
-                                </MDBDropdownItem>
-                                <MDBDropdownItem link>
-                                    Menu item
-                                </MDBDropdownItem>
-                                <MDBDropdownItem link>
-                                    Menu item
-                                </MDBDropdownItem>
-                            </MDBDropdownMenu>
-                        </MDBDropdown>
-                    </div> */}
                 </div>
                 <div className="flex-center-y gap-2">
                     <Button
@@ -108,28 +66,30 @@ const Bill = () => {
                 <MDBTable bordered align="middle" className="text-center">
                     <MDBTableHead>
                         <tr className="table-primary">
-                            <th scope="col">Name</th>
-                            <th scope="col">Price</th>
-                            <th scope="col">Paid</th>
-                            <th scope="col">Remain</th>
+                            <th scope="col">Room</th>
+                            <th scope="col">Customer</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Total</th>
+                            <th scope="col">Modify</th>
                         </tr>
                     </MDBTableHead>
                     <MDBTableBody>
-                        {bills.map((bill, index) => (
-                            <tr key={index}>
+                        {invoices.map((invoice) => (
+                            <tr key={invoice?.id}>
                                 <td className="w-1/4">
                                     <p className="fw-normal mb-1">
-                                        {bill.roomName}
+                                        {invoice?.room.name}
                                     </p>
                                 </td>
-                                <td className="w-1/4">{bill.customer}</td>
-                                <td className="w-1/4">{bill.date}</td>
+                                <td className="w-1/4">{invoice?.customer}</td>
+                                <td className="w-1/4">{invoice?.time}</td>
+                                <td className="w-1/4">{invoice?.total}</td>
                                 <td className="w-1/4">
                                     <Button
                                         color={'info'}
                                         text={'print'}
                                         icon={<FaPrint size={20} />}
-                                        onClick={() => setOpenModal(true)}
+                                        onClick={() => handleInvoice(invoice)}
                                     />
                                     <Button
                                         color={'danger'}
@@ -150,7 +110,13 @@ const Bill = () => {
                             <MDBModalTitle>Bill Detail</MDBModalTitle>
                         </MDBModalHeader>
                         <MDBModalBody>
-                            <BillPrint ref={componentRef} data={bill} />
+                            {openModal && (
+                                <InvoicePrint
+                                    ref={componentRef}
+                                    data={activeInvoice}
+                                />
+                            )}
+
                             <div className="w-full flex justify-center mt-4">
                                 <Button
                                     color={'info'}
@@ -167,4 +133,4 @@ const Bill = () => {
     )
 }
 
-export default Bill
+export default Invoice

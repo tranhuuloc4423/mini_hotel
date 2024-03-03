@@ -8,31 +8,11 @@ const invoiceSchema = new mongoose.Schema({
     time: {
         type: String
     },
-    room: {
-        // room_name
-        // price
-    },
-    customer: {
-        //customer_name
-    },
-    electricity:{
-        // old: 1,
-        // new: 1,
-        // use: new - old
-        // total: use * amenity.price
-    },
-    water: {
-        // old: 1,
-        // new: 1,
-        // use: new - old
-        // total: use * amenity.price
-    },
-    other: [
-        {
-            // quantity: 1,
-            // total: quantity * amenity.price
-        }
-    ],
+    room: {},
+    customer: {},
+    electricity: {},
+    water: {},
+    others: [],
     total: {
         type: Number
     }

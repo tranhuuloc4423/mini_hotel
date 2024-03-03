@@ -10,6 +10,6 @@ export default {
     AMENITIES: 'amenities',
     STATUS: 'status',
     REPORT: 'report',
-    BILL: 'bill',
+    INVOICE: 'invoice',
     INDEX: 'index'
 }

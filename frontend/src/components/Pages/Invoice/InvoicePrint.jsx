@@ -1,7 +1,7 @@
 import { MDBTable, MDBTableBody, MDBTableHead } from 'mdb-react-ui-kit'
 import { forwardRef } from 'react'
 
-const BillPrint = forwardRef(({ data }, ref) => {
+const InvoicePrint = forwardRef(({ data }, ref) => {
     // const data = props
     console.log('data ', data)
     return (
@@ -24,8 +24,8 @@ const BillPrint = forwardRef(({ data }, ref) => {
                     </div>
                 </div>
                 <div>
-                    <div>Time : {data.time}</div>
-                    <div>Room: {data.room.name}</div>
+                    {/* <div>Time : {data.time}</div>
+                    <div>Room: {data.room.name}</div> */}
                     <div>BillID: 000001</div>
                 </div>
             </div>
@@ -58,4 +58,4 @@ const BillPrint = forwardRef(({ data }, ref) => {
     )
 })
 
-export default BillPrint
+export default InvoicePrint

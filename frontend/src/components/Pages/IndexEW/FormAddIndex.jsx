@@ -12,17 +12,18 @@ import DatePicker from '../../Common/DatePicker'
 import Button from '../../Common/Button'
 import icons from '../../../utils/icons'
 import { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { createInvoice } from '../../../redux/api/invoice'
 
 const { BsSave } = icons
 
 const FormAddIndex = ({ openModal, setOpenModal, room }) => {
     const { customers } = useSelector((state) => state.customer)
     const { amenities } = useSelector((state) => state.amenities)
-    // const { activeAmenities } = useSelector((state) => state.index)
+    const dispatch = useDispatch()
     const [activeCustomer, setActiveCustomer] = useState()
     const [activeAmenities, setActiveAmenities] = useState()
-
+    const [date, setDate] = useState()
     const [formValue, setFormValue] = useState({
         oldWater: '',
         newWater: '',
@@ -34,7 +35,6 @@ const FormAddIndex = ({ openModal, setOpenModal, room }) => {
         setFormValue({ ...formValue, [e.target.name]: e.target.value })
     }
 
-    const [date, setDate] = useState()
     const handleSubmit = (e) => {
         e.preventDefault()
         const { oldWater, newWater, oldElec, newElec, ...others } = formValue
@@ -67,6 +67,7 @@ const FormAddIndex = ({ openModal, setOpenModal, room }) => {
                 customer: activeCustomer.fullname
             }
             console.log(data) // call api
+            createInvoice(data, dispatch)
 
             // reset formValue
             setFormValue({

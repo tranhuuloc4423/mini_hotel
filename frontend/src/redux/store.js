@@ -5,6 +5,7 @@ import authSlice from './slices/authSlice'
 import amenities from './slices/amenitiesSlice'
 import customerSlice from './slices/customerSlice'
 import indexSlice from './slices/indexSlice'
+import invoiceSlice from './slices/invoiceSlice'
 export default configureStore({
     reducer: {
         app: appSlice,
@@ -12,6 +13,7 @@ export default configureStore({
         room: roomSlice,
         amenities: amenities,
         customer: customerSlice,
-        index: indexSlice
+        index: indexSlice,
+        invoice: invoiceSlice
     }
 })

@@ -1,7 +1,7 @@
 import { Routes, Route, useNavigate } from 'react-router-dom'
 import paths from './utils/paths'
 import {
-    Bill,
+    Invoice,
     Customer,
     Dashboard,
     Home,
@@ -28,7 +28,7 @@ const {
     AMENITIES,
     REPORT,
     INDEX,
-    BILL
+    INVOICE
 } = paths
 
 function App() {
@@ -57,7 +57,7 @@ function App() {
                         <Route path={CUSTOMER} element={<Customer />} />
                         <Route path={ROOM} element={<Room />} />
                         <Route path={INDEX} element={<IndexEW />} />
-                        <Route path={BILL} element={<Bill />} />
+                        <Route path={INVOICE} element={<Invoice />} />
                         <Route path={AMENITIES} element={<Amenities />} />
                         <Route path={REPORT} element={<Report />} />
                     </Route>
