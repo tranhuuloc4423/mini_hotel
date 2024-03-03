@@ -5,7 +5,10 @@ const BillPrint = forwardRef(({ data }, ref) => {
     // const data = props
     console.log('data ', data)
     return (
-        <div ref={ref} className="border-b-4 border-black p-4">
+        <div
+            ref={ref}
+            className="border-b-4 border-y-4 border-t-red_1 border-b-black p-4"
+        >
             <div className="text-center text-2xl font-bold">
                 Invoice Details
             </div>
@@ -19,9 +22,6 @@ const BillPrint = forwardRef(({ data }, ref) => {
                         <span className="font-bold">Email</span>{' '}
                         customer@gmail.com
                     </div>
-                    <div>
-                        <span className="font-bold">Address</span> New York
-                    </div>
                 </div>
                 <div>
                     <div>Time : {data.time}</div>
@@ -30,7 +30,7 @@ const BillPrint = forwardRef(({ data }, ref) => {
                 </div>
             </div>
             <div>
-                <MDBTable align="middle">
+                <MDBTable bordered align="middle" className="text-center">
                     <MDBTableHead>
                         <tr className="table-primary">
                             <th scope="col">#</th>
@@ -49,7 +49,11 @@ const BillPrint = forwardRef(({ data }, ref) => {
                     </MDBTableBody>
                 </MDBTable>
             </div>
-            <div>invoice</div>
+            <div className="text-right">
+                <span>invoice: </span>
+                <span>1000</span>
+                <span>$</span>
+            </div>
         </div>
     )
 })

@@ -20,12 +20,14 @@ const IndexBody = () => {
     const { rooms } = useSelector((state) => state.room)
 
     const handleSubmit = (room) => {
-        setRoom(room)
-        setOpenModal(true)
+        if (room?.customer) {
+            setRoom(room)
+            setOpenModal(true)
+        }
     }
 
     return (
-        <MDBTable align="middle">
+        <MDBTable bordered align="middle" className="text-center">
             <MDBTableHead>
                 <tr className="table-primary">
                     <th scope="col">{"Name's room"}</th>
@@ -34,7 +36,7 @@ const IndexBody = () => {
                 </tr>
             </MDBTableHead>
             <MDBTableBody>
-                {rooms?.map((room, _) => (
+                {rooms?.map((room) => (
                     <tr key={room?.id} className="w-full">
                         <td className="w-[30%]">
                             <p className="">{room?.roomname}</p>

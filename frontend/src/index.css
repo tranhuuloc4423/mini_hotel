@@ -10,10 +10,10 @@
 
 @layer components {
     .sidenav-item {
-        @apply flex items-center py-3 px-6 gap-6 cursor-pointer hover:bg-[#3a3b3c] hover:text-[#54b4d3] hover:border-r-4 hover:border-[#54b4d3] text-white font-medium transition-all;
+        @apply flex items-center py-3 px-3 mx-3 gap-6 cursor-pointer hover:bg-[#e7f1fe] text-gray-600 font-medium transition-all rounded-2xl;
     }
     .sidenav-item-active {
-        @apply sidenav-item bg-[#3a3b3c] text-[#54b4d3] border-r-4 border-[#54b4d3];
+        @apply sidenav-item bg-[#e7f1fe] text-[#2f78f9] rounded-2xl;
     }
     .btn-select {
         @apply cursor-default relative w-full rounded-md border border-gray-300 bg-white pl-3 pr-10 py-2 text-left  transition ease-in-out duration-150;
@@ -25,7 +25,7 @@
         @apply w-full bg-white rounded-md shadow-sm p-3 flex justify-between;
     }
     .main-body {
-        @apply w-full h-full bg-white rounded-md shadow-sm p-3 mb-4;
+        @apply w-full h-full bg-white rounded-md shadow-sm p-3 mb-4 overflow-y-scroll;
     }
     .flex-center-x {
         @apply flex justify-center;

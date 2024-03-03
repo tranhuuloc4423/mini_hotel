@@ -75,6 +75,8 @@ const FormAddIndex = ({ openModal, setOpenModal, room }) => {
                 oldElec: '',
                 newElec: ''
             })
+            setDate('')
+            setOpenModal(false)
         } else {
             console.log('invalid value!')
         }

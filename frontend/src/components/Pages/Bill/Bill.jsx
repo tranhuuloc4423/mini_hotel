@@ -18,7 +18,6 @@ import icons from '../../../utils/icons'
 import Button from '../../Common/Button'
 import { useRef, useState } from 'react'
 import BillPrint from './BillPrint'
-import ReactDOM from 'react-dom'
 import { useReactToPrint } from 'react-to-print'
 
 const { LuCalculator, TbInfoSquare, FaPrint, CgRemoveR } = icons
@@ -106,7 +105,7 @@ const Bill = () => {
                 </div>
             </div>
             <div className="main-body">
-                <MDBTable align="middle">
+                <MDBTable bordered align="middle" className="text-center">
                     <MDBTableHead>
                         <tr className="table-primary">
                             <th scope="col">Name</th>
@@ -130,7 +129,7 @@ const Bill = () => {
                                         color={'info'}
                                         text={'print'}
                                         icon={<FaPrint size={20} />}
-                                        onClick={handlePrint}
+                                        onClick={() => setOpenModal(true)}
                                     />
                                     <Button
                                         color={'danger'}
@@ -143,25 +142,27 @@ const Bill = () => {
                     </MDBTableBody>
                 </MDBTable>
             </div>
-            <BillPrint ref={componentRef} data={bill} />
-            {/* <MDBModal open={openModal} setOpen={setOpenModal} tabIndex="-1">
+
+            <MDBModal open={openModal} setOpen={setOpenModal} tabIndex="-1">
                 <MDBModalDialog>
                     <MDBModalContent>
                         <MDBModalHeader>
                             <MDBModalTitle>Bill Detail</MDBModalTitle>
                         </MDBModalHeader>
                         <MDBModalBody>
-                            
-                            <Button
-                                color={'info'}
-                                text={'Print'}
-                                icon={<FaPrint size={20} />}
-                                onClick={}
-                            />
+                            <BillPrint ref={componentRef} data={bill} />
+                            <div className="w-full flex justify-center mt-4">
+                                <Button
+                                    color={'info'}
+                                    text={'Print'}
+                                    icon={<FaPrint size={20} />}
+                                    onClick={handlePrint}
+                                />
+                            </div>
                         </MDBModalBody>
                     </MDBModalContent>
                 </MDBModalDialog>
-            </MDBModal> */}
+            </MDBModal>
         </div>
     )
 }

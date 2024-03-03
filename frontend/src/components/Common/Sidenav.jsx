@@ -1,7 +1,7 @@
 import Logo from './Logo'
 import Navbar from './Navbar'
 import icons from '../../utils/icons'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState, forwardRef } from 'react'
 import {
     MDBBtn,
     MDBModal,
@@ -22,9 +22,10 @@ import { useNavigate } from 'react-router'
 const { IoIosArrowBack, IoIosArrowForward } = icons
 
 const { TbLogout2, MdOutlineLightMode } = icons
-const Sidenav = () => {
+const Sidenav = forwardRef((props, ref) => {
     const [openModal, setOpenModal] = useState(false)
     const { sidenav } = useSelector((state) => state.app)
+    const sidenavRef = useRef()
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const handleLogout = () => {
@@ -39,8 +40,10 @@ const Sidenav = () => {
 
     return (
         <>
+            {/* bg-[#242526] */}
             <div
-                className={`bg-[#242526] h-screen select-none fixed z-10 py-[10px] flex flex-col justify-between transition-all ${
+                ref={sidenavRef}
+                className={`bg-white h-screen select-none fixed z-10 py-[10px] flex flex-col justify-between transition-all ${
                     sidenav ? 'w-[12%]' : 'w-[68px]'
                 }`}
             >
@@ -58,7 +61,7 @@ const Sidenav = () => {
                         <TbLogout2 size={22} />
                         <span className={sidenav ? '' : 'hidden'}>Logout</span>
                     </div>
-                    <div className="sidenav-item bg-[#3a3b3c]">
+                    <div className="sidenav-item bg-[#e7f1fe]">
                         <MdOutlineLightMode size={22} />
                         <span className={sidenav ? '' : 'hidden'}>
                             Settings
@@ -118,6 +121,6 @@ const Sidenav = () => {
             </MDBModal>
         </>
     )
-}
+})
 
 export default Sidenav

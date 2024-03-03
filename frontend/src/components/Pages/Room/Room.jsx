@@ -72,12 +72,13 @@ const Room = () => {
                     text={'create'}
                     icon={<FiPlusSquare size={20} />}
                     onClick={toggleOpen}
+                    // className={'bg-red_1'}
                 />
             </div>
             <div className="main-body flex flex-wrap gap-4">
                 {rooms?.map((room) => (
                     <div
-                        className="h-fit rounded-md border-[1px] border-gray-600 shadow-slate-900 shadow-lg w-1/5"
+                        className="h-fit rounded-md border-[1px] border-black_1 shadow-slate-900 shadow-lg"
                         key={room?.id}
                     >
                         <MDBCard>
@@ -86,11 +87,13 @@ const Room = () => {
                             </MDBCardHeader>
                             <MDBCardBody>
                                 <div className={`bg-contain w-full h-full`}>
-                                    <img
-                                        src={room?.image}
-                                        alt="roomImage"
-                                        className="w-full h-[150px] object-cover"
-                                    />
+                                    <div className="border-2 mb-2">
+                                        <img
+                                            src={room?.image}
+                                            alt="roomImage"
+                                            className="w-full h-[150px] object-cover"
+                                        />
+                                    </div>
                                     <div>Price: {room?.price} $</div>
                                     <div>Capacity: {room?.capacity} slot</div>
                                     <div>

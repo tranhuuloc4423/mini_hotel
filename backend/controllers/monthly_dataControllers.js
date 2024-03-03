@@ -1,6 +1,84 @@
 const MonthlyData = require('../models/Monthly_Data')
 const Amenities = require('../models/Amenities')
 
+// const data = {
+//     january: {
+//         revenue: 100000,
+//         rooms: [
+//             {
+//                 water: 1,
+//                 electricity: 1,
+//                 others: [
+
+//                 ],
+//                 customer: {
+//                     name: "roku",
+//                     phone: "",
+//                     idcard: "",
+//                 },
+
+//             },
+//             {
+//                 water: 1,
+//                 electricity: 1,
+//                 others: [
+
+//                 ]
+//             }
+//         ]
+//     },
+//     february: {
+//         revenue: 100000,
+//         rooms: [
+//             {
+//                 water: 1,
+//                 electricity: 1,
+//                 others: [
+
+//                 ],
+//                 customer: {
+//                     name: "roku",
+//                     phone: "",
+//                     idcard: "",
+//                 },
+
+//             },
+//             {
+//                 water: 1,
+//                 electricity: 1,
+//                 others: [
+
+//                 ]
+//             }
+//         ]
+//     },
+//     march: {
+//         revenue: 100000,
+//         rooms: [
+//             {
+//                 water: 1,
+//                 electricity: 1,
+//                 others: [
+
+//                 ],
+//                 customer: {
+//                     name: "roku",
+//                     phone: "",
+//                     idcard: "",
+//                 },
+
+//             },
+//             {
+//                 water: 1,
+//                 electricity: 1,
+//                 others: [
+
+//                 ]
+//             }
+//         ]
+//     }
+// }
+
 const monthly_dataControllers = {
     cal: async (req, res) => {
         try {

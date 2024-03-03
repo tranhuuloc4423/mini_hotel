@@ -83,7 +83,7 @@ const Amenities = () => {
                 </div>
             </div>
             <div className="main-body">
-                <MDBTable align="middle">
+                <MDBTable bordered align="middle" className="text-center">
                     <MDBTableHead>
                         <tr className="table-primary">
                             <th scope="col">Name</th>
