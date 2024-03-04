@@ -26,11 +26,11 @@ const invoiceSlice = createSlice({
         sortByRoom: (state, action) => {
             if (action.payload) {
                 state.invoices.sort((a, b) =>
-                    a.room.name.localeCompare(b.room.name)
+                    a.room.roomname.localeCompare(b.room.roomname)
                 )
             } else {
                 state.invoices.sort((a, b) =>
-                    b.room.name.localeCompare(a.room.name)
+                    b.room.roomname.localeCompare(a.room.roomname)
                 )
             }
         },

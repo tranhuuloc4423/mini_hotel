@@ -4,8 +4,6 @@ const Customer = require('../models/Customer')
 const roomControllers = {
     createRoom: async (req, res) => {
         try {
-            const imageData = req.body.image
-            // const buffer = Buffer.from(imageData)
             const newRoom = new Room({
                 roomname: req.body.roomname,
                 price: req.body.price,
@@ -79,6 +77,7 @@ const roomControllers = {
             }
 
             room.customer = customer
+            room.hasInvoice = false
             await room.save()
 
             res.status(200).json({

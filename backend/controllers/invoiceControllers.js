@@ -1,5 +1,6 @@
 const Invoice = require('../models/Invoice')
 const Amenities = require('../models/Amenities')
+const Room = require('../models/Room')
 
 const invoiceControllers = {
     createInvoice: async (req, res) => {
@@ -40,6 +41,10 @@ const invoiceControllers = {
                 (sum, item) => sum + item.otherTotal,
                 0
             )
+            const checkHasInvoice = await Room.findOne({ id: room.id })
+            checkHasInvoice.hasInvoice = true
+            await checkHasInvoice.save()
+
             const roomPrice = Number(room.price)
 
             // Calculate total value
@@ -47,10 +52,12 @@ const invoiceControllers = {
                 roomPrice + electricityTotal + waterTotal + otherTotal
             )
 
+            // when room has invoice
+
             // Create new invoice
             const newInvoice = new Invoice({
                 time: time,
-                room: { ...room },
+                room: room,
                 customer: customer,
                 electricity: {
                     old: electricityOld,

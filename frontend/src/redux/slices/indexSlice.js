@@ -4,22 +4,22 @@ const index = createSlice({
     name: 'index',
     initialState: {
         index: [],
-        activeTab: 'Water',
+        checkIndexs: false,
         activeAmenities: null,
         roomSort: false,
         customerSort: false,
         search: ''
     },
     reducers: {
-        setActiveTab: (state, action) => {
-            state.activeTab = action.payload
-        },
         setActiveAmenities: (state, action) => {
             state.activeAmenities = action.payload
+        },
+        setCheckIndexs: (state, action) => {
+            state.checkIndexs = action.payload
         }
     }
 })
 
-export const { setActiveTab, setActiveAmenities } = index.actions
+export const { setCheckIndexs, setActiveAmenities } = index.actions
 
 export default index.reducer

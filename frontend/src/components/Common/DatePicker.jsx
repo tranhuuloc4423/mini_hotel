@@ -24,7 +24,7 @@ const css = `
   }
 `
 
-const DatePicker = ({ label, value, setValue }) => {
+const DatePicker = ({ label, value, setValue, disabled }) => {
     const datepickerRef = useRef(null)
     const calendarRef = useRef(null)
     const [activeDatepicker, setActiveDatepicker] = useState(false)
@@ -64,6 +64,7 @@ const DatePicker = ({ label, value, setValue }) => {
     }, [selected])
     return (
         <MDBInput
+            disabled={disabled}
             label={label}
             type="text"
             // defaultValue={value}
@@ -72,12 +73,14 @@ const DatePicker = ({ label, value, setValue }) => {
             onChange={(e) => setValue(e.target.value)}
             {...inputProps}
         >
-            <div ref={datepickerRef} onClick={handleIconClick}>
-                <MdOutlineDateRange
-                    className="absolute top-1/2 translate-y-[-50%] right-2 cursor-pointer"
-                    size={24}
-                />
-            </div>
+            {!disabled && (
+                <div ref={datepickerRef} onClick={handleIconClick}>
+                    <MdOutlineDateRange
+                        className="absolute top-1/2 translate-y-[-50%] right-2 cursor-pointer"
+                        size={24}
+                    />
+                </div>
+            )}
             {activeDatepicker && (
                 <div ref={calendarRef}>
                     <style>{css}</style>
