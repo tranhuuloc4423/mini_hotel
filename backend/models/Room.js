@@ -26,10 +26,7 @@ const roomSchema = new mongoose.Schema(
         image: {
             type: String
         },
-        customer: {
-            type: Number,
-            default: null
-        }
+        customer: {}
     },
     { timestamps: true }
 )

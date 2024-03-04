@@ -1,28 +1,24 @@
 import {
     MDBInput,
-    MDBDropdown,
-    MDBDropdownMenu,
-    MDBDropdownToggle,
-    MDBDropdownItem,
     MDBCard,
     MDBCardBody,
     MDBCardHeader,
     MDBCardFooter
 } from 'mdb-react-ui-kit'
-import React, { useState, useEffect } from 'react'
 import icons from '../../../utils/icons'
 import FormAddRoom from './FormAddRoom'
 import Button from '../../Common/Button'
 import { deleteRoom, getRooms } from '../../../redux/api/room'
+import { setSearch, filter } from '../../../redux/slices/roomSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import FormAddCusRoom from './FormAddCusRoom'
+import { useEffect, useState } from 'react'
 
-const { FiPlusSquare, TbInfoSquare, FiEdit, CgRemoveR } = icons
+const { FiPlusSquare, FiEdit, CgRemoveR } = icons
 const Room = () => {
-    const [searchValue, setSearchValue] = useState('')
     const [openModal, setOpenModal] = useState(false)
     const dispatch = useDispatch()
-    const { rooms } = useSelector((state) => state.room)
+    const { rooms, search } = useSelector((state) => state.room)
     const { customers } = useSelector((state) => state.customer)
     const [isEdit, setIsEdit] = useState(false)
     const toggleOpen = () => setOpenModal(!openModal)
@@ -49,30 +45,26 @@ const Room = () => {
             <div className="main-header">
                 <div className="flex-center-y gap-2">
                     <MDBInput
-                        value={searchValue}
-                        onChange={(e) => setSearchValue(e.target.value)}
+                        value={search}
+                        onChange={(e) => {
+                            const inputValue = e.target.value
+                            dispatch(setSearch(inputValue))
+                            if (inputValue === '' || inputValue === null) {
+                                getRooms(dispatch)
+                            } else {
+                                dispatch(filter())
+                            }
+                        }}
                         label="Search"
                         id="search"
                         type="text"
                     />
-
-                    <MDBDropdown>
-                        <MDBDropdownToggle color="secondary">
-                            Filter
-                        </MDBDropdownToggle>
-                        <MDBDropdownMenu>
-                            <MDBDropdownItem link>Menu item</MDBDropdownItem>
-                            <MDBDropdownItem link>Menu item</MDBDropdownItem>
-                            <MDBDropdownItem link>Menu item</MDBDropdownItem>
-                        </MDBDropdownMenu>
-                    </MDBDropdown>
                 </div>
                 <Button
                     color={'success'}
                     text={'create'}
                     icon={<FiPlusSquare size={20} />}
                     onClick={toggleOpen}
-                    // className={'bg-red_1'}
                 />
             </div>
             <div className="main-body flex flex-wrap gap-4">
@@ -98,8 +90,8 @@ const Room = () => {
                                     <div>Capacity: {room?.capacity} slot</div>
                                     <div>
                                         Customer:{' '}
-                                        {room?.customer
-                                            ? room.customer
+                                        {room?.customer?.fullname
+                                            ? room.customer?.fullname
                                             : 'empty'}
                                     </div>
                                 </div>

@@ -42,7 +42,7 @@ const IndexBody = () => {
                             <p className="">{room?.roomname}</p>
                         </td>
                         <td className="w-[30%]">
-                            <p className="">{room?.customer}</p>
+                            <p className="">{room?.customer?.fullname}</p>
                         </td>
                         <td className="w-[30%]">
                             <Button

@@ -15,15 +15,16 @@ const InvoicePrint = forwardRef(({ data }, ref) => {
             <div className="flex justify-between my-2">
                 <div>
                     <div className="font-bold text-lg">
-                        <span className="font-bold">Customer :</span>
-                        <span>{data?.customer}</span>
+                        <span className="font-bold">Customer : </span>
+                        <span>{data?.customer.fullname}</span>
                     </div>
                     <div>
-                        <span className="font-bold">Phone</span> +1 12345-4569
+                        <span className="font-bold">Phone : </span>
+                        <span>{data?.customer.phonenumber}</span>
                     </div>
                     <div>
-                        <span className="font-bold">Email</span>{' '}
-                        customer@gmail.com
+                        <span className="font-bold">Email : </span>
+                        <span>{data?.customer.email}</span>
                     </div>
                 </div>
                 <div>

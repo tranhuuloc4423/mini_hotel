@@ -64,7 +64,7 @@ const FormAddIndex = ({ openModal, setOpenModal, room }) => {
                     name: room?.roomname,
                     price: room?.price
                 },
-                customer: activeCustomer.fullname
+                customer: activeCustomer
             }
             console.log(data) // call api
             createInvoice(data, dispatch)
@@ -84,9 +84,7 @@ const FormAddIndex = ({ openModal, setOpenModal, room }) => {
     }
 
     useEffect(() => {
-        setActiveCustomer(
-            customers.find((item, _) => item.id === room?.customer)
-        )
+        setActiveCustomer(room?.customer)
     }, [room?.customer])
 
     useEffect(() => {

@@ -15,7 +15,7 @@ const Table = ({ extraClass, headers, body }) => {
                             key={item.name}
                             scope="col"
                             className="relative cursor-pointer"
-                            onClick={item.onClick}
+                            onClick={item?.onClick}
                         >
                             <span>{item.name}</span>
                             {'sort' in item && (

@@ -6,7 +6,8 @@ const amenities = createSlice({
         amenities: [],
         nameSort: false,
         priceSort: false,
-        unitSort: false
+        unitSort: false,
+        search: ''
     },
     reducers: {
         setAmenities: (state, action) => {
@@ -60,6 +61,19 @@ const amenities = createSlice({
         },
         setSortByUnit: (state) => {
             state.unitSort = !state.unitSort
+        },
+        setSearch: (state, action) => {
+            state.search = action.payload
+        },
+        filter: (state) => {
+            const searchQuery = state.search.toLowerCase()
+            state.amenities = state.amenities.filter((item) => {
+                return (
+                    item.name.toLowerCase().includes(searchQuery) ||
+                    item.price.toString().toLowerCase().includes(searchQuery) ||
+                    item.unit.toLowerCase().includes(searchQuery)
+                )
+            })
         }
     }
 })
@@ -74,7 +88,9 @@ export const {
     sortByUnit,
     setSortByName,
     setSortByPrice,
-    setSortByUnit
+    setSortByUnit,
+    setSearch,
+    filter
 } = amenities.actions
 
 export default amenities.reducer

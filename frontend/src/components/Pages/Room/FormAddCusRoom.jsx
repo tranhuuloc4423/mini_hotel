@@ -26,7 +26,7 @@ const FormAddCusRoom = ({ formCustomer, setFormCustomer, roomId }) => {
     const handleSubmit = () => {
         setFormCustomer(false)
         // addCustomerRoom()
-        const data = { customerId: selectedCustomer, roomId: roomId }
+        const data = { customer: selectedCustomer, roomId: roomId }
         console.log(data)
         addCustomerRoom(data, dispatch)
     }
@@ -71,9 +71,7 @@ const FormAddCusRoom = ({ formCustomer, setFormCustomer, roomId }) => {
                                                 name="customer"
                                                 value={item?.id}
                                                 onChange={(e) => {
-                                                    setSelectedCustomer(
-                                                        Number(e.target.value)
-                                                    )
+                                                    setSelectedCustomer(item)
                                                 }}
                                             />
                                         </td>

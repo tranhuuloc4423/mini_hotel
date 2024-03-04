@@ -56,8 +56,7 @@ const updateRoom = async (room, dispatch) => {
 
 const addCustomerRoom = async (data, dispatch) => {
     try {
-        const { roomId } = data
-        await axios.put(`/room/add_customer/${roomId}`, data)
+        await axios.put(`/room/add_customer/${data?.roomId}`, data)
         dispatch(updateCustomerItem(data))
         toast.success('Add Customer for Room Successfully!')
     } catch (error) {

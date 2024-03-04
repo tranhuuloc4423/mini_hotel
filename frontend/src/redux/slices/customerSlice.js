@@ -7,7 +7,12 @@ const customer = createSlice({
         customer: {},
         amenities: [],
         members: [],
-        save: false
+        save: false,
+        fullnameSort: false,
+        idcardSort: false,
+        emailSort: false,
+        phoneSort: false,
+        search: ''
     },
     reducers: {
         setCustomers: (state, action) => {
@@ -66,6 +71,70 @@ const customer = createSlice({
             state.customer = {}
             state.amenities = []
             state.members = []
+        },
+        sortByFullName: (state, action) => {
+            if (action.payload) {
+                state.customers.sort((a, b) =>
+                    a.fullname.localeCompare(b.fullname)
+                )
+            } else {
+                state.customers.sort((a, b) =>
+                    b.fullname.localeCompare(a.fullname)
+                )
+            }
+        },
+        sortByIDCard: (state, action) => {
+            if (action.payload) {
+                state.customers.sort((a, b) => a.idcard - b.idcard)
+            } else {
+                state.customers.sort((a, b) => b.idcard - a.idcard)
+            }
+        },
+        sortByEmail: (state, action) => {
+            if (action.payload) {
+                state.customers.sort((a, b) => a.email.localeCompare(b.email))
+            } else {
+                state.customers.sort((a, b) => b.email.localeCompare(a.email))
+            }
+        },
+        sortByPhone: (state, action) => {
+            if (action.payload) {
+                state.customers.sort((a, b) => a.phonenumber - b.phonenumber)
+            } else {
+                state.customers.sort((a, b) => b.phonenumber - a.phonenumber)
+            }
+        },
+        setSortByFullName: (state) => {
+            state.fullnameSort = !state.fullnameSort
+        },
+        setSortByIDCard: (state) => {
+            state.idcardSort = !state.idcardSort
+        },
+        setSortByEmail: (state) => {
+            state.emailSort = !state.emailSort
+        },
+        setSortByPhone: (state) => {
+            state.phoneSort = !state.phoneSort
+        },
+        setSearch: (state, action) => {
+            state.search = action.payload
+        },
+        filter: (state) => {
+            const searchQuery = state.search.toLowerCase()
+            state.customers = state.customers.filter((item) => {
+                return (
+                    item.fullname.toLowerCase().includes(searchQuery) ||
+                    item.idcard
+                        .toString()
+                        .toLowerCase()
+                        .includes(searchQuery) ||
+                    item.email.toLowerCase().includes(searchQuery) ||
+                    item.phonenumber
+                        .toString()
+                        .toLowerCase()
+                        .includes(searchQuery)
+                )
+            })
         }
     }
 })
@@ -80,7 +149,17 @@ export const {
     setSave,
     addMember,
     removeMember,
-    updateMember
+    updateMember,
+    sortByFullName,
+    sortByIDCard,
+    sortByEmail,
+    sortByPhone,
+    setSortByFullName,
+    setSortByIDCard,
+    setSortByEmail,
+    setSortByPhone,
+    setSearch,
+    filter
 } = customer.actions
 
 export default customer.reducer

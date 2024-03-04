@@ -5,7 +5,10 @@ const index = createSlice({
     initialState: {
         index: [],
         activeTab: 'Water',
-        activeAmenities: null
+        activeAmenities: null,
+        roomSort: false,
+        customerSort: false,
+        search: ''
     },
     reducers: {
         setActiveTab: (state, action) => {

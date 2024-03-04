@@ -16,8 +16,6 @@ const IndexEW = () => {
                         value={date}
                         setValue={setDate}
                     />
-                    <div className="flex-center-y gap-2"></div>
-                    <div className="flex-center-y gap-2"></div>
                 </div>
                 <div className="flex-center-y gap-2">
                     <Button

@@ -1,13 +1,11 @@
 import {
-    MDBTable,
-    MDBTableHead,
-    MDBTableBody,
     MDBModal,
     MDBModalDialog,
     MDBModalContent,
     MDBModalHeader,
     MDBModalTitle,
-    MDBModalBody
+    MDBModalBody,
+    MDBInput
 } from 'mdb-react-ui-kit'
 import DatePicker from '../../Common/DatePicker'
 import icons from '../../../utils/icons'
@@ -16,7 +14,20 @@ import { useEffect, useRef, useState } from 'react'
 import InvoicePrint from './InvoicePrint'
 import { useDispatch, useSelector } from 'react-redux'
 import { useReactToPrint } from 'react-to-print'
-import { getInvoices } from '../../../redux/api/invoice'
+import { getInvoices, removeInvoice } from '../../../redux/api/invoice'
+import {
+    sortByRoom,
+    sortByCustomer,
+    sortByTime,
+    sortByTotal,
+    setSortByRoom,
+    setSortByCustomer,
+    setSortByTime,
+    setSortByTotal,
+    setSearch,
+    filter
+} from '../../../redux/slices/invoiceSlice'
+import Table from '../../Common/Table'
 
 const { LuCalculator, TbInfoSquare, FaPrint, CgRemoveR } = icons
 
@@ -24,14 +35,54 @@ const Invoice = () => {
     const [date, setDate] = useState()
     const [openModal, setOpenModal] = useState()
     const [activeInvoice, setActiveInoice] = useState()
-    const { invoices } = useSelector((state) => state.invoice)
+    const { invoices, roomSort, customerSort, timeSort, totalSort, search } =
+        useSelector((state) => state.invoice)
     const dispatch = useDispatch()
     const componentRef = useRef()
+    const headers = [
+        {
+            name: 'Room',
+            sort: roomSort,
+            onClick: () => {
+                dispatch(setSortByRoom())
+                dispatch(sortByRoom(roomSort))
+            }
+        },
+        {
+            name: 'Customer',
+            sort: customerSort,
+            onClick: () => {
+                dispatch(setSortByCustomer())
+                dispatch(sortByCustomer(customerSort))
+            }
+        },
+        {
+            name: 'Date',
+            sort: timeSort,
+            onClick: () => {
+                dispatch(setSortByTime())
+                dispatch(sortByTime(timeSort))
+            }
+        },
+        {
+            name: 'Total',
+            sort: totalSort,
+            onClick: () => {
+                dispatch(setSortByTotal())
+                dispatch(sortByTotal(totalSort))
+            }
+        },
+        {
+            name: 'Modify'
+        }
+    ]
 
     useEffect(() => {
         getInvoices(dispatch)
-        console.log(invoices)
-    }, [])
+    }, [dispatch])
+    const handleDelete = (id) => {
+        removeInvoice(id, dispatch)
+    }
     const handleInvoice = (invoice) => {
         setOpenModal(true)
         setActiveInoice(invoice)
@@ -49,6 +100,21 @@ const Invoice = () => {
                         value={date}
                         setValue={setDate}
                     />
+                    <MDBInput
+                        value={search}
+                        onChange={(e) => {
+                            const inputValue = e.target.value
+                            dispatch(setSearch(inputValue))
+                            if (inputValue === '' || inputValue === null) {
+                                getInvoices(dispatch)
+                            } else {
+                                dispatch(filter())
+                            }
+                        }}
+                        label="Search"
+                        id="search"
+                        type="text"
+                    />
                 </div>
                 <div className="flex-center-y gap-2">
                     <Button
@@ -64,40 +130,33 @@ const Invoice = () => {
                 </div>
             </div>
             <div className="main-body">
-                <MDBTable bordered align="middle" className="text-center">
-                    <MDBTableHead>
-                        <tr className="table-primary">
-                            <th scope="col">Room</th>
-                            <th scope="col">Customer</th>
-                            <th scope="col">Date</th>
-                            <th scope="col">Total</th>
-                            <th scope="col">Modify</th>
+                <Table
+                    headers={headers}
+                    body={invoices?.map((invoice) => (
+                        <tr key={invoice?.id}>
+                            <td className="w-1/5">{invoice?.room?.name}</td>
+                            <td className="w-1/5">
+                                {invoice?.customer?.fullname}
+                            </td>
+                            <td className="w-1/5">{invoice?.time}</td>
+                            <td className="w-1/5">{invoice?.total}</td>
+                            <td className="w-1/5">
+                                <Button
+                                    color={'info'}
+                                    text={'print'}
+                                    icon={<FaPrint size={20} />}
+                                    onClick={() => handleInvoice(invoice)}
+                                />
+                                <Button
+                                    color={'danger'}
+                                    text={'delete'}
+                                    icon={<CgRemoveR size={20} />}
+                                    onClick={() => handleDelete(invoice?.id)}
+                                />
+                            </td>
                         </tr>
-                    </MDBTableHead>
-                    <MDBTableBody>
-                        {invoices?.map((invoice) => (
-                            <tr key={invoice?.id}>
-                                <td className="w-1/5">{invoice?.room?.name}</td>
-                                <td className="w-1/5">{invoice?.customer}</td>
-                                <td className="w-1/5">{invoice?.time}</td>
-                                <td className="w-1/5">{invoice?.total}</td>
-                                <td className="w-1/5">
-                                    <Button
-                                        color={'info'}
-                                        text={'print'}
-                                        icon={<FaPrint size={20} />}
-                                        onClick={() => handleInvoice(invoice)}
-                                    />
-                                    <Button
-                                        color={'danger'}
-                                        text={'delete'}
-                                        icon={<CgRemoveR size={20} />}
-                                    />
-                                </td>
-                            </tr>
-                        ))}
-                    </MDBTableBody>
-                </MDBTable>
+                    ))}
+                />
             </div>
 
             <MDBModal open={openModal} setOpen={setOpenModal} tabIndex="-1">

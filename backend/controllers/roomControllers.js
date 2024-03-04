@@ -62,11 +62,11 @@ const roomControllers = {
     addCustomerForRoom: async (req, res) => {
         try {
             const roomId = Number(req.params.id)
-            const customerId = Number(req.body.customerId)
+            const customer = req.body.customer
 
             const room = await Room.findOne({ id: roomId })
 
-            const customerExists = await Room.exists({ customer: customerId })
+            const customerExists = await Room.exists({ customer: customer })
 
             if (customerExists) {
                 return res
@@ -78,11 +78,7 @@ const roomControllers = {
                 return res.status(404).json({ message: 'Room not found' })
             }
 
-            const customer = await Customer.findOne({ id: customerId })
-            if (!customer) {
-                return res.status(404).json({ message: 'Customer not found' })
-            }
-            room.customer = customerId
+            room.customer = customer
             await room.save()
 
             res.status(200).json({
