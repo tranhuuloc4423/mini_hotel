@@ -26,7 +26,10 @@ const roomSchema = new mongoose.Schema(
         image: {
             type: String
         },
-        customer: {}
+        customer: {},
+        hasInvoice: {
+            type: Boolean
+        }
     },
     { timestamps: true }
 )

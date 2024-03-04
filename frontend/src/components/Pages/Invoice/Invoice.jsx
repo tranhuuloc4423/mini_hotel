@@ -134,7 +134,7 @@ const Invoice = () => {
                     headers={headers}
                     body={invoices?.map((invoice) => (
                         <tr key={invoice?.id}>
-                            <td className="w-1/5">{invoice?.room?.name}</td>
+                            <td className="w-1/5">{invoice?.room?.roomname}</td>
                             <td className="w-1/5">
                                 {invoice?.customer?.fullname}
                             </td>

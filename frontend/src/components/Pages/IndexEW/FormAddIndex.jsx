@@ -8,22 +8,21 @@ import {
     MDBModalHeader,
     MDBModalTitle
 } from 'mdb-react-ui-kit'
-import DatePicker from '../../Common/DatePicker'
 import Button from '../../Common/Button'
 import icons from '../../../utils/icons'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { createInvoice } from '../../../redux/api/invoice'
+import { format } from 'date-fns'
+import { setCheckIndexs } from '../../../redux/slices/indexSlice'
 
 const { BsSave } = icons
 
 const FormAddIndex = ({ openModal, setOpenModal, room }) => {
-    const { customers } = useSelector((state) => state.customer)
     const { amenities } = useSelector((state) => state.amenities)
     const dispatch = useDispatch()
     const [activeCustomer, setActiveCustomer] = useState()
     const [activeAmenities, setActiveAmenities] = useState()
-    const [date, setDate] = useState()
     const [formValue, setFormValue] = useState({
         oldWater: '',
         newWater: '',
@@ -59,11 +58,8 @@ const FormAddIndex = ({ openModal, setOpenModal, room }) => {
                     new: newElec
                 },
                 others: otherAmenities,
-                time: date,
-                room: {
-                    name: room?.roomname,
-                    price: room?.price
-                },
+                time: format(new Date(), 'dd/MM/yyyy'),
+                room: room,
                 customer: activeCustomer
             }
             console.log(data) // call api
@@ -76,8 +72,8 @@ const FormAddIndex = ({ openModal, setOpenModal, room }) => {
                 oldElec: '',
                 newElec: ''
             })
-            setDate('')
             setOpenModal(false)
+            dispatch(setCheckIndexs(true))
         } else {
             console.log('invalid value!')
         }
@@ -98,7 +94,7 @@ const FormAddIndex = ({ openModal, setOpenModal, room }) => {
                 finalAmenities.push(matchedAmenity)
             }
         })
-        const others = finalAmenities.filter((item, _) => !item?.mandatory)
+        const others = finalAmenities.filter((item) => !item?.mandatory)
         setActiveAmenities(others)
     }, [room?.customer, amenities, activeCustomer])
 
@@ -109,7 +105,7 @@ const FormAddIndex = ({ openModal, setOpenModal, room }) => {
             setOpen={setOpenModal}
             tabIndex="-1"
         >
-            <MDBModalDialog size="xl" className="bg-white rounded-md">
+            <MDBModalDialog size="lg" className="bg-white rounded-md">
                 <MDBModalContent>
                     <MDBModalHeader>
                         <MDBModalTitle className="text-2xl w-full text-center">
@@ -124,6 +120,13 @@ const FormAddIndex = ({ openModal, setOpenModal, room }) => {
                     <MDBModalBody className="p-4">
                         <form onSubmit={handleSubmit}>
                             <div className="border-2 border-black_1 flex-1 p-4 flex flex-col gap-3">
+                                <MDBInput
+                                    label="Date"
+                                    name="time"
+                                    value={format(new Date(), 'dd/MM/yyyy')}
+                                    disabled
+                                    className="select-none"
+                                />
                                 <div className="flex gap-4">
                                     <MDBInput
                                         label="Old Water Index"
@@ -156,12 +159,6 @@ const FormAddIndex = ({ openModal, setOpenModal, room }) => {
                                         type="number"
                                     />
                                 </div>
-
-                                <DatePicker
-                                    label={'Date'}
-                                    value={date}
-                                    setValue={setDate}
-                                />
                                 {activeAmenities?.map((input, index) => (
                                     <MDBInput
                                         key={index}
