@@ -30,7 +30,8 @@ const Invoice = () => {
 
     useEffect(() => {
         getInvoices(dispatch)
-    }, [invoices])
+        console.log(invoices)
+    }, [])
     const handleInvoice = (invoice) => {
         setOpenModal(true)
         setActiveInoice(invoice)
@@ -74,17 +75,13 @@ const Invoice = () => {
                         </tr>
                     </MDBTableHead>
                     <MDBTableBody>
-                        {invoices.map((invoice) => (
+                        {invoices?.map((invoice) => (
                             <tr key={invoice?.id}>
-                                <td className="w-1/4">
-                                    <p className="fw-normal mb-1">
-                                        {invoice?.room.name}
-                                    </p>
-                                </td>
-                                <td className="w-1/4">{invoice?.customer}</td>
-                                <td className="w-1/4">{invoice?.time}</td>
-                                <td className="w-1/4">{invoice?.total}</td>
-                                <td className="w-1/4">
+                                <td className="w-1/5">{invoice?.room?.name}</td>
+                                <td className="w-1/5">{invoice?.customer}</td>
+                                <td className="w-1/5">{invoice?.time}</td>
+                                <td className="w-1/5">{invoice?.total}</td>
+                                <td className="w-1/5">
                                     <Button
                                         color={'info'}
                                         text={'print'}
@@ -104,7 +101,7 @@ const Invoice = () => {
             </div>
 
             <MDBModal open={openModal} setOpen={setOpenModal} tabIndex="-1">
-                <MDBModalDialog>
+                <MDBModalDialog size="xl">
                     <MDBModalContent>
                         <MDBModalHeader>
                             <MDBModalTitle>Bill Detail</MDBModalTitle>

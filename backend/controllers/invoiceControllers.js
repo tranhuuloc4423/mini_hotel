@@ -46,11 +46,10 @@ const invoiceControllers = {
             const finalTotal = Number(
                 roomPrice + electricityTotal + waterTotal + otherTotal
             )
-            console.log(typeof finalTotal)
 
             // Create new invoice
             const newInvoice = new Invoice({
-                time,
+                time: time,
                 room: { ...room },
                 customer: customer,
                 electricity: {

@@ -24,6 +24,37 @@ const Customer = () => {
     const { customers } = useSelector((state) => state.customer)
     const dispatch = useDispatch()
 
+    // const headers = [
+    //     {
+    //         name: 'Name',
+    //         sort: nameSort,
+    //         onClick: () => {
+    //             dispatch(setSortByName())
+    //             dispatch(sortByName(nameSort))
+    //         }
+    //     },
+    //     {
+    //         name: 'Price',
+    //         sort: priceSort,
+    //         onClick: () => {
+    //             dispatch(setSortByPrice())
+    //             dispatch(sortByPrice(priceSort))
+    //         }
+    //     },
+    //     {
+    //         name: 'Unit',
+    //         sort: unitSort,
+    //         onClick: () => {
+    //             dispatch(setSortByUnit())
+    //             dispatch(sortByUnit(unitSort))
+    //         }
+    //     },
+    //     {
+    //         name: 'Modify',
+    //         onClick: () => {}
+    //     }
+    // ]
+
     const handleRemove = (id) => {
         dispatch(removeCustomer(id, dispatch))
     }

@@ -15,6 +15,16 @@ import FormAddAmenity from './FormAddAmenity'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAllEmenities, removeAmenity } from '../../../redux/api/amenities'
 import React from 'react'
+import {
+    setSortByName,
+    setSortByPrice,
+    setSortByUnit,
+    sortByName,
+    sortByPrice,
+    sortByUnit
+} from '../../../redux/slices/amenitiesSlice'
+import { RiArrowDownSLine } from 'react-icons/ri'
+import Table from '../../Common/Table'
 
 const { FiPlusSquare, FiEdit, CgRemoveR } = icons
 
@@ -22,7 +32,9 @@ const Amenities = () => {
     const [searchValue, setSearchValue] = useState('')
     const [openModal, setOpenModal] = useState(false)
     const toggleOpen = () => setOpenModal(!openModal)
-    const { amenities } = useSelector((state) => state.amenities)
+    const { amenities, nameSort, priceSort, unitSort } = useSelector(
+        (state) => state.amenities
+    )
     const dispatch = useDispatch()
     const [formValue, setFormValue] = useState({
         name: '',
@@ -35,13 +47,43 @@ const Amenities = () => {
     useEffect(() => {
         console.log(amenities)
         getAllEmenities(dispatch)
-    }, [isEdit])
+    }, [isEdit, dispatch])
 
     const handleRemove = (id) => {
         console.log(id)
         removeAmenity(id, dispatch)
         getAllEmenities(dispatch)
     }
+    const headers = [
+        {
+            name: 'Name',
+            sort: nameSort,
+            onClick: () => {
+                dispatch(setSortByName())
+                dispatch(sortByName(nameSort))
+            }
+        },
+        {
+            name: 'Price',
+            sort: priceSort,
+            onClick: () => {
+                dispatch(setSortByPrice())
+                dispatch(sortByPrice(priceSort))
+            }
+        },
+        {
+            name: 'Unit',
+            sort: unitSort,
+            onClick: () => {
+                dispatch(setSortByUnit())
+                dispatch(sortByUnit(unitSort))
+            }
+        },
+        {
+            name: 'Modify',
+            onClick: () => {}
+        }
+    ]
 
     return (
         <div className="main-container">
@@ -54,16 +96,6 @@ const Amenities = () => {
                         id="search"
                         type="text"
                     />
-
-                    <MDBDropdown group className="shadow-0">
-                        <MDBDropdownToggle color="light">
-                            Filter
-                        </MDBDropdownToggle>
-                        <MDBDropdownMenu>
-                            <MDBDropdownItem link>Price</MDBDropdownItem>
-                            <MDBDropdownItem link>In use</MDBDropdownItem>
-                        </MDBDropdownMenu>
-                    </MDBDropdown>
                 </div>
                 <div>
                     <Button
@@ -83,10 +115,59 @@ const Amenities = () => {
                 </div>
             </div>
             <div className="main-body">
-                <MDBTable bordered align="middle" className="text-center">
-                    <MDBTableHead>
+                <Table
+                    headers={headers}
+                    body={amenities.map((amenity) => (
+                        <tr key={amenity?.id}>
+                            <td className="w-1/4">{amenity?.name}</td>
+                            <td className="w-1/4">{amenity?.price}</td>
+                            <td className="w-1/4">{amenity?.unit}</td>
+                            <td className="w-1/4">
+                                <Button
+                                    color={'info'}
+                                    text="Edit"
+                                    icon={<FiEdit size={20} />}
+                                    onClick={() => {
+                                        setOpenModal(true)
+                                        setFormValue({
+                                            name: amenity?.name,
+                                            price: amenity?.price,
+                                            unit: amenity?.unit,
+                                            id: amenity?.id
+                                        })
+                                        setIsEdit(true)
+                                    }}
+                                />
+                                <Button
+                                    color={'danger'}
+                                    text="Delete"
+                                    icon={<CgRemoveR size={20} />}
+                                    onClick={() => handleRemove(amenity?.id)}
+                                />
+                            </td>
+                        </tr>
+                    ))}
+                />
+                {/* <MDBTable bordered align="middle" className="text-center">
+                    <MDBTableHead className="select-none cursor-pointer">
                         <tr className="table-primary">
-                            <th scope="col">Name</th>
+                            <th
+                                scope="col"
+                                className="relative"
+                                onClick={() => {
+                                    dispatch(setSortByName())
+                                    dispatch(sortByName(nameSort))
+                                }}
+                            >
+                                <span>Name</span>
+                                <span
+                                    className={`inline-block absolute right-2 ${
+                                        nameSort ? 'rotate-180' : ''
+                                    }`}
+                                >
+                                    <RiArrowDownSLine size={24} />
+                                </span>
+                            </th>
                             <th scope="col">Price</th>
                             <th scope="col">Unit</th>
                             <th scope="col">Modify</th>
@@ -94,45 +175,39 @@ const Amenities = () => {
                     </MDBTableHead>
                     <MDBTableBody>
                         {amenities.map((amenity) => (
-                            <React.Fragment key={amenity?.id}>
-                                <tr>
-                                    <td className="w-1/4">
-                                        <p className="fw-normal mb-1">
-                                            {amenity?.name}
-                                        </p>
-                                    </td>
-                                    <td className="w-1/4">{amenity?.price}</td>
-                                    <td className="w-1/4">{amenity?.unit}</td>
-                                    <td className="w-1/4">
-                                        <Button
-                                            color={'info'}
-                                            text="Edit"
-                                            icon={<FiEdit size={20} />}
-                                            onClick={() => {
-                                                setOpenModal(true)
-                                                setFormValue({
-                                                    name: amenity?.name,
-                                                    price: amenity?.price,
-                                                    unit: amenity?.unit,
-                                                    id: amenity?.id
-                                                })
-                                                setIsEdit(true)
-                                            }}
-                                        />
-                                        <Button
-                                            color={'danger'}
-                                            text="Delete"
-                                            icon={<CgRemoveR size={20} />}
-                                            onClick={() =>
-                                                handleRemove(amenity?.id)
-                                            }
-                                        />
-                                    </td>
-                                </tr>
-                            </React.Fragment>
+                            <tr key={amenity?.id}>
+                                <td className="w-1/4">{amenity?.name}</td>
+                                <td className="w-1/4">{amenity?.price}</td>
+                                <td className="w-1/4">{amenity?.unit}</td>
+                                <td className="w-1/4">
+                                    <Button
+                                        color={'info'}
+                                        text="Edit"
+                                        icon={<FiEdit size={20} />}
+                                        onClick={() => {
+                                            setOpenModal(true)
+                                            setFormValue({
+                                                name: amenity?.name,
+                                                price: amenity?.price,
+                                                unit: amenity?.unit,
+                                                id: amenity?.id
+                                            })
+                                            setIsEdit(true)
+                                        }}
+                                    />
+                                    <Button
+                                        color={'danger'}
+                                        text="Delete"
+                                        icon={<CgRemoveR size={20} />}
+                                        onClick={() =>
+                                            handleRemove(amenity?.id)
+                                        }
+                                    />
+                                </td>
+                            </tr>
                         ))}
                     </MDBTableBody>
-                </MDBTable>
+                </MDBTable> */}
             </div>
             <FormAddAmenity
                 openModal={openModal}

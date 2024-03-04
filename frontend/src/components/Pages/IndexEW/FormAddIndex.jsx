@@ -59,7 +59,7 @@ const FormAddIndex = ({ openModal, setOpenModal, room }) => {
                     new: newElec
                 },
                 others: otherAmenities,
-                date: date,
+                time: date,
                 room: {
                     name: room?.roomname,
                     price: room?.price

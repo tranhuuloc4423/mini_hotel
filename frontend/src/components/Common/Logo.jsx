@@ -1,13 +1,10 @@
-import logo from '../../assets/images/logo_dark.png'
+import logo from '../../assets/images/logo_4.png'
 
 const Logo = () => {
     return (
         <div className="flex flex-col justify-center items-center mb-4">
             <div className="text-[#1b6ff3] flex justify-center">
-                <img
-                    src={`https://media.loveitopcdn.com/3807/bieu-tuong-logo-5.png`}
-                    className="w-1/2"
-                />
+                <img src={logo} className="w-1/2 rounded-full" />
             </div>
         </div>
     )
