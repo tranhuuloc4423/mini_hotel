@@ -1,108 +1,63 @@
 const AnnualData = require('../models/AnnualData');
-
-const getAllAnnualData = async (req, res) => {
-  try {
-    const annualData = await AnnualData.find();
-    res.status(200).json(annualData);
-  } catch (error) {
-    res.status(500).json({ error: 'Internal server error' });
-  }
-};
-
-const getAnnualDataById = async (req, res) => {
-  const { id } = req.params;
-  try {
-    const annualData = await AnnualData.findById(id);
-    if (annualData) {
-      res.status(200).json(annualData);
-    } else {
-      res.status(404).json({ error: 'Annual data not found' });
-    }
-  } catch (error) {
-    res.status(500).json({ error: 'Internal server error' });
-  }
-};
+const Invoice = require('../models/Invoice');
 
 const createAnnualData = async (req, res) => {
   const { january, february, march, april, may, june, july, august, september, october, november, december } = req.body;
+  const annualData = new AnnualData({
+    january,
+    february,
+    march,
+    april,
+    may,
+    june,
+    july,
+    august,
+    september,
+    october,
+    november,
+    december
+  });
 
   try {
-    const annualData = new AnnualData({
-      january,
-      february,
-      march,
-      april,
-      may,
-      june,
-      july,
-      august,
-      september,
-      october,
-      november,
-      december
-    });
-
-    const newAnnualData = await annualData.save();
-    res.status(201).json(newAnnualData);
+    const createdAnnualData = await annualData.save();
+    res.status(201).json(createdAnnualData);
   } catch (error) {
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(400).json({ message: error.message });
   }
 };
 
-const updateAnnualDataById = async (req, res) => {
-  const { id } = req.params;
-  const { january, february, march, april, may, june, july, august, september, october, november, december } = req.body;
+const getTotalRevenueByMonth = async (req, res) => {
+  const { month } = req.params;
 
   try {
-    const updatedAnnualData = await AnnualData.findByIdAndUpdate(
-      id,
-      {
-        january,
-        february,
-        march,
-        april,
-        may,
-        june,
-        july,
-        august,
-        september,
-        october,
-        november,
-        december
-      },
-      { new: true }
-    );
+    const annualData = await AnnualData.findOne();
+    if (annualData) {
+      const monthlyData = annualData[month.toLowerCase()];
+      if (monthlyData) {
+        const roomData = monthlyData.rooms;
 
-    if (updatedAnnualData) {
-      res.status(200).json(updatedAnnualData);
+        let totalRevenue = 0;
+        for (const room of roomData) {
+          const invoices = await Invoice.find({ room: room._id, time: month });
+          for (const invoice of invoices) {
+            totalRevenue += invoice.total;
+          }
+        }
+        res.status(200).json({ totalRevenue });
+      } else {
+        res.status(404).json({ message: 'Không tìm thấy dữ liệu hàng tháng' });
+      }
     } else {
-      res.status(404).json({ error: 'Annual data not found' });
+      res.status(404).json({ message: 'Không tìm thấy dữ liệu hàng năm' });
     }
   } catch (error) {
-    res.status(500).json({ error: 'Internal server error' });
-  }
-};
-
-const deleteAnnualDataById = async (req, res) => {
-  const { id } = req.params;
-  try {
-    const deletedAnnualData = await AnnualData.findByIdAndDelete(id);
-    if (deletedAnnualData) {
-      res.status(200).json({ message: 'Annual data deleted successfully' });
-    } else {
-      res.status(404).json({ error: 'Annual data not found' });
-    }
-  } catch (error) {
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ message: error.message });
   }
 };
 
 module.exports = {
-  getAllAnnualData,
-  getAnnualDataById,
   createAnnualData,
-  updateAnnualDataById,
-  deleteAnnualDataById
+  getTotalRevenueByMonth
 };
 
 // const data = {

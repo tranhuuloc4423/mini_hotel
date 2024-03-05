@@ -6,7 +6,7 @@ const roomRoute = require('./room')
 const amenityRoute = require('./amenity')
 const invoiceRoute = require('./invoice')
 const authRoute = require('./auth')
-const dataRoute = require('./monthly_data')
+const dataRoute = require('./annualdata')
 
 router.use('/customer', customerRoute)
 router.use('/room', roomRoute)
