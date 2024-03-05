@@ -25,13 +25,10 @@ const IndexBody = () => {
 
     useEffect(() => {
         getRooms(dispatch)
-    }, [])
+    }, [dispatch])
 
     useEffect(() => {
-        if (checkIndexs) {
-            dispatch(setCheckIndexs(false))
-            getRooms(dispatch)
-        }
+        getRooms(dispatch)
     }, [checkIndexs, dispatch])
 
     return (
