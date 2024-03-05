@@ -38,7 +38,7 @@ const getTotalRevenueByMonth = async (req, res) => {
 
         let totalRevenue = 0;
         for (const room of roomData) {
-          const invoices = await Invoice.find({ room: room._id, time: month });
+          const invoices = await Invoice.find({ room: room._id, time: month, status: 'paid' });
           for (const invoice of invoices) {
             totalRevenue += invoice.total;
           }
