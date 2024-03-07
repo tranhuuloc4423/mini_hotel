@@ -8,25 +8,29 @@ const FirstRow = () => {
             title: 'Monthly Revenue',
             content: '4444',
             icon: <AiOutlineDollarCircle size={30} color="white" />,
-            colorIcon: 'red_1'
+            colorIcon: 'red_1',
+            bg: 'blue_1'
         },
         {
             title: 'Total Room',
             content: '4444',
             icon: <FaRegCircleUser size={30} color="white" />,
-            colorIcon: 'red_1'
+            colorIcon: 'red_1',
+            bg: 'orange_2'
         },
         {
             title: 'Total Customer',
             content: '4444',
             icon: <MdOutlineBedroomParent size={30} color="white" />,
-            colorIcon: 'red_1'
+            colorIcon: 'red_1',
+            bg: 'red_1'
         },
         {
             title: 'Total Customer',
             content: '4444',
             icon: <AiOutlineDollarCircle size={30} color="white" />,
-            colorIcon: 'red_1'
+            colorIcon: 'red_1',
+            bg: 'orange_1'
         }
     ]
     return (
@@ -34,10 +38,10 @@ const FirstRow = () => {
             {data.map((item, index) => (
                 <div
                     key={index}
-                    className="flex justify-between rounded-xl bg-white shadow-lg p-3 w-1/4"
+                    className={`flex justify-between rounded-xl shadow-lg p-3 w-1/4 bg-${item.bg}`}
                 >
                     <div>
-                        <div className="font-bold text-black_1 text-md">
+                        <div className="font-bold text-white text-md">
                             {item.title}
                         </div>
                         <div className="text-black_2 font-bold text-xl">
@@ -45,7 +49,7 @@ const FirstRow = () => {
                         </div>
                     </div>
                     <div
-                        className={`flex justify-center items-center  w-[50px] h-[50px] rounded-md bg-${item.colorIcon}`}
+                        className={`flex justify-center items-center  w-[50px] h-[50px] rounded-md`}
                     >
                         {item.icon}
                     </div>

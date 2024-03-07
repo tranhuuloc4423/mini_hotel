@@ -88,8 +88,8 @@ const InvoicePrint = forwardRef(({ data }, ref) => {
                     </MDBTableBody>
                 </MDBTable>
             </div>
-            <div className="text-right">
-                <span>invoice: </span>
+            <div className="text-right text-2xl">
+                <span className="font-bold">Invoice: </span>
                 <span>{data?.total}</span>
                 <span>$</span>
             </div>

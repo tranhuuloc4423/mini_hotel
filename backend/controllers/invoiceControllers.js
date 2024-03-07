@@ -5,7 +5,7 @@ const Room = require('../models/Room')
 const invoiceControllers = {
     createInvoice: async (req, res) => {
         try {
-            const { time, room, customer, electricity, water, others, status } =
+            const { time, room, customer, electricity, water, others } =
                 req.body
 
             // Calculate electricity values
@@ -73,7 +73,7 @@ const invoiceControllers = {
                 },
                 others: othersUpdated,
                 total: finalTotal,
-                status: status
+                status: 'pending'
             })
 
             const invoice = await newInvoice.save()

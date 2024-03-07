@@ -35,4 +35,15 @@ const removeInvoice = async (id, dispatch) => {
     }
 }
 
-export { getInvoices, createInvoice, removeInvoice }
+const paymentInvoice = async (invoice, dispatch) => {
+    try {
+        await axios.put(`/invoice/${invoice.id}`, invoice)
+        getInvoices(dispatch)
+        toast.success('Invoice Payment  Successfully!')
+    } catch (error) {
+        toast.error('Invoice Payment Failed!')
+        console.log(error)
+    }
+}
+
+export { getInvoices, createInvoice, removeInvoice, paymentInvoice }

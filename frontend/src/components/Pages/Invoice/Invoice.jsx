@@ -14,7 +14,11 @@ import { useEffect, useRef, useState } from 'react'
 import InvoicePrint from './InvoicePrint'
 import { useDispatch, useSelector } from 'react-redux'
 import { useReactToPrint } from 'react-to-print'
-import { getInvoices, removeInvoice } from '../../../redux/api/invoice'
+import {
+    getInvoices,
+    paymentInvoice,
+    removeInvoice
+} from '../../../redux/api/invoice'
 import {
     sortByRoom,
     sortByCustomer,
@@ -28,6 +32,7 @@ import {
     filter
 } from '../../../redux/slices/invoiceSlice'
 import Table from '../../Common/Table'
+import { MdPayment } from 'react-icons/md'
 
 const { LuCalculator, TbInfoSquare, FaPrint, CgRemoveR } = icons
 
@@ -35,6 +40,7 @@ const Invoice = () => {
     const [date, setDate] = useState()
     const [openModal, setOpenModal] = useState()
     const [activeInvoice, setActiveInoice] = useState()
+    const [pay, setPay] = useState(false)
     const { invoices, roomSort, customerSort, timeSort, totalSort, search } =
         useSelector((state) => state.invoice)
     const dispatch = useDispatch()
@@ -91,6 +97,11 @@ const Invoice = () => {
     const handlePrint = useReactToPrint({
         content: () => componentRef.current
     })
+
+    const handlePay = () => {
+        const data = { ...activeInvoice, status: 'paid' }
+        paymentInvoice(data, dispatch)
+    }
     return (
         <div className="main-container">
             <div className="main-header">
@@ -143,7 +154,7 @@ const Invoice = () => {
                             <td className="w-1/5">
                                 <Button
                                     color={'info'}
-                                    text={'print'}
+                                    text={'view'}
                                     icon={<FaPrint size={20} />}
                                     onClick={() => handleInvoice(invoice)}
                                 />
@@ -180,6 +191,14 @@ const Invoice = () => {
                                     icon={<FaPrint size={20} />}
                                     onClick={handlePrint}
                                 />
+                                {activeInvoice?.status === 'pending' && (
+                                    <Button
+                                        color={'success'}
+                                        text={'Pay'}
+                                        icon={<MdPayment size={20} />}
+                                        onClick={handlePay}
+                                    />
+                                )}
                             </div>
                         </MDBModalBody>
                     </MDBModalContent>
