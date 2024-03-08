@@ -6,6 +6,7 @@ const roomRoute = require('./room')
 const amenityRoute = require('./amenity')
 const invoiceRoute = require('./invoice')
 const authRoute = require('./auth')
+const userRoute = require('./user')
 const dataRoute = require('./annualdata')
 
 router.use('/customer', customerRoute)
@@ -13,6 +14,7 @@ router.use('/room', roomRoute)
 router.use('/amenity', amenityRoute)
 router.use('/invoice', invoiceRoute)
 router.use('/auth', authRoute)
+router.use('/user', userRoute)
 router.use('/data', dataRoute)
 
 module.exports = router

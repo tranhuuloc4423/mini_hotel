@@ -1,80 +1,60 @@
 const AnnualData = require('../models/AnnualData')
-const Invoice = require('../models/Invoice')
+const Invoice = require('../models/Invoice');
 
-const createAnnualData = async (req, res) => {
-    const {
-        january,
-        february,
-        march,
-        april,
-        may,
-        june,
-        july,
-        august,
-        september,
-        october,
-        november,
-        december
-    } = req.body
-    const annualData = new AnnualData({
-        january,
-        february,
-        march,
-        april,
-        may,
-        june,
-        july,
-        august,
-        september,
-        october,
-        november,
-        december
-    })
-
+const createMonthlyData = async (req, res) => {
     try {
-        const createdAnnualData = await annualData.save()
-        res.status(201).json(createdAnnualData)
+        const { month } = req.params;
+        const paidInvoices = await Invoice.find({ time: month, status: 'paid' });
+        const revenue = paidInvoices.reduce((totalRevenue, invoice) => totalRevenue + invoice.total, 0);
+        const monthlyData = {
+            month,
+            revenue,
+            invoices: paidInvoices
+        };
+    
+        let annualData = await AnnualData.findOne();
+        if (!annualData) {
+          annualData = new AnnualData({
+            data: [monthlyData]
+          });
+          await annualData.save();
+          return res.status(201).json(annualData);
+        }
+
+        const existingMonthData = annualData.data.find(data => data.month === month);
+        if (existingMonthData) {
+          return res.status(400).json({ error: 'Dữ liệu theo tháng đã tồn tại' });
+        }
+
+        annualData.data.push(monthlyData);
+        await annualData.save();
+        return res.status(201).json(annualData);
     } catch (error) {
-        res.status(400).json({ message: error.message })
+        console.error(error);
+        return res.status(500).json({ error: 'Lỗi server' });
     }
-}
+};
 
 const getTotalRevenueByMonth = async (req, res) => {
-    const { month } = req.params
     try {
-        const annualData = await AnnualData.findOne()
-        if (annualData) {
-            const monthlyData = annualData[month.toLowerCase()]
-            if (monthlyData) {
-                const roomData = monthlyData.rooms
-
-                let totalRevenue = 0
-                for (const room of roomData) {
-                    const invoices = await Invoice.find({
-                        room: room._id,
-                        time: month,
-                        status: 'paid'
-                    })
-                    for (const invoice of invoices) {
-                        totalRevenue += invoice.total
-                    }
-                }
-                res.status(200).json({ totalRevenue })
-            } else {
-                res.status(404).json({
-                    message: 'Không tìm thấy dữ liệu hàng tháng'
-                })
-            }
-        } else {
-            res.status(404).json({ message: 'Không tìm thấy dữ liệu hàng năm' })
+        const { month } = req.params;
+        const annualData = await AnnualData.findOne();
+        if (!annualData) {
+        return res.status(404).json({ error: 'Không tìm thấy dữ liệu theo năm' });
         }
+        const monthlyData = annualData.data.find(data => data.month === month);
+        if (!monthlyData) {
+        return res.status(404).json({ error: 'Không tìm thấy dữ liệu theo tháng' });
+        }
+        return res.status(200).json(monthlyData);
     } catch (error) {
-        res.status(500).json({ message: error.message })
+        console.error(error);
+        return res.status(500).json({ error: 'Lỗi server' });
     }
-}
+};
 
 module.exports = {
-    createAnnualData,
+    createMonthlyData,
     getTotalRevenueByMonth
 }
 
@@ -104,56 +84,6 @@ module.exports = {
 //             }
 //         ]
 //     },
-//     february: {
-//         revenue: 100000,
-//         rooms: [
-//             {
-//                 water: 1,
-//                 electricity: 1,
-//                 others: [
-
-//                 ],
-//                 customer: {
-//                     name: "roku",
-//                     phone: "",
-//                     idcard: "",
-//                 },
-
-//             },
-//             {
-//                 water: 1,
-//                 electricity: 1,
-//                 others: [
-
-//                 ]
-//             }
-//         ]
-//     },
-//     march: {
-//         revenue: 100000,
-//         rooms: [
-//             {
-//                 water: 1,
-//                 electricity: 1,
-//                 others: [
-
-//                 ],
-//                 customer: {
-//                     name: "roku",
-//                     phone: "",
-//                     idcard: "",
-//                 },
-
-//             },
-//             {
-//                 water: 1,
-//                 electricity: 1,
-//                 others: [
-
-//                 ]
-//             }
-//         ]
-//     }
 // }
 
 // pass data
@@ -165,7 +95,6 @@ module.exports = {
 //   }
 // }
 
-// expected data
 // const data = [
 //   // từng tháng
 //   {
@@ -186,15 +115,4 @@ module.exports = {
 //       ]
 //     }
 //   },
-//   {
-//     month: "2",
-//     invoices: [
-//       {
-//         "Từng hoá đơn y chang invoice model",
-//         "Khi truyền hoá đơn vô thì cập nhật revenue bằng cách lặp qua các hoá đơn lấy total",
-//       },
-//       {},
-//       {}
-//     ]
-//   }
 // ]

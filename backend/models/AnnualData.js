@@ -14,7 +14,7 @@ const MonthlyDataSchema = new mongoose.Schema({
 
 const AnnualDataSchema = new mongoose.Schema(
     {
-        data: []
+        data: [MonthlyDataSchema]
     },
     { timestamps: true }
 )
