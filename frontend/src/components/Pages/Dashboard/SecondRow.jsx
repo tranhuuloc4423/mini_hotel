@@ -5,17 +5,24 @@ const SecondRow = () => {
         <div className="w-full mt-4 flex justify-between gap-4">
             <div className="w-[60%] flex justify-between p-4 rounded-2xl bg-white">
                 <div className="w-1/2">
-                    <div className="font-semibold text-gray-700 text-xl">
-                        Build by developers
+                    <div className="text-gray-700 text-xl">
+                        Solution for Boarding House Management
                     </div>
                     <div className="text-2xl font-bold text-gray-700 mt-2 mb-3">
-                        Soft UI Dashboard
+                        Boarding House Management Dashboard
                     </div>
                     <div>
-                        From colors, cards, typography to complex elements, you
-                        will find the full documentation.
+                        <b><u>Our boarding house management system helps you: </u></b>
+                        <ul>
+                            <li>1. Organize rooms, customers, invoices, and amenities easily.</li>
+                            <li>2. Keep track of room availability, customer information, and bills conveniently.</li>
+                            <li>3. Ensure customers are happy with well-managed amenities.</li>
+                        </ul>
                     </div>
+
                 </div>
+
+
                 <div className="w-1/3">
                     <img
                         className="w-[100%]"

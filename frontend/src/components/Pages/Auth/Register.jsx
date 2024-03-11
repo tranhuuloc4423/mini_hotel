@@ -110,17 +110,17 @@ const Register = () => {
                     className="mb-4"
                     type="password"
                     name="passwordConfirm"
-                    label="Password cofirm"
+                    label="Password confirm"
                     value={formValue.passwordConfirm}
                     onChange={onChange}
                 />
 
-                <MDBCheckbox
+                {/* <MDBCheckbox
                     wrapperClass="d-flex justify-content-center mb-4"
                     id="form3Example5"
                     label="Do something"
                     defaultChecked
-                />
+                /> */}
 
                 <MDBBtn className="mb-4" block>
                     Register

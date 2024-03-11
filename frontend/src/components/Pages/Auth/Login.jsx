@@ -28,7 +28,7 @@ const Login = () => {
     useEffect(() => {}, [])
     return (
         <div className="absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] border flex-center-y">
-            <form className="w-[400px] px-[60px]" onSubmit={handleLogin}>
+            <form className="w-[450px] px-[60px]" onSubmit={handleLogin}>
                 <MDBTypography variant="h2" className="text-center mb-4">
                     Log in
                 </MDBTypography>
