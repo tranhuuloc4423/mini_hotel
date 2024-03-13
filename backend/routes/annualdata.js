@@ -1,8 +1,8 @@
-const express = require('express');
-const router = express.Router();
-const annualDataController = require('../controllers/annualdataControllers');
+const express = require('express')
+const router = express.Router()
+const annualDataController = require('../controllers/annualdataControllers')
 
-router.post('/data/:month', annualDataController.createMonthlyData);
-router.get('/data/:month', annualDataController.getTotalRevenueByMonth);
+router.post('/create', annualDataController.createMonthlyData)
+router.get('/:month', annualDataController.getTotalRevenueByMonth)
 
-module.exports = router;
+module.exports = router

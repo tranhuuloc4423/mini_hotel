@@ -15,20 +15,29 @@ import { useDispatch, useSelector } from 'react-redux'
 import Button from '../../Common/Button'
 import icons from '../../../utils/icons'
 import { addCustomerRoom } from '../../../redux/api/room'
+import { toast } from 'react-toastify'
 
 const { BsSave } = icons
-const FormAddCusRoom = ({ formCustomer, setFormCustomer, roomId }) => {
+const FormAddCusRoom = ({ formCustomer, setFormCustomer, id }) => {
     const { modalCustomer } = useSelector((state) => state.room)
     const { customers } = useSelector((state) => state.customer)
+    const { rooms } = useSelector((state) => state.room)
     const [selectedCustomer, setSelectedCustomer] = useState()
     const dispatch = useDispatch()
 
     const handleSubmit = () => {
         setFormCustomer(false)
         // addCustomerRoom()
-        const data = { customer: selectedCustomer, roomId: roomId }
-        console.log(data)
-        addCustomerRoom(data, dispatch)
+
+        const activeRoom = rooms.find((item) => item.id === id)
+        const checkCapacity =
+            selectedCustomer.members.length === activeRoom.capacity
+        if (checkCapacity) {
+            const data = { customer: selectedCustomer, id: id }
+            addCustomerRoom(data, dispatch)
+        } else {
+            toast.error('Not enough capacity!')
+        }
     }
     return (
         <MDBModal

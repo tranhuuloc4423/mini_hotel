@@ -9,7 +9,6 @@ export default {
     PRICE: 'price',
     AMENITIES: 'amenities',
     STATUS: 'status',
-    REPORT: 'report',
     INVOICE: 'invoice',
     INDEX: 'index'
 }

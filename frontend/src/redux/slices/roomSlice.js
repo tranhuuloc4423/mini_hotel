@@ -34,7 +34,7 @@ const roomSlice = createSlice({
         },
         updateCustomerItem: (state, action) => {
             state.rooms.find(
-                (item, index) => item?.id === action.payload.roomId
+                (item, index) => item?.id === action.payload.id
             ).customer = action.payload.customer
         },
         setSearch: (state, action) => {

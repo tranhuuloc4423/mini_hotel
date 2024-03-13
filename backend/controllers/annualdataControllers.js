@@ -1,59 +1,87 @@
 const AnnualData = require('../models/AnnualData')
-const Invoice = require('../models/Invoice');
+const Invoice = require('../models/Invoice')
 
-const annualDataController =  {
-    createMonthlyData : async (req, res) => {
+const annualDataController = {
+    createMonthlyData: async (req, res) => {
         try {
-            const { month } = req.params;
-            const paidInvoices = await Invoice.find({ time: month, status: 'paid' });
-            const revenue = paidInvoices.reduce((totalRevenue, invoice) => totalRevenue + invoice.total, 0);
+            const { month, invoice } = req.body
+            const paidInvoices = await Invoice.find({ status: 'paid' })
+
+            const paidInvoicesInMonth = paidInvoices.filter(
+                (invoice) => Number(invoice.time.split('/')[1]) === month
+            )
+            // const paidInvoices = data.invoice
+            const revenue = paidInvoicesInMonth.reduce(
+                (totalRevenue, invoice) => totalRevenue + invoice.total,
+                0
+            )
             const monthlyData = {
-                month,
+                month: month,
                 revenue,
-                invoices: paidInvoices
-            };
-        
-            let annualData = await AnnualData.findOne();
+                invoices: paidInvoicesInMonth
+            }
+
+            let annualData = await AnnualData.findOne()
             if (!annualData) {
-              annualData = new AnnualData({
-                data: [monthlyData]
-              });
-              await annualData.save();
-              return res.status(201).json(annualData);
+                // annualData = new AnnualData({
+                //     data: []
+                // })
+                annualData.filter((item) => {
+                    if (item.month) {
+                        item.monthly_data = monthlyData
+                    } else {
+                        item.push({
+                            month: month,
+                            monthly_data: monthlyData
+                        })
+                    }
+                })
+                await annualData.save()
+                return res.status(201).json(annualData)
             }
-    
-            const existingMonthData = annualData.data.find(data => data.month === month);
+
+            const existingMonthData = annualData.data.find(
+                (data) => data.month === month
+            )
             if (existingMonthData) {
-              return res.status(400).json({ error: 'Dữ liệu theo tháng đã tồn tại' });
+                return res
+                    .status(400)
+                    .json({ error: 'Dữ liệu theo tháng đã tồn tại' })
             }
-    
-            annualData.data.push(monthlyData);
-            await annualData.save();
-            return res.status(201).json(annualData);
+
+            annualData.data.push(monthlyData)
+            await annualData.save()
+            return res.status(201).json(annualData)
         } catch (error) {
-            console.error(error);
-            return res.status(500).json({ error: 'Lỗi server' });
+            console.error(error)
+            return res.status(500).json({ error: 'Lỗi server' })
         }
     },
-    
+
     getTotalRevenueByMonth: async (req, res) => {
         try {
-            const { month } = req.params;
-            const annualData = await AnnualData.findOne();
+            const { month } = req.params
+            const annualData = await AnnualData.findOne()
             if (!annualData) {
-            return res.status(404).json({ error: 'Không tìm thấy dữ liệu theo năm' });
+                return res
+                    .status(404)
+                    .json({ error: 'Không tìm thấy dữ liệu theo năm' })
             }
-            const monthlyData = annualData.data.find(data => data.month === month);
+            const monthlyData = annualData.data.find(
+                (data) => data.month === month
+            )
             if (!monthlyData) {
-            return res.status(404).json({ error: 'Không tìm thấy dữ liệu theo tháng' });
+                return res
+                    .status(404)
+                    .json({ error: 'Không tìm thấy dữ liệu theo tháng' })
             }
-            return res.status(200).json(monthlyData);
+            return res.status(200).json(monthlyData)
         } catch (error) {
-            console.error(error);
-            return res.status(500).json({ error: 'Lỗi server' });
+            console.error(error)
+            return res.status(500).json({ error: 'Lỗi server' })
         }
-    } 
-};
+    }
+}
 
 module.exports = annualDataController
 

@@ -8,11 +8,16 @@ import {
 import icons from '../../../utils/icons'
 import FormAddRoom from './FormAddRoom'
 import Button from '../../Common/Button'
-import { deleteRoom, getRooms } from '../../../redux/api/room'
+import {
+    deleteRoom,
+    getRooms,
+    removeCustomerRoom
+} from '../../../redux/api/room'
 import { setSearch, filter } from '../../../redux/slices/roomSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import FormAddCusRoom from './FormAddCusRoom'
 import { useEffect, useState } from 'react'
+import { toast } from 'react-toastify'
 
 const { FiPlusSquare, FiEdit, CgRemoveR } = icons
 const Room = () => {
@@ -23,7 +28,7 @@ const Room = () => {
     const [isEdit, setIsEdit] = useState(false)
     const toggleOpen = () => setOpenModal(!openModal)
     const [formCustomer, setFormCustomer] = useState(false)
-    const [roomId, setRoomId] = useState()
+    const [id, setId] = useState()
     const [formValue, setFormValue] = useState({
         roomname: '',
         price: '',
@@ -31,9 +36,13 @@ const Room = () => {
         id: ''
     })
 
-    const handleRemove = (id) => {
-        deleteRoom(id, dispatch)
-        getRooms(dispatch)
+    const handleRemove = (room) => {
+        if (!room.customer) {
+            deleteRoom(room.id, dispatch)
+            getRooms(dispatch)
+        } else {
+            toast.error('Room was occupied!')
+        }
     }
 
     useEffect(() => {
@@ -91,30 +100,46 @@ const Room = () => {
                                     <div>
                                         Customer:{' '}
                                         {room?.customer?.fullname
-                                            ? room.customer?.fullname
+                                            ? room?.customer?.fullname
                                             : 'empty'}
                                     </div>
                                 </div>
                             </MDBCardBody>
                             <MDBCardFooter className="flex flex-col gap-2">
-                                <Button
-                                    color={'success'}
-                                    text={'Add customer'}
-                                    icon={<FiPlusSquare size={20} />}
-                                    onClick={() => {
-                                        setFormCustomer(true)
-                                        setRoomId(room?.id)
-                                    }}
-                                />
                                 <div className="flex">
+                                    <Button
+                                        color={'success'}
+                                        text={'Add customer'}
+                                        icon={<FiPlusSquare size={20} />}
+                                        onClick={() => {
+                                            setFormCustomer(true)
+                                            setId(room?.id)
+                                        }}
+                                    />
                                     <Button
                                         color={'danger'}
                                         text={'delete'}
                                         icon={<CgRemoveR size={20} />}
                                         onClick={() => {
-                                            handleRemove(room?.id)
+                                            handleRemove(room)
                                         }}
                                     />
+                                </div>
+                                <div className="flex">
+                                    <Button
+                                        color={'info'}
+                                        text={'Remove customer'}
+                                        icon={<FiPlusSquare size={20} />}
+                                        onClick={() => {
+                                            const data = {
+                                                ...room,
+                                                customer: {}
+                                            }
+                                            console.log(data)
+                                            removeCustomerRoom(data, dispatch)
+                                        }}
+                                    />
+
                                     <Button
                                         color={'warning'}
                                         text={'edit'}
@@ -139,7 +164,7 @@ const Room = () => {
             <FormAddCusRoom
                 formCustomer={formCustomer}
                 setFormCustomer={setFormCustomer}
-                roomId={roomId}
+                id={id}
             />
             <FormAddRoom
                 openModal={openModal}

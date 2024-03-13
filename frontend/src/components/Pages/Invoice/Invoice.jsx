@@ -33,6 +33,7 @@ import {
 } from '../../../redux/slices/invoiceSlice'
 import Table from '../../Common/Table'
 import { MdPayment } from 'react-icons/md'
+import { createData } from '../../../redux/api/annualData'
 
 const { LuCalculator, TbInfoSquare, FaPrint, CgRemoveR } = icons
 
@@ -101,6 +102,13 @@ const Invoice = () => {
     const handlePay = () => {
         const data = { ...activeInvoice, status: 'paid' }
         paymentInvoice(data, dispatch)
+        const monthlyData = {
+            invoice: data,
+            month: new Date().getMonth() + 1
+        }
+        console.log(monthlyData)
+        createData(monthlyData)
+        setOpenModal(false)
     }
     return (
         <div className="main-container">

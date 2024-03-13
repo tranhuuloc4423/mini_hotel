@@ -47,6 +47,7 @@ const updateRoom = async (room, dispatch) => {
         delete newRoom?.id
         await axios.put(`/room/${room?.id}`, newRoom)
         dispatch(updateItem(room))
+        getRooms(dispatch)
         toast.success('Update Room Successfully!')
     } catch (error) {
         toast.success('Update Room Failed!')
@@ -56,7 +57,7 @@ const updateRoom = async (room, dispatch) => {
 
 const addCustomerRoom = async (data, dispatch) => {
     try {
-        await axios.put(`/room/add_customer/${data?.roomId}`, data)
+        await axios.put(`/room/add_customer/${data?.id}`, data)
         dispatch(updateCustomerItem(data))
         toast.success('Add Customer for Room Successfully!')
     } catch (error) {
@@ -65,4 +66,23 @@ const addCustomerRoom = async (data, dispatch) => {
     }
 }
 
-export { getRooms, createRoom, deleteRoom, updateRoom, addCustomerRoom }
+const removeCustomerRoom = async (data, dispatch) => {
+    try {
+        await axios.put(`/room/${data.id}`, data)
+        dispatch(updateCustomerItem(data))
+        getRooms(dispatch)
+        toast.success('Remove Customer for Room Successfully!')
+    } catch (error) {
+        toast.error('Remove Customer for Room Failed!')
+        console.log(error)
+    }
+}
+
+export {
+    getRooms,
+    createRoom,
+    deleteRoom,
+    updateRoom,
+    addCustomerRoom,
+    removeCustomerRoom
+}

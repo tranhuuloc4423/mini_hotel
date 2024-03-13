@@ -5,11 +5,10 @@ const {
     HiOutlineUserGroup,
     FaHouseUser,
     RiServiceLine,
-    TbReport,
     RiWaterFlashLine,
     FaFileInvoiceDollar
 } = icons
-const { DASHBOARD, CUSTOMER, ROOM, AMENITIES, REPORT, INVOICE, INDEX } = paths
+const { DASHBOARD, CUSTOMER, ROOM, AMENITIES, INVOICE, INDEX } = paths
 export default [
     {
         name: 'Dashboard',
@@ -41,10 +40,5 @@ export default [
         name: 'Amenities',
         icon: <RiServiceLine size={20} />,
         link: AMENITIES
-    },
-    {
-        name: 'Report',
-        icon: <TbReport size={20} />,
-        link: REPORT
     }
 ]

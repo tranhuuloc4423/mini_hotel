@@ -6,7 +6,6 @@ import {
     Dashboard,
     Home,
     IndexEW,
-    Report,
     Room,
     Amenities
 } from './components/Pages/'
@@ -26,7 +25,6 @@ const {
     CUSTOMER,
     ROOM,
     AMENITIES,
-    REPORT,
     INDEX,
     INVOICE
 } = paths
@@ -59,7 +57,6 @@ function App() {
                         <Route path={INDEX} element={<IndexEW />} />
                         <Route path={INVOICE} element={<Invoice />} />
                         <Route path={AMENITIES} element={<Amenities />} />
-                        <Route path={REPORT} element={<Report />} />
                     </Route>
                 </Routes>
             </div>
