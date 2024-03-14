@@ -1,24 +1,27 @@
 import { AiOutlineDollarCircle } from 'react-icons/ai'
 import { FaRegCircleUser } from 'react-icons/fa6'
 import { MdOutlineBedroomParent } from 'react-icons/md'
+import { useSelector } from 'react-redux'
 
 const FirstRow = () => {
+    const { rooms } = useSelector((state) => state.room)
+    const { customers } = useSelector((state) => state.customer)
     const data = [
         {
             title: 'Monthly Revenue',
-            content: '4444',
+            content: '33',
             icon: <AiOutlineDollarCircle size={50} color="#ffffff" />,
             bg: '#d63031'
         },
         {
             title: 'Total Room',
-            content: '4444',
+            content: rooms.length + ' room',
             icon: <FaRegCircleUser size={50} color="#ffffff" />,
             bg: '#0984e3'
         },
         {
             title: 'Total Customer',
-            content: '4444',
+            content: customers.length,
             icon: <MdOutlineBedroomParent size={50} color="#ffffff" />,
             bg: '#00b894'
         },
@@ -41,9 +44,7 @@ const FirstRow = () => {
                         <div className="text-white text-xl font-bold">
                             {item.title}
                         </div>
-                        <div className="text-white text-xl">
-                            {item.content}
-                        </div>
+                        <div className="text-white text-xl">{item.content}</div>
                     </div>
                     <div className="flex justify-center items-center  w-[50px] h-[50px] rounded-md">
                         {item.icon}

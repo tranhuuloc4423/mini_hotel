@@ -24,20 +24,28 @@ const options = {
     }
 }
 
-const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July']
+const labels = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December'
+]
 
 const data = {
     labels,
     datasets: [
         {
-            label: 'Dataset 1',
+            label: 'Revenue',
             data: labels.map(() => faker.number.int({ min: 0, max: 1000 })),
             backgroundColor: 'rgba(255, 99, 132, 0.5)'
-        },
-        {
-            label: 'Dataset 2',
-            data: labels.map(() => faker.number.int({ min: 0, max: 1000 })),
-            backgroundColor: 'rgba(53, 162, 235, 0.5)'
         }
     ]
 }
