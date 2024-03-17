@@ -14,7 +14,8 @@ import {
     setSortByEmail,
     setSortByPhone,
     setSearch,
-    filter
+    filter,
+    setEditId
 } from '../../../redux/slices/customerSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import Table from '../../Common/Table'
@@ -75,6 +76,11 @@ const Customer = () => {
         dispatch(removeCustomer(id, dispatch))
     }
 
+    const handleEdit = (id) => {
+        dispatch(setEditId(id))
+        setOpenModal(true)
+    }
+
     useEffect(() => {
         dispatch(setSearch(''))
         getAllCustomers(dispatch)
@@ -124,6 +130,9 @@ const Customer = () => {
                                         color={'info'}
                                         text={'edit'}
                                         icon={<FiEdit size={20} />}
+                                        onClick={() => {
+                                            handleEdit(customer?.id)
+                                        }}
                                     />
                                     <Button
                                         color={'danger'}

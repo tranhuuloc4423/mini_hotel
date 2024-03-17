@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 import icons from '../../utils/icons'
 import { DayPicker, useInput } from 'react-day-picker'
 import 'react-day-picker/dist/style.css'
-import { format } from 'date-fns'
+import { format, parse } from 'date-fns'
 
 const { MdOutlineDateRange } = icons
 
@@ -37,6 +37,8 @@ const DatePicker = ({ label, value, setValue, disabled }) => {
 
     const [selected, setSelected] = useState()
 
+    console.log(selected)
+    console.log(value)
     const handleIconClick = () => {
         setActiveDatepicker(!activeDatepicker)
     }
@@ -56,6 +58,7 @@ const DatePicker = ({ label, value, setValue, disabled }) => {
             document.removeEventListener('click', handleOutsideClick)
         }
     }, [])
+
     useEffect(() => {
         if (selected) {
             setValue(format(selected, 'dd/MM/yyyy'))
@@ -68,7 +71,7 @@ const DatePicker = ({ label, value, setValue, disabled }) => {
             label={label}
             type="text"
             // defaultValue={value}
-            value={selected ? format(selected, 'dd/MM/yyyy') : value}
+            value={selected ? format(selected, 'dd/MM/yyyy') : value || ''}
             className="relative"
             onChange={(e) => setValue(e.target.value)}
             {...inputProps}

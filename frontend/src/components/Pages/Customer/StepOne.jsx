@@ -1,7 +1,7 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import DatePicker from '../../Common/DatePicker'
 import { MDBInput, MDBRadio } from 'mdb-react-ui-kit'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import Button from '../../Common/Button'
 
 import icons from '../../../utils/icons'
@@ -19,10 +19,36 @@ const StepOne = ({ setStep }) => {
         address: ''
     })
     const dispatch = useDispatch()
-    // const { save } = useSelector((state) => state.customer)
+    const { edit, customers } = useSelector((state) => state.customer)
     const [dob, setDob] = useState()
     const [sex, setSex] = useState()
 
+    useEffect(() => {
+        if (edit) {
+            const customerEdit = customers.find((item) => item.id === edit)
+            const { fullname, phonenumber, email, idcard, address, sex, dob } =
+                { ...customerEdit }
+            setFormValue({
+                fullname: fullname,
+                phonenumber: phonenumber,
+                email: email,
+                idcard: idcard,
+                address: address
+            })
+            setSex(sex)
+            setDob(dob)
+        } else {
+            setFormValue({
+                fullname: '',
+                phonenumber: '',
+                email: '',
+                idcard: '',
+                address: ''
+            })
+            setSex('')
+            setDob('')
+        }
+    }, [edit])
     const onChange = (e) => {
         setFormValue({ ...formValue, [e.target.name]: e.target.value })
     }

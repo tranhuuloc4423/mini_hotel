@@ -6,13 +6,22 @@ const customer = createSlice({
         customers: [],
         customer: {},
         amenities: [],
-        members: [],
+        members: [
+            {
+                fullname: '',
+                sex: '',
+                dob: '',
+                idcard: '',
+                phonenumber: ''
+            }
+        ],
         save: false,
         fullnameSort: false,
         idcardSort: false,
         emailSort: false,
         phoneSort: false,
-        search: ''
+        search: '',
+        edit: null
     },
     reducers: {
         setCustomers: (state, action) => {
@@ -135,6 +144,9 @@ const customer = createSlice({
                         .includes(searchQuery)
                 )
             })
+        },
+        setEditId: (state, action) => {
+            state.edit = action.payload
         }
     }
 })
@@ -159,7 +171,8 @@ export const {
     setSortByEmail,
     setSortByPhone,
     setSearch,
-    filter
+    filter,
+    setEditId
 } = customer.actions
 
 export default customer.reducer

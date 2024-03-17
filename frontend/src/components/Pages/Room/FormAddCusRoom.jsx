@@ -31,7 +31,7 @@ const FormAddCusRoom = ({ formCustomer, setFormCustomer, id }) => {
 
         const activeRoom = rooms.find((item) => item.id === id)
         const checkCapacity =
-            selectedCustomer.members.length === activeRoom.capacity
+            selectedCustomer.members.length + 1 <= activeRoom.capacity
         if (checkCapacity) {
             const data = { customer: selectedCustomer, id: id }
             addCustomerRoom(data, dispatch)

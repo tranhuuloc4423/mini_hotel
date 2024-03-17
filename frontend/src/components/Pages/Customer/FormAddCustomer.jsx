@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
     MDBBtn,
     MDBModal,
@@ -11,10 +11,20 @@ import {
 import StepOne from './StepOne'
 import StepTwo from './StepTwo'
 import StepThree from './StepThree'
+import { useDispatch, useSelector } from 'react-redux'
+import { setEditId } from '../../../redux/slices/customerSlice'
 
 const FormAddCustomer = ({ openModal, setOpenModal }) => {
     const [step, setStep] = useState(1)
+    const { edit } = useSelector((state) => state.customer)
     const toggleOpen = () => setOpenModal(!openModal)
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        if (!openModal) {
+            dispatch(setEditId(null))
+        }
+    }, [openModal])
 
     return (
         <MDBModal
@@ -26,8 +36,8 @@ const FormAddCustomer = ({ openModal, setOpenModal }) => {
             <MDBModalDialog size="xl">
                 <MDBModalContent>
                     <MDBModalHeader>
-                        <MDBModalTitle className="text-2xl">
-                            Add Customer
+                        <MDBModalTitle className="text-2xl font-bold uppercase">
+                            {edit ? 'Edit Customer' : 'Add Customer'}
                         </MDBModalTitle>
                         <MDBBtn
                             className="btn-close"

@@ -16,27 +16,26 @@ import {
     updateMember
 } from '../../../redux/slices/customerSlice'
 import { toast } from 'react-toastify'
-import { createCustomer } from '../../../redux/api/customer'
+import { createCustomer, updateCustomer } from '../../../redux/api/customer'
 
 const { CgRemoveR } = icons
 
 const { FiPlusSquare, IoIosArrowBack, BsSave } = icons
 const StepThree = ({ setStep, setOpenModal }) => {
-    const { members, customer, amenities } = useSelector(
+    const { members, customer, amenities, edit } = useSelector(
         (state) => state.customer
     )
-    // console.log(members)
     const dispatch = useDispatch()
-    const [memberData, setMemberData] = useState(members)
+    const [membersData, setMembersData] = useState(members)
 
     const handleInputChange = (index, field, value) => {
-        const updatedMemberData = [...memberData]
+        const updatedMemberData = [...membersData]
         updatedMemberData[index] = {
             ...updatedMemberData[index],
             [field]: value
         }
-        setMemberData(updatedMemberData)
-        dispatch(updateMember(index, memberData))
+        setMembersData(updatedMemberData)
+        dispatch(updateMember(index, membersData))
     }
 
     const handleAddMember = () => {
@@ -48,30 +47,34 @@ const StepThree = ({ setStep, setOpenModal }) => {
             phonenumber: ''
         }
         dispatch(addMember(newMember))
-        const updatedMemberData = [...memberData, newMember]
-        setMemberData(updatedMemberData)
+        const updatedMemberData = [...membersData, newMember]
+        setMembersData(updatedMemberData)
     }
 
     const handleRemoveMember = (index) => {
-        const updatedMemberData = [...memberData]
+        const updatedMemberData = [...membersData]
         updatedMemberData.splice(index, 1)
-        setMemberData(updatedMemberData)
+        setMembersData(updatedMemberData)
         dispatch(removeMember(index))
     }
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        const hasEmptyItem = memberData.some((item) => {
+        const hasEmptyItem = membersData.some((item) => {
             return Object.values(item).some((value) => value === '')
         })
         if (!hasEmptyItem) {
             const newCustomer = {
                 ...customer,
                 amenities: amenities,
-                members: memberData
+                members: membersData
             }
             // console.log(newCustomer)
-            createCustomer(newCustomer, dispatch)
+            if (edit) {
+                updateCustomer(edit, newCustomer, dispatch)
+            } else {
+                createCustomer(newCustomer, dispatch)
+            }
             setOpenModal(false)
         } else {
             toast.warning('Please fill in complete information!')
@@ -101,109 +104,101 @@ const StepThree = ({ setStep, setOpenModal }) => {
                     </tr>
                 </MDBTableHead>
                 <MDBTableBody>
-                    {members.map((member, index) => (
-                        <React.Fragment key={index}>
-                            <tr>
-                                <td>
-                                    <MDBInput
-                                        label="Full Name"
-                                        type="text"
-                                        name="fullname"
-                                        value={member.name}
-                                        onChange={(e) =>
+                    {membersData.map((member, index) => (
+                        <tr key={index}>
+                            <td>
+                                <MDBInput
+                                    label="Full Name"
+                                    type="text"
+                                    name="fullname"
+                                    value={member.fullname}
+                                    onChange={(e) =>
+                                        handleInputChange(
+                                            index,
+                                            'fullname',
+                                            e.target.value
+                                        )
+                                    }
+                                />
+                            </td>
+                            <td>
+                                <DatePicker
+                                    label={'DoB'}
+                                    value={member.dob}
+                                    setValue={(value) =>
+                                        handleInputChange(index, 'dob', value)
+                                    }
+                                />
+                            </td>
+                            <td>
+                                <div className="flex-center-y">
+                                    <MDBRadio
+                                        name={`sex_${index}`}
+                                        value="male"
+                                        label="Male"
+                                        checked={member.sex === 'male'}
+                                        onChange={() =>
                                             handleInputChange(
                                                 index,
-                                                'fullname',
-                                                e.target.value
+                                                'sex',
+                                                'male'
                                             )
                                         }
                                     />
-                                </td>
-                                <td>
-                                    <DatePicker
-                                        label={'DoB'}
-                                        value={member.dob}
-                                        setValue={(value) =>
+                                    <MDBRadio
+                                        name={`sex_${index}`}
+                                        value="female"
+                                        label="Female"
+                                        checked={member.sex === 'female'}
+                                        onChange={() =>
                                             handleInputChange(
                                                 index,
-                                                'dob',
-                                                value
+                                                'sex',
+                                                'female'
                                             )
                                         }
                                     />
-                                </td>
-                                <td>
-                                    <div className="flex-center-y">
-                                        <MDBRadio
-                                            name={`sex-${index}`}
-                                            value="male"
-                                            label="Male"
-                                            checked={member?.sex === 'male'}
-                                            onChange={() =>
-                                                handleInputChange(
-                                                    index,
-                                                    'sex',
-                                                    'male'
-                                                )
-                                            }
-                                        />
-                                        <MDBRadio
-                                            name={`sex-${index}`}
-                                            value="female"
-                                            label="Female"
-                                            checked={member?.sex === 'female'}
-                                            onChange={() =>
-                                                handleInputChange(
-                                                    index,
-                                                    'sex',
-                                                    'female'
-                                                )
-                                            }
-                                        />
-                                    </div>
-                                </td>
-                                <td>
-                                    <MDBInput
-                                        label="ID Card"
-                                        type="text"
-                                        name="idcard"
-                                        value={member.idCard}
-                                        onChange={(e) =>
-                                            handleInputChange(
-                                                index,
-                                                'idcard',
-                                                e.target.value
-                                            )
-                                        }
-                                    />
-                                </td>
-                                <td>
-                                    <MDBInput
-                                        label="Phone number"
-                                        type="text"
-                                        name="phonenumber"
-                                        value={member.phone}
-                                        onChange={(e) =>
-                                            handleInputChange(
-                                                index,
-                                                'phonenumber',
-                                                e.target.value
-                                            )
-                                        }
-                                    />
-                                </td>
-                                <td>
-                                    <Button
-                                        color={'danger'}
-                                        text={'delete'}
-                                        icon={<CgRemoveR size={20} />}
-                                        onClick={() =>
-                                            handleRemoveMember(index)
-                                        }
-                                    />
-                                </td>
-                            </tr>
-                        </React.Fragment>
+                                </div>
+                            </td>
+                            <td>
+                                <MDBInput
+                                    label="ID Card"
+                                    type="text"
+                                    name="idcard"
+                                    value={member.idcard}
+                                    onChange={(e) =>
+                                        handleInputChange(
+                                            index,
+                                            'idcard',
+                                            e.target.value
+                                        )
+                                    }
+                                />
+                            </td>
+                            <td>
+                                <MDBInput
+                                    label="Phone number"
+                                    type="text"
+                                    name="phonenumber"
+                                    value={member.phone}
+                                    onChange={(e) =>
+                                        handleInputChange(
+                                            index,
+                                            'phonenumber',
+                                            e.target.value
+                                        )
+                                    }
+                                />
+                            </td>
+                            <td>
+                                <Button
+                                    color={'danger'}
+                                    text={'delete'}
+                                    icon={<CgRemoveR size={20} />}
+                                    onClick={() => handleRemoveMember(index)}
+                                />
+                            </td>
+                        </tr>
                     ))}
                 </MDBTableBody>
             </MDBTable>
