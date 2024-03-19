@@ -36,3 +36,13 @@ export const registerUser = async (user, dispatch, navigate) => {
         dispatch(registerFailed())
     }
 }
+
+export const changePassword = async (id, newpass, navigate) => {
+    try {
+        await axios.post(`/user/${id}/change-password`, newpass)
+        toast.success('Change Password Success!')
+        navigate('/login')
+    } catch (error) {
+        toast.error('Register Failed!')
+    }
+}

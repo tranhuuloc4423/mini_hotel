@@ -28,6 +28,16 @@ const StepOne = ({ setStep }) => {
             const customerEdit = customers.find((item) => item.id === edit)
             const { fullname, phonenumber, email, idcard, address, sex, dob } =
                 { ...customerEdit }
+
+            console.log({
+                fullname: fullname,
+                phonenumber: phonenumber,
+                email: email,
+                idcard: idcard,
+                address: address,
+                sex: sex,
+                dob: dob
+            })
             setFormValue({
                 fullname: fullname,
                 phonenumber: phonenumber,

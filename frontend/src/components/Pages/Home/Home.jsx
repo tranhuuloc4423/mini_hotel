@@ -1,5 +1,5 @@
 import { Outlet, useLocation, useNavigate } from 'react-router'
-import Sidenav from '../Common/Sidenav'
+import Sidenav from '../../Common/Sidenav'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useRef, useState } from 'react'
 import { IoIosArrowDown } from 'react-icons/io'
@@ -13,21 +13,20 @@ import {
     MDBModalBody,
     MDBModalFooter
 } from 'mdb-react-ui-kit'
+import FormLogOut from './FormLogOut'
+import FormChangeInfo from './FormChangeInfo'
+import FormChangePass from './FormChangePass'
 
 const Home = () => {
     const location = useLocation()
     const { sidenav, currentUser } = useSelector((state) => state.app)
-    const [openModal, setOpenModal] = useState(false)
-    const [openProfile, setOpenFrofile] = useState()
+    const [openProfile, setOpenFrofile] = useState(false)
+    const [openLogOut, setOpenLogOut] = useState(false)
+    const [openChangeInfo, setOpenChangeInfo] = useState(false)
+    const [openChangePass, setOpenChangePass] = useState(false)
     const sidenavRef = useRef(null)
     const pathname = location.pathname.split('/')[2]
-    const dispatch = useDispatch()
-    const navigate = useNavigate()
-    const handleLogout = () => {
-        dispatch(setLogoutUser())
-        setOpenModal(false)
-        navigate('/login')
-    }
+
     useEffect(() => {
         console.log(sidenavRef.current?.offsetWidth)
     }, [])
@@ -59,15 +58,25 @@ const Home = () => {
                                 <IoIosArrowDown size={24} />
                                 {openProfile && (
                                     <div className="absolute flex z-50 flex-col overflow-hidden bg-white rounded-md shadow-md top-[120%] left-0 w-full">
-                                        <div className="p-3 hover:bg-white_1">
+                                        <div
+                                            className="p-3 hover:bg-white_1"
+                                            onClick={() =>
+                                                setOpenChangeInfo(true)
+                                            }
+                                        >
                                             Change Info
                                         </div>
-                                        <div className="p-3 hover:bg-white_1">
+                                        <div
+                                            className="p-3 hover:bg-white_1"
+                                            onClick={() =>
+                                                setOpenChangePass(true)
+                                            }
+                                        >
                                             Change Password
                                         </div>
                                         <div
                                             className="p-3 hover:bg-white_1"
-                                            onClick={() => setOpenModal(true)}
+                                            onClick={() => setOpenLogOut(true)}
                                         >
                                             Logout
                                         </div>
@@ -81,39 +90,15 @@ const Home = () => {
                     </div>
                 </div>
             </div>
-
-            <MDBModal
-                staticBackdrop
-                open={openModal}
-                setOpen={setOpenModal}
-                tabIndex="-1"
-            >
-                <MDBModalDialog>
-                    <MDBModalContent>
-                        <MDBModalHeader>
-                            <MDBBtn
-                                className="btn-close"
-                                color="none"
-                                onClick={() => setOpenModal(false)}
-                            ></MDBBtn>
-                        </MDBModalHeader>
-                        <MDBModalBody className="p-4 text-center text-2xl">
-                            Do you want to logout ?
-                        </MDBModalBody>
-                        <MDBModalFooter className="flex justify-center">
-                            <MDBBtn
-                                color="info"
-                                onClick={() => setOpenModal(false)}
-                            >
-                                Close
-                            </MDBBtn>
-                            <MDBBtn color="warning" onClick={handleLogout}>
-                                Exit
-                            </MDBBtn>
-                        </MDBModalFooter>
-                    </MDBModalContent>
-                </MDBModalDialog>
-            </MDBModal>
+            <FormLogOut openLogOut={openLogOut} setOpenLogOut={setOpenLogOut} />
+            <FormChangeInfo
+                openChangeInfo={openChangeInfo}
+                setOpenChangeInfo={setOpenChangeInfo}
+            />
+            <FormChangePass
+                openChangePass={openChangePass}
+                setOpenChangePass={setOpenChangePass}
+            />
         </>
     )
 }
