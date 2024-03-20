@@ -7,12 +7,13 @@ import {
 } from 'mdb-react-ui-kit'
 import icons from '../../../utils/icons'
 import Button from '../../Common/Button'
-import React, { useState } from 'react'
+import { useEffect, useState } from 'react'
 import DatePicker from '../../Common/DatePicker'
 import { useDispatch, useSelector } from 'react-redux'
 import {
     addMember,
     removeMember,
+    setSave,
     updateMember
 } from '../../../redux/slices/customerSlice'
 import { toast } from 'react-toastify'
@@ -22,11 +23,9 @@ const { CgRemoveR } = icons
 
 const { FiPlusSquare, IoIosArrowBack, BsSave } = icons
 const StepThree = ({ setStep, setOpenModal }) => {
-    const { members, customer, amenities, edit } = useSelector(
-        (state) => state.customer
-    )
+    const { customer, edit } = useSelector((state) => state.customer)
     const dispatch = useDispatch()
-    const [membersData, setMembersData] = useState(members)
+    const [membersData, setMembersData] = useState(customer.members)
 
     const handleInputChange = (index, field, value) => {
         const updatedMemberData = [...membersData]
@@ -66,20 +65,27 @@ const StepThree = ({ setStep, setOpenModal }) => {
         if (!hasEmptyItem) {
             const newCustomer = {
                 ...customer,
-                amenities: amenities,
                 members: membersData
             }
-            // console.log(newCustomer)
+            console.log(newCustomer)
             if (edit) {
                 updateCustomer(edit, newCustomer, dispatch)
             } else {
                 createCustomer(newCustomer, dispatch)
             }
+            dispatch(setSave(false))
             setOpenModal(false)
         } else {
             toast.warning('Please fill in complete information!')
         }
     }
+
+    useEffect(() => {
+        if (edit) {
+            setMembersData(customer.members)
+            console.log(customer.members)
+        }
+    }, [])
 
     return (
         <div>
@@ -180,7 +186,7 @@ const StepThree = ({ setStep, setOpenModal }) => {
                                     label="Phone number"
                                     type="text"
                                     name="phonenumber"
-                                    value={member.phone}
+                                    value={member.phonenumber}
                                     onChange={(e) =>
                                         handleInputChange(
                                             index,

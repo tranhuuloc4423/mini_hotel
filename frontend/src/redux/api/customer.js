@@ -1,9 +1,9 @@
 import axios from '../../axios'
 import { toast } from 'react-toastify'
 import {
-    addCustomer,
     createCustomers,
     removeCustomers,
+    setCustomer,
     setCustomers,
     updateCustomers
 } from '../slices/customerSlice'
@@ -20,7 +20,7 @@ const getAllCustomers = async (dispatch) => {
 const getCustomer = async (id, dispatch) => {
     try {
         const res = await axios.get(`/customer/${id}`)
-        dispatch(addCustomer(res.data))
+        dispatch(setCustomer(res.data))
     } catch (error) {
         console.log(error)
     }

@@ -5,8 +5,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import Button from '../../Common/Button'
 
 import icons from '../../../utils/icons'
-import { addCustomer } from '../../../redux/slices/customerSlice'
+import { setCustomerInfo } from '../../../redux/slices/customerSlice'
 import { toast } from 'react-toastify'
+import { getCustomer } from '../../../redux/api/customer'
 
 const { IoIosArrowForward } = icons
 
@@ -25,6 +26,7 @@ const StepOne = ({ setStep }) => {
 
     useEffect(() => {
         if (edit) {
+            getCustomer(edit, dispatch)
             const customerEdit = customers.find((item) => item.id === edit)
             const { fullname, phonenumber, email, idcard, address, sex, dob } =
                 { ...customerEdit }
@@ -78,7 +80,7 @@ const StepOne = ({ setStep }) => {
         if (isAllFieldsFilled && isDobFilled && isSexFilled) {
             const newCustomerInfo = { ...formValue, dob: dob, sex: sex }
             console.log(newCustomerInfo)
-            dispatch(addCustomer(newCustomerInfo))
+            dispatch(setCustomerInfo(newCustomerInfo))
             setStep(2)
         } else {
             toast.warning('Please fill in complete information!')

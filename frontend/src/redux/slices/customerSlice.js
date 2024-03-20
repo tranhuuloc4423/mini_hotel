@@ -4,17 +4,26 @@ const customer = createSlice({
     name: 'customer',
     initialState: {
         customers: [],
-        customer: {},
-        amenities: [],
-        members: [
-            {
-                fullname: '',
-                sex: '',
-                dob: '',
-                idcard: '',
-                phonenumber: ''
-            }
-        ],
+        customer: {
+            fullname: '',
+            phonenumber: '',
+            email: '',
+            idcard: '',
+            address: '',
+            sex: '',
+            dob: '',
+            amenities: [],
+            members: [
+                {
+                    fullname: '',
+                    sex: '',
+                    dob: '',
+                    idcard: '',
+                    phonenumber: ''
+                }
+            ]
+        },
+
         save: false,
         fullnameSort: false,
         idcardSort: false,
@@ -43,43 +52,74 @@ const customer = createSlice({
 
             state.customers = updatedcustomers
         },
-        addCustomer: (state, action) => {
+        setCustomer: (state, action) => {
             state.customer = action.payload
         },
+        setCustomerInfo: (state, action) => {
+            state.customer.fullname = action.payload.fullname
+            state.customer.address = action.payload.address
+            state.customer.email = action.payload.email
+            state.customer.idcard = action.payload.idcard
+            state.customer.phonenumber = action.payload.phonenumber
+            state.customer.sex = action.payload.sex
+            state.customer.dob = action.payload.dob
+        },
         addAmenities: (state, action) => {
-            state.amenities = action.payload
+            state.customer.amenities = action.payload
         },
         setSave: (state, action) => {
             state.save = action.payload
         },
         addMember: (state, action) => {
-            state.members.push(action.payload)
+            state.customer.members.push(action.payload)
         },
         removeMember: (state, action) => {
             const index = action.payload
-            const updatedMembers = [...state.members]
+            const updatedMembers = [...state.customer.members]
             updatedMembers.splice(index, 1)
 
             return {
                 ...state,
-                members: updatedMembers
+                customer: {
+                    ...state.customer,
+                    members: updatedMembers
+                }
             }
         },
         updateMember: (state, action) => {
             const { index, memberData } = action.payload
-            const updatedMembers = [...state.members]
+            const updatedMembers = [...state.customer.members]
             updatedMembers[index] = memberData
 
             return {
                 ...state,
-                members: updatedMembers
+                customer: {
+                    ...state.customer,
+                    members: updatedMembers
+                }
             }
         },
         createCustomers: (state, action) => {
             state.customers.push(action.payload)
-            state.customer = {}
-            state.amenities = []
-            state.members = []
+            state.customer = {
+                fullname: '',
+                phonenumber: '',
+                email: '',
+                idcard: '',
+                address: '',
+                sex: '',
+                dob: '',
+                amenities: [],
+                members: [
+                    {
+                        fullname: '',
+                        sex: '',
+                        dob: '',
+                        idcard: '',
+                        phonenumber: ''
+                    }
+                ]
+            }
         },
         sortByFullName: (state, action) => {
             if (action.payload) {
@@ -153,10 +193,11 @@ const customer = createSlice({
 
 export const {
     setCustomers,
+    setCustomer,
+    setCustomerInfo,
     createCustomers,
     removeCustomers,
     updateCustomers,
-    addCustomer,
     addAmenities,
     setSave,
     addMember,

@@ -4,7 +4,7 @@ import {
     MDBTableBody,
     MDBTableHead
 } from 'mdb-react-ui-kit'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAllEmenities } from '../../../redux/api/amenities'
 import Button from '../../Common/Button'
@@ -25,6 +25,7 @@ const StepTwo = ({ setStep }) => {
         }
     }
     const { amenities } = useSelector((state) => state.amenities)
+    const { customer, edit } = useSelector((state) => state.customer)
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -32,8 +33,12 @@ const StepTwo = ({ setStep }) => {
     }, [dispatch])
 
     useEffect(() => {
-        console.log(amenitiesChecked)
-    }, [amenitiesChecked])
+        if (edit) {
+            setAmenitiesChecked(customer.amenities)
+        }
+    }, [])
+
+    useEffect(() => {}, [amenitiesChecked])
 
     const handleSubmit = (e) => {
         e.preventDefault()
