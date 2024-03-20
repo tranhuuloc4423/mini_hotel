@@ -20,6 +20,10 @@ const amenitiesSchema = new mongoose.Schema(
         },
         mandatory: {
             type: Boolean
+        },
+        IsInUse: { // XÁC ĐỊNH XEM AMENITY CÓ ĐANG ĐƯỢC SỬ DỤNG HAY KHÔNG
+            type: Boolean,
+            default: false
         }
     },
     { timestamps: true }

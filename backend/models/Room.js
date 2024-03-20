@@ -19,7 +19,7 @@ const roomSchema = new mongoose.Schema(
             type: Number,
             required: true
         },
-        occupied: {
+        occupied: { // XÁC ĐỊNH XEM CÓ NGƯỜI THUÊ HAY CHƯA
             type: Boolean,
             default: false
         },
@@ -27,7 +27,7 @@ const roomSchema = new mongoose.Schema(
             type: String
         },
         customer: {},
-        hasInvoice: {
+        hasInvoice: { // XÁC ĐỊNH XEM PHÒNG CÓ HÓA ĐƠN HAY CHƯA
             type: Boolean
         }
     },
